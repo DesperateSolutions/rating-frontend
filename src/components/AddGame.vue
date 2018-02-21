@@ -12,6 +12,14 @@
               <h3 class="headline mb-0">Legg til spill</h3>
             </div>
           </v-card-title>
+          <SelectPlayer
+            player="one"
+            :items="['Aulon','Premer']"
+          />
+          <SelectPlayer
+            :player="two"
+            :items="['Aulon','Premer']"
+          />
           <v-card-actions>
             <v-radio-group>
               <v-radio
@@ -32,6 +40,8 @@
 </template>
 
 <script>
+  import SelectPlayer from './SelectPlayer';
+
   export default {
     name: 'add-game',
     data() {
@@ -45,6 +55,9 @@
           },
         ],
       };
+    },
+    components: {
+      SelectPlayer,
     },
   };
 </script>
