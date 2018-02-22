@@ -4,8 +4,11 @@
         <v-flex xs12>
           <v-select
             :items="items"
-            :v-model="player"
-            label="Player One"
+            :label="label"
+            v-model="pl"
+            item-value="id"
+            item-text="text"
+            @input="selectPlayer"
             bottom
           />
         </v-flex>
@@ -15,21 +18,23 @@
 
 <script>
   export default {
-    name: 'SelectPlayer',
     data() {
       return {
-        player: null,
-        items: [
-          { text: 'Aulon' },
-          { text: 'Premer' },
-          { text: 'Sjur' },
-        ],
+        pl: '',
       };
     },
-    props: [
-      'player',
-      'items',
-    ],
+    props: ['items', 'selected', 'label'],
+    watch: {
+      selected(val) {
+        this.pl = val;
+      },
+    },
+    methods: {
+      selectPlayer(selected) {
+        console.log('child changed: ', this.pl);
+        this.$emit('change', selected);
+      },
+    },
   };
 </script>
 
