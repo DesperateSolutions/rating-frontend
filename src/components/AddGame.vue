@@ -13,19 +13,16 @@
                 <h3 class="headline mb-0">Legg til spill</h3>
               </div>
             </v-card-title>
-            <SelectPlayer
-              :selected="one"
+            <select-player
               :items="items"
+              v-model="one"
               label="Player One"
-              @change="playerChanged"
             />
-            <!--<SelectPlayer
-              :selected="playerTwo"
+            <select-player
               :items="items"
+              v-model="two"
               label="Player Two"
-              @change="playerChanged()"
             />
-            -->
             <v-card-actions>
               <v-radio-group v-model="winner" row>
                 <v-radio
@@ -60,41 +57,40 @@
 
   export default {
     name: 'add-game',
-    data() {
-      return {
-        one: '',
-        playerTwo: '',
-        winner: '',
-        radioGroup: [
-          {
-            player: 'Player one', key: 1,
-          },
-          {
-            player: 'Player two', key: 2,
-          },
-        ],
-        items: [
-          { text: 'Aulon',
-            id: 'Aulon',
-          },
-          { text: 'Premer',
-            id: 'Premer',
-          },
-        ],
-      };
-    },
+    data: () => ({
+      one: '',
+      two: '',
+      winner: '',
+      radioGroup: [
+        {
+          player: 'Player one', key: 1,
+        },
+        {
+          player: 'Player two', key: 2,
+        },
+      ],
+      items: [
+        { text: 'Aulon',
+          id: 'Aulon',
+        },
+        { text: 'Premer',
+          id: 'Premer',
+        },
+      ],
+    }),
     components: {
       SelectPlayer,
+      'select-player': SelectPlayer,
     },
     methods: {
       submit() {
         console.log('submit');
+        console.log('submit:', this.one);
+        console.log('submit:', this.two);
+        console.log('submit:', this.winner);
       },
       clear() {
         console.log('clear');
-      },
-      playerChanged() {
-        console.log('player changed: ', this.one);
       },
     },
   };
