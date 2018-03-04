@@ -21,12 +21,12 @@
     >
       <v-list class="pt-0" dense>
         <v-divider></v-divider>
-        <v-list-tile v-for="item in menuItems" :key="item.title" @click="">
+        <v-list-tile :to="{ path: '/leagues' }">
           <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon>{{ menuItems[0].icon }}</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            <v-list-tile-title>{{ menuItems[0].title }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
       </v-list>
@@ -46,7 +46,7 @@ export default {
       fixed: false,
       title: 'Squash Rating 2018',
       menuItems: [
-        { title: 'AddGame', icon: 'dashboard' },
+        { title: 'Leagues', icon: 'dashboard' },
       ],
     };
   },

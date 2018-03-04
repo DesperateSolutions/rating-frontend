@@ -2,10 +2,16 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import HelloWorld from '@/components/HelloWorld';
 import AddGame from '@/components/AddGame';
+import Leagues from '@/components/Leagues';
+import SpecificLeague from '@/components/SpecificLeague';
+import Games from '@/components/Games';
+import Ranking from '@/components/Ranking';
+import AddPlayer from '@/components/AddPlayer';
 
 Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -13,26 +19,31 @@ export default new Router({
       component: HelloWorld,
     },
     {
-      path: '/game',
-      name: 'AddGame',
-      component: AddGame,
-    },
-  /*
-    {
-      path: 'games',
-      name: 'Games',
+      path: '/leagues',
+      component: Leagues,
     },
     {
-      path: 'addPlayer',
-      name: 'Add Player',
+      path: '/league/:name',
+      component: SpecificLeague,
+      props: true,
+      children: [
+        {
+          path: 'addGame',
+          component: AddGame,
+        },
+        {
+          path: 'ranking',
+          component: Ranking,
+        },
+        {
+          path: 'games',
+          component: Games,
+        },
+        {
+          path: 'addPlayer',
+          component: AddPlayer,
+        },
+      ],
     },
-    {
-      paht: 'rankings',
-      name: 'Rankings',
-    },
-    {
-      path: 'leagues',
-      name: 'Leagues',
-    },*/
   ],
 });

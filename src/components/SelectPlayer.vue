@@ -26,7 +26,7 @@
       },
     },
     methods: {
-      selectPlayer: function(selected) {
+      selectPlayer(selected) {
         console.log('child changed: ', selected);
         this.$emit('input', selected);
       },
