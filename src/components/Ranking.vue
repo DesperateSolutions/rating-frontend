@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    {{ players }}
     <v-app id="inspire">
       <v-data-table
         :headers="headers"
@@ -8,9 +7,9 @@
         hide-actions
         class="elevation-1"
       >
-        <template slot="players" slot-scope="props">
-          <td class="text-xs-right">{{ props.games.name }}</td>
-          <td class="text-xs-right">{{ props.games.rating }}</td>
+        <template slot="items" slot-scope="props">
+          <td class="text-xs-left">{{ props.item.name }}</td>
+          <td class="text-xs-left">{{ props.item.rating }}</td>
         </template>
       </v-data-table>
     </v-app>

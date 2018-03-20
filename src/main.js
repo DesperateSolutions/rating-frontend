@@ -3,11 +3,13 @@
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import Vue from 'vue';
+import Moment from 'vue-moment';
 import App from './App';
 import router from './router';
 import store from './store/store';
 
 Vue.use(Vuetify);
+Vue.use(Moment);
 
 Vue.config.productionTip = false;
 

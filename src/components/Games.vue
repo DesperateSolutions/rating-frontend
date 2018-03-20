@@ -1,6 +1,5 @@
 <template>
   <v-container>
-    {{ games }}
     <v-app id="inspire">
       <v-data-table
         :headers="headers"
@@ -8,15 +7,15 @@
         hide-actions
         class="elevation-1"
       >
-        <template slot="games" slot-scope="props">
-          <td>{{ props.games.white }}</td>
-          <td class="text-xs-right">{{ props.games.black }}</td>
-          <td class="text-xs-right">{{ props.games._id }}</td>
-          <td class="text-xs-right">{{ props.games.added }}</td>
-          <td class="text-xs-right">{{ props.games.result }}</td>
+        <template slot="items" slot-scope="props">
+          <td>{{ props.item.white }}</td>
+          <td class="text-xs-left">{{ props.item.black }}</td>
+          <td class="text-xs-left">{{ props.item.added | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
+          <td class="text-xs-left">{{ props.item.result }}</td>
         </template>
       </v-data-table>
     </v-app>
+    <v-app></v-app>
   </v-container>
 </template>
 
@@ -37,8 +36,12 @@
             sortable: false,
             value: 'white',
           },
-          { text: 'Player Two', value: 'black' },
-          { text: 'id', value: '_id' },
+          {
+            text: 'Player Two',
+            align: 'left',
+            sortable: false,
+            value: 'black',
+          },
           { text: 'Added', value: 'added' },
           { text: 'Result', value: 'result' },
         ],
@@ -53,19 +56,3 @@
 <style scoped>
 
 </style>
-<!--
-<v-data-table
-  :headers="headers"
-  :items="games"
-  hide-actions
-  class="elevation-1"
->
-  <template slot="games">
-    <td>{{ games.white }}</td>
-    <td>{{ games.black }}</td>
-    <td class="text-xs-right">{{ games.added }}</td>
-    <td class="text-xs-right">{{ games.result }}</td>
-    <td class="text-xs-right">{{ games._id }}</td>
-  </template>
-</v-data-table>
--->

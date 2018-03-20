@@ -23,16 +23,12 @@
               v-model="two"
               label="Player Two"
             />
-            <v-card-actions>
-              <v-radio-group v-model="winner" row>
-                <v-radio
-                  v-for="name in radioGroup"
-                  :key="name.key"
-                  :label="`${name.player}`"
-                  :value="name.player"
-                />
-              </v-radio-group>
-            </v-card-actions>
+            <v-card-text>
+              <v-text-field label="Player 1" :mask="whiteMask" v-model="whiteValue"></v-text-field>
+            </v-card-text>
+            <v-card-text>
+              <v-text-field label="Player 2" :mask="blackMask" v-model="blackValue"></v-text-field>
+            </v-card-text>
             <v-card-actions>
               <v-btn
                 @click="submit"
@@ -59,27 +55,12 @@
   export default {
     name: 'add-game',
     data: () => ({
+      whiteMask: '##',
+      blackMask: '##',
+      whiteValue: '',
+      blackValue: '',
       one: '',
       two: '',
-      winner: '',
-      radioGroup: [
-        {
-          player: 'Player one', key: 1,
-        },
-        {
-          player: 'Player two', key: 2,
-        },
-      ],
-      items: [
-        {
-          text: 'Aulon',
-          id: 'Aulon',
-        },
-        {
-          text: 'Premer',
-          id: 'Premer',
-        },
-      ],
     }),
     computed: mapState([
       'players',
@@ -92,13 +73,13 @@
     },
     methods: {
       submit() {
-        console.log('submit');
-        console.log('submit:', this.one);
-        console.log('submit:', this.two);
-        console.log('submit:', this.winner);
+        this.$store.dispatch('ADD_A_GAME', { whiteId: this.one, blackId: this.two, result: `${this.whiteValue}-${this.blackValue}` });
       },
       clear() {
-        console.log('clear');
+        this.whiteValue = '';
+        this.blackValue = '';
+        this.one = '';
+        this.two = '';
       },
     },
   };

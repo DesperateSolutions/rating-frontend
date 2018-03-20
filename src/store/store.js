@@ -21,6 +21,23 @@ const actions = {
       console.log(err);
     });
   },
+  ADD_A_GAME({ commit }, { whiteId, blackId, result }) {
+    axios({
+      method: 'post',
+      url: 'https://clj-glicko.desperate.no/AulonsLeague/games',
+      data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(result)}`,
+      config: {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      },
+    }).then((response) => {
+      console.log(response);
+    }, (err) => {
+      console.log(err);
+    });
+  },
 };
 
 const mutations = {
