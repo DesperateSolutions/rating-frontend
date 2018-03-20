@@ -14,12 +14,12 @@
               </div>
             </v-card-title>
             <select-player
-              :items="items"
+              :items="players"
               v-model="one"
               label="Player One"
             />
             <select-player
-              :items="items"
+              :items="players"
               v-model="two"
               label="Player Two"
             />
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   import SelectPlayer from './SelectPlayer';
 
   export default {
@@ -70,16 +71,23 @@
         },
       ],
       items: [
-        { text: 'Aulon',
+        {
+          text: 'Aulon',
           id: 'Aulon',
         },
-        { text: 'Premer',
+        {
+          text: 'Premer',
           id: 'Premer',
         },
       ],
     }),
+    computed: mapState([
+      'players',
+    ]),
+    created() {
+      this.$store.dispatch('GET_ALL_PLAYERS');
+    },
     components: {
-      SelectPlayer,
       'select-player': SelectPlayer,
     },
     methods: {

@@ -8,12 +8,12 @@
         hide-actions
         class="elevation-1"
       >
-        <template slot="games">
-          <td>{{ games.white }}</td>
-          <td class="text-xs-right">{{ games.black }}</td>
-          <td class="text-xs-right">{{ games._id }}</td>
-          <td class="text-xs-right">{{ games.added }}</td>
-          <td class="text-xs-right">{{ games.result }}</td>
+        <template slot="games" slot-scope="props">
+          <td>{{ props.games.white }}</td>
+          <td class="text-xs-right">{{ props.games.black }}</td>
+          <td class="text-xs-right">{{ props.games._id }}</td>
+          <td class="text-xs-right">{{ props.games.added }}</td>
+          <td class="text-xs-right">{{ props.games.result }}</td>
         </template>
       </v-data-table>
     </v-app>
@@ -44,7 +44,7 @@
         ],
       };
     },
-    mounted() {
+    created() {
       this.$store.dispatch('GET_ALL_GAMES');
     },
   };

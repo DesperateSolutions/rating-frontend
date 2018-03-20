@@ -6,6 +6,38 @@ Vue.use(Vuex);
 
 const debug = process.env.NODE_ENV !== 'production';
 
+const actions = {
+  GET_ALL_GAMES({ commit }) {
+    axios.get('https://clj-glicko.desperate.no/AulonsLeague/games').then((response) => {
+      commit('SET_GAMES', { games: response.data });
+    }, (err) => {
+      console.log(err);
+    });
+  },
+  GET_ALL_PLAYERS({ commit }) {
+    axios.get('https://clj-glicko.desperate.no/AulonsLeague/players').then((response) => {
+      commit('SET_PLAYERS', { players: response.data });
+    }, (err) => {
+      console.log(err);
+    });
+  },
+};
+
+const mutations = {
+  SET_GAMES: (state, { games }) => {
+    console.log(games);
+    state.games = games;
+  },
+  SET_PLAYERS: (state, { players }) => {
+    console.log(players);
+    state.players = players;
+  },
+};
+
+const getters = {
+
+};
+
 const state = {
   success: false,
   loading: false,
@@ -16,28 +48,6 @@ const state = {
   leagues: [],
   players: [],
   selectedLeague: {},
-};
-
-const actions = {
-  GET_ALL_GAMES({ commit }) {
-    axios.get('https://clj-glicko.desperate.no/AulonsLeague/games').then((response) => {
-      console.log(response.data);
-      commit('SET_GAMES', { games: response.data });
-    }, (err) => {
-      console.log(err);
-    });
-  },
-};
-
-const mutations = {
-  SET_GAMES: (states, { games }) => {
-    console.log(games);
-    state.games = games;
-  },
-};
-
-const getters = {
-
 };
 
 export default new Vuex.Store({

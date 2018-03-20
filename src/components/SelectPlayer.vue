@@ -4,8 +4,8 @@
           :items="items"
           :label="label"
           v-model="pl"
-          item-value="id"
-          item-text="text"
+          item-value="_id"
+          item-text="name"
           v-on:change="selectPlayer"
           bottom
         />
