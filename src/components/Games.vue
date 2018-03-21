@@ -1,5 +1,9 @@
 <template>
-  <v-container>
+  <v-container
+    fluid
+    style="min-height: 0;"
+    grid-list-md
+  >
     <v-app id="inspire">
       <v-data-table
         :headers="headers"
@@ -10,7 +14,7 @@
         <template slot="items" slot-scope="props">
           <td>{{ props.item.white }}</td>
           <td class="text-xs-left">{{ props.item.black }}</td>
-          <td class="text-xs-left">{{ props.item.added | moment("dddd, MMMM Do YYYY, h:mm:ss a") }}</td>
+          <td class="text-xs-left">{{ props.item.added | moment("MMMM Do YYYY") }}</td>
           <td class="text-xs-left">{{ props.item.result }}</td>
         </template>
       </v-data-table>
@@ -48,7 +52,7 @@
       };
     },
     created() {
-      this.$store.dispatch('GET_ALL_GAMES');
+      this.$store.dispatch('GET_ALL_GAMES', { league: this.$route.params.name });
     },
   };
 </script>

@@ -7,24 +7,26 @@ Vue.use(Vuex);
 const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
-  GET_ALL_GAMES({ commit }) {
-    axios.get('https://clj-glicko.desperate.no/AulonsLeague/games').then((response) => {
+  GET_ALL_GAMES({ commit }, { league }) {
+    axios.get(`https://clj-glicko.desperate.no/${league}/games`).then((response) => {
       commit('SET_GAMES', { games: response.data });
     }, (err) => {
-      console.log(err);
+      commit('GET_FAILED', err);
     });
   },
-  GET_ALL_PLAYERS({ commit }) {
-    axios.get('https://clj-glicko.desperate.no/AulonsLeague/players').then((response) => {
+  GET_ALL_PLAYERS({ commit }, { league }) {
+    axios.get(`https://clj-glicko.desperate.no/${league}/players`).then((response) => {
       commit('SET_PLAYERS', { players: response.data });
     }, (err) => {
-      console.log(err);
+      commit('GET_FAILED', err);
     });
   },
-  ADD_A_GAME({ commit }, { whiteId, blackId, result }) {
+  ADD_A_GAME({ commit }, {
+    league, whiteId, blackId, result,
+  }) {
     axios({
       method: 'post',
-      url: 'https://clj-glicko.desperate.no/AulonsLeague/games',
+      url: `https://clj-glicko.desperate.no/${league}/games`,
       data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(result)}`,
       config: {
         headers: {
@@ -33,21 +35,29 @@ const actions = {
         },
       },
     }).then((response) => {
-      console.log(response);
+      commit('POST_SUCCESS', response);
     }, (err) => {
-      console.log(err);
+      commit('POST_FAILED', err);
     });
   },
 };
 
 const mutations = {
   SET_GAMES: (state, { games }) => {
-    console.log(games);
     state.games = games;
   },
   SET_PLAYERS: (state, { players }) => {
-    console.log(players);
     state.players = players;
+  },
+  GET_FAILED: (state, { error }) => {
+    state.error = error;
+  },
+  POST_FAILED: (state, { error }) => {
+    state.error = error;
+  },
+  POST_SUCCESS: (state, { response }) => {
+    state.success = true;
+    state.successInfo = response;
   },
 };
 
@@ -56,6 +66,7 @@ const getters = {
 };
 
 const state = {
+  successInfo: {},
   success: false,
   loading: false,
   error: false,

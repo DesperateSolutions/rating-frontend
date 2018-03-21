@@ -1,5 +1,9 @@
 <template>
-  <v-container>
+  <v-container
+    fluid
+    style="min-height: 0;"
+    grid-list-md
+  >
     <v-app id="inspire">
       <v-data-table
         :headers="headers"
@@ -38,7 +42,7 @@
       };
     },
     created() {
-      this.$store.dispatch('GET_ALL_PLAYERS');
+      this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$route.params.name });
     },
   };
 </script>
