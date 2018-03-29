@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
+import axios from 'axios';
 import Vue from 'vue';
 import Moment from 'vue-moment';
 import App from './App';
@@ -12,6 +13,9 @@ Vue.use(Vuetify);
 Vue.use(Moment);
 
 Vue.config.productionTip = false;
+
+// set baseUrl from app
+axios.defaults.baseURL = 'http://localhost:8080';
 
 /* eslint-disable no-new */
 new Vue({

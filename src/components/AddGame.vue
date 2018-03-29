@@ -89,7 +89,7 @@
       'players',
     ]),
     created() {
-      this.$store.dispatch('GET_ALL_PLAYERS');
+      this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$route.params.name });
     },
     components: {
       'select-player': SelectPlayer,
