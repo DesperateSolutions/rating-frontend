@@ -4,7 +4,7 @@
   "description": "A Vue.js project",
   "author": "Aulon Mujaj <aulon.mujaj@gmail.com>",
   "private": true,
-  "homepage": "https://desperatesolutions.github.io/rating-frontend-vuejs/",
+  "homepage": "git@github.com:DesperateSolutions/rating-frontend-vuejs",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
@@ -12,7 +12,7 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
     "build": "node build/build.js",
-    "deploy": "npm run build&&gh-pages -d dist"
+    "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -74,7 +74,8 @@
     "webpack-merge": "^4.1.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "vue-gh-pages": "^1.10.2"
   },
   "engines": {
     "node": ">= 6.0.0",

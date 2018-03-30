@@ -15,7 +15,7 @@ Vue.use(Moment);
 Vue.config.productionTip = false;
 
 // set baseUrl from app
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = 'https://clj-glicko.desperate.no/';
 
 /* eslint-disable no-new */
 new Vue({
