@@ -8,14 +8,14 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
   GET_ALL_GAMES({ commit }, { league }) {
-    axios.get(`/${league}/games`).then((response) => {
+    axios.get(`https://clj-glicko.desperate.no/${league}/games`).then((response) => {
       commit('SET_GAMES', { games: response.data });
     }, (err) => {
       commit('GET_FAILED', err);
     });
   },
   GET_ALL_PLAYERS({ commit }, { league }) {
-    axios.get(`/${league}/players`).then((response) => {
+    axios.get(`https://clj-glicko.desperate.no/${league}/players`).then((response) => {
       commit('SET_PLAYERS', { players: response.data });
     }, (err) => {
       commit('GET_FAILED', err);
@@ -26,7 +26,7 @@ const actions = {
   }) {
     axios({
       method: 'post',
-      url: `/${league}/games`,
+      url: `https://clj-glicko.desperate.no/${league}/games`,
       data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(result)}`,
       config: {
         headers: {
