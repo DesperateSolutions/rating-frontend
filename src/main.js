@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
-import axios from 'axios';
 import Vue from 'vue';
 import Moment from 'vue-moment';
 import App from './App';
