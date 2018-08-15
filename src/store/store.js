@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+// import { getAllGames, getAllLeagues, getAllPlayers, addAGame } from "../util/api";
 
 Vue.use(Vuex);
 
@@ -41,7 +42,7 @@ const actions = {
     });
   },
   GET_ALL_LEAGUES({ commit }) {
-    axios.get('').then((response) => {
+    axios.get('https://clj-glicko.desperate.no/leagues').then((response) => {
       commit('SET_LEAGUES', { leagues: response.data });
     }, (err) => {
       commit('GET_FAILED', err);
