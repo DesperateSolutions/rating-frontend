@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from './views/Home.vue';
-import AddGame from './components/AddGame';
-import Leagues from './components/Leagues';
-import SpecificLeague from './components/SpecificLeague';
-import Games from './components/Games';
-import Ranking from './components/Ranking';
-import AddPlayer from './components/AddPlayer';
+import AddGame from './components/AddGame.vue';
+import Leagues from './components/Leagues.vue';
+import SpecificLeague from './components/SpecificLeague.vue';
+import Games from './components/Games.vue';
+import Ranking from './components/Ranking.vue';
+import AddPlayer from './components/AddPlayer.vue';
 
 Vue.use(Router);
 

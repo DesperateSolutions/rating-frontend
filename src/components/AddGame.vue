@@ -26,12 +26,20 @@
             <v-layout row wrap>
               <v-flex xs6 sm6>
                 <v-card-text>
-                  <v-text-field label="Player 1 score:" :mask="whiteMask" v-model="whiteValue"></v-text-field>
+                  <v-text-field
+                    label="Player 1 score:"
+                    :mask="whiteMask"
+                    v-model="whiteValue"
+                  />
                 </v-card-text>
               </v-flex>
               <v-flex xs6 sm6>
                 <v-card-text>
-                  <v-text-field label="Player 2 score:" :mask="blackMask" v-model="blackValue"></v-text-field>
+                  <v-text-field
+                    label="Player 2 score:"
+                    :mask="blackMask"
+                    v-model="blackValue"
+                  />
                 </v-card-text>
               </v-flex>
             </v-layout>
@@ -69,7 +77,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import SelectPlayer from './SelectPlayer';
+import SelectPlayer from './SelectPlayer.vue';
 
 export default {
   name: 'add-game',

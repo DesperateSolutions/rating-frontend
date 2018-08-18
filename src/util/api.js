@@ -17,9 +17,7 @@ function addAGame(league, whiteId, blackId, result) {
   return axios({
     method: 'post',
     url,
-    data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(
-      blackId,
-    )}&result=${encodeURIComponent(result)}`,
+    data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(result)}`,
     config: {
       headers: {
         Accept: 'application/json',

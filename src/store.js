@@ -10,33 +10,31 @@ const debug = process.env.NODE_ENV !== 'production';
 const actions = {
   GET_ALL_GAMES({ commit }, { league }) {
     axios.get(`https://clj-glicko.desperate.no/${league}/games`).then(
-      response => {
+      (response) => {
         commit('SET_GAMES', { games: response.data });
       },
-      err => {
+      (err) => {
         commit('GET_FAILED', err);
       },
     );
   },
   GET_ALL_PLAYERS({ commit }, { league }) {
     axios.get(`https://clj-glicko.desperate.no/${league}/players`).then(
-      response => {
+      (response) => {
         commit('SET_PLAYERS', { players: response.data });
       },
-      err => {
+      (err) => {
         commit('GET_FAILED', err);
       },
     );
   },
-  ADD_A_GAME({ commit }, { league, whiteId, blackId, result }) {
+  ADD_A_GAME({ commit }, {
+    league, whiteId, blackId, result,
+  }) {
     axios({
       method: 'post',
       url: `https://clj-glicko.desperate.no/${league}/games`,
-      data: `whiteId=${encodeURIComponent(
-        whiteId,
-      )}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(
-        result,
-      )}`,
+      data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(result)}`,
       config: {
         headers: {
           Accept: 'application/json',
@@ -44,20 +42,20 @@ const actions = {
         },
       },
     }).then(
-      response => {
+      (response) => {
         commit('POST_SUCCESS', response);
       },
-      err => {
+      (err) => {
         commit('POST_FAILED', err);
       },
     );
   },
   GET_ALL_LEAGUES({ commit }) {
     axios.get('https://clj-glicko.desperate.no/leagues').then(
-      response => {
+      (response) => {
         commit('SET_LEAGUES', { leagues: response.data });
       },
-      err => {
+      (err) => {
         commit('GET_FAILED', err);
       },
     );
@@ -66,23 +64,29 @@ const actions = {
 
 const mutations = {
   SET_GAMES: (state, { games }) => {
-    state.games = games;
+    const newState = state;
+    newState.games = games;
   },
   SET_PLAYERS: (state, { players }) => {
-    state.players = players;
+    const newState = state;
+    newState.players = players;
   },
   SET_LEAGUES: (state, { leagues }) => {
-    state.leagues = leagues;
+    const newState = state;
+    newState.leagues = leagues;
   },
   GET_FAILED: (state, { error }) => {
-    state.error = error;
+    const newState = state;
+    newState.error = error;
   },
   POST_FAILED: (state, { error }) => {
-    state.error = error;
+    const newState = state;
+    newState.error = error;
   },
   POST_SUCCESS: (state, { response }) => {
-    state.success = true;
-    state.successInfo = response;
+    const newState = state;
+    newState.success = true;
+    newState.successInfo = response;
   },
 };
 
