@@ -13,26 +13,25 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        pl: '',
-      };
+export default {
+  data() {
+    return {
+      pl: '',
+    };
+  },
+  props: ['items', 'label'],
+  watch: {
+    selected(val) {
+      this.pl = val;
     },
-    props: ['items', 'label'],
-    watch: {
-      selected(val) {
-        this.pl = val;
-      },
+  },
+  methods: {
+    selectPlayer(selected) {
+      this.$emit('input', selected);
     },
-    methods: {
-      selectPlayer(selected) {
-        this.$emit('input', selected);
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

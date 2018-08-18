@@ -39,17 +39,18 @@
 
 <script>
 export default {
+  name: 'App',
   data() {
     return {
       clipped: false,
-      drawer: false,
+      drawer: true,
       fixed: false,
+      menuItems: [{ title: 'Leagues', icon: 'dashboard' }],
+      miniVariant: false,
+      right: true,
+      rightDrawer: false,
       title: 'Squash Rating 2018',
-      menuItems: [
-        { title: 'Leagues', icon: 'dashboard' },
-      ],
     };
   },
-  name: 'App',
 };
 </script>

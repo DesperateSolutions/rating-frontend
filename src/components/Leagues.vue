@@ -20,36 +20,33 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 
-  export default {
-    name: 'leagues',
-    computed: mapState([
-      'leagues',
-    ]),
-    data() {
-      return {
-        headers: [
-          {
-            text: 'League',
-            align: 'left',
-            sortable: false,
-            value: 'name',
-          },
-        ],
-      };
+export default {
+  name: 'leagues',
+  computed: mapState(['leagues']),
+  data() {
+    return {
+      headers: [
+        {
+          text: 'League',
+          align: 'left',
+          sortable: false,
+          value: 'name',
+        },
+      ],
+    };
+  },
+  methods: {
+    chooseLeague(league) {
+      this.$router.push({ path: `league/${league}` });
     },
-    methods: {
-      chooseLeague(league) {
-        this.$router.push({ path: `league/${league}` });
-      },
-    },
-    created() {
-      this.$store.dispatch('GET_ALL_LEAGUES');
-    },
-  };
+  },
+  created() {
+    this.$store.dispatch('GET_ALL_LEAGUES');
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

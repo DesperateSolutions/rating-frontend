@@ -24,39 +24,36 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 
-  export default {
-    name: 'games',
-    computed: mapState([
-      'games',
-    ]),
-    data() {
-      return {
-        headers: [
-          {
-            text: 'Player One',
-            align: 'left',
-            sortable: false,
-            value: 'white',
-          },
-          {
-            text: 'Player Two',
-            align: 'left',
-            sortable: false,
-            value: 'black',
-          },
-          { text: 'Added', value: 'added' },
-          { text: 'Result', value: 'result' },
-        ],
-      };
-    },
-    created() {
-      this.$store.dispatch('GET_ALL_GAMES', { league: this.$route.params.name });
-    },
-  };
+export default {
+  name: 'games',
+  computed: mapState(['games']),
+  data() {
+    return {
+      headers: [
+        {
+          text: 'Player One',
+          align: 'left',
+          sortable: false,
+          value: 'white',
+        },
+        {
+          text: 'Player Two',
+          align: 'left',
+          sortable: false,
+          value: 'black',
+        },
+        { text: 'Added', value: 'added' },
+        { text: 'Result', value: 'result' },
+      ],
+    };
+  },
+  created() {
+    this.$store.dispatch('GET_ALL_GAMES', { league: this.$route.params.name });
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

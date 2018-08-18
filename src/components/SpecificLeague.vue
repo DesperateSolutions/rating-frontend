@@ -43,34 +43,33 @@
 </template>
 
 <script>
-  export default {
-    name: 'league',
-    props: ['name'],
-    methods: {
-      getAddGameLink() {
-        return `/league/${this.name}/addGame`;
-      },
-      getGamesLink() {
-        return `/league/${this.name}/games`;
-      },
-      getAddPlayerLink() {
-        return `/league/${this.name}/addPlayer`;
-      },
-      getRankingLink() {
-        return `/league/${this.name}/ranking`;
-      },
+export default {
+  name: 'league',
+  props: ['name'],
+  methods: {
+    getAddGameLink() {
+      return `/league/${this.name}/addGame`;
     },
-    data() {
-      return {
-        active: null,
-      };
+    getGamesLink() {
+      return `/league/${this.name}/games`;
     },
-    created() {
-      this.$router.push({ path: `${this.name}/addGame` });
+    getAddPlayerLink() {
+      return `/league/${this.name}/addPlayer`;
     },
-  };
+    getRankingLink() {
+      return `/league/${this.name}/ranking`;
+    },
+  },
+  data() {
+    return {
+      active: null,
+    };
+  },
+  created() {
+    this.$router.push({ path: `${this.name}/addGame` });
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

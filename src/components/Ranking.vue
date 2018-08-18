@@ -21,32 +21,31 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
+import { mapState } from 'vuex';
 
-  export default {
-    name: 'ranking',
-    computed: mapState([
-      'players',
-    ]),
-    data() {
-      return {
-        headers: [
-          {
-            text: 'Player',
-            align: 'left',
-            sortable: false,
-            value: 'name',
-          },
-          { text: 'Rating', value: 'rating' },
-        ],
-      };
-    },
-    created() {
-      this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$route.params.name });
-    },
-  };
+export default {
+  name: 'ranking',
+  computed: mapState(['players']),
+  data() {
+    return {
+      headers: [
+        {
+          text: 'Player',
+          align: 'left',
+          sortable: false,
+          value: 'name',
+        },
+        { text: 'Rating', value: 'rating' },
+      ],
+    };
+  },
+  created() {
+    this.$store.dispatch('GET_ALL_PLAYERS', {
+      league: this.$route.params.name,
+    });
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

@@ -68,56 +68,58 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex';
-  import SelectPlayer from './SelectPlayer';
+import { mapState } from 'vuex';
+import SelectPlayer from './SelectPlayer';
 
-  export default {
-    name: 'add-game',
-    data: () => ({
-      whiteMask: '##',
-      blackMask: '##',
-      whiteValue: '',
-      blackValue: '',
-      one: '',
-      two: '',
-      color: '',
-      timeout: 6000,
-      snackbar: false,
-      text: '',
-    }),
-    computed: mapState([
-      'players',
-    ]),
-    created() {
-      this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$route.params.name });
+export default {
+  name: 'add-game',
+  data: () => ({
+    whiteMask: '##',
+    blackMask: '##',
+    whiteValue: '',
+    blackValue: '',
+    one: '',
+    two: '',
+    color: '',
+    timeout: 6000,
+    snackbar: false,
+    text: '',
+  }),
+  computed: mapState(['players']),
+  created() {
+    this.$store.dispatch('GET_ALL_PLAYERS', {
+      league: this.$route.params.name,
+    });
+  },
+  components: {
+    'select-player': SelectPlayer,
+  },
+  methods: {
+    submit() {
+      this.$store.dispatch('ADD_A_GAME', {
+        league: this.$route.params.name,
+        whiteId: this.one,
+        blackId: this.two,
+        result: `${this.whiteValue}-${this.blackValue}`,
+      });
+      if (this.$store.state.success === true) {
+        this.color = 'success';
+        this.text = 'Game added!';
+        this.snackbar = true;
+      } else if (this.$store.state.success === false) {
+        this.color = 'failed';
+        this.snackbar = true;
+      }
     },
-    components: {
-      'select-player': SelectPlayer,
+    clear() {
+      this.whiteValue = '';
+      this.blackValue = '';
+      this.one = '';
+      this.two = '';
     },
-    methods: {
-      submit() {
-        this.$store.dispatch('ADD_A_GAME', {
-          league: this.$route.params.name, whiteId: this.one, blackId: this.two, result: `${this.whiteValue}-${this.blackValue}`,
-        });
-        if (this.$store.state.success === true) {
-          this.color = 'success';
-          this.text = 'Game added!';
-          this.snackbar = true;
-        } else if (this.$store.state.success === false) {
-          this.color = 'failed';
-          this.snackbar = true;
-        }
-      },
-      clear() {
-        this.whiteValue = '';
-        this.blackValue = '';
-        this.one = '';
-        this.two = '';
-      },
-    },
-  };
+  },
+};
 </script>
 
 <style scoped>
-
 </style>

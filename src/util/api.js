@@ -17,7 +17,9 @@ function addAGame(league, whiteId, blackId, result) {
   return axios({
     method: 'post',
     url,
-    data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(result)}`,
+    data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(
+      blackId,
+    )}&result=${encodeURIComponent(result)}`,
     config: {
       headers: {
         Accept: 'application/json',
@@ -27,11 +29,9 @@ function addAGame(league, whiteId, blackId, result) {
   }).then(response => response.data);
 }
 
-
 function getAllLeagues() {
   const url = `${BASE_URL}/leagues`;
   return axios.get(url).then(response => response.data);
 }
-
 
 export { getAllGames, getAllPlayers, getAllLeagues, addAGame };
