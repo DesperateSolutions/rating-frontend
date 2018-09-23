@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import axios from 'axios';
-// import { getAllGames, getAllLeagues, getAllPlayers, addAGame } from "../util/api";
+import { getAllGames, getAllLeagues, getAllPlayers, addGame } from './util/api';
 
 Vue.use(Vuex);
 
@@ -9,56 +8,47 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
   GET_ALL_GAMES({ commit }, { league }) {
-    axios.get(`https://clj-glicko.desperate.no/${league}/games`).then(
-      (response) => {
-        commit('SET_GAMES', { games: response.data });
+    getAllGames(league).then(
+      response => {
+        commit('SET_GAMES', { games: response });
       },
-      (err) => {
+      err => {
         commit('GET_FAILED', err);
-      },
+      }
     );
   },
   GET_ALL_PLAYERS({ commit }, { league }) {
-    axios.get(`https://clj-glicko.desperate.no/${league}/players`).then(
-      (response) => {
-        commit('SET_PLAYERS', { players: response.data });
+    getAllPlayers(league).then(
+      response => {
+        commit('SET_PLAYERS', { players: response });
       },
-      (err) => {
+      err => {
         commit('GET_FAILED', err);
-      },
+      }
     );
   },
-  ADD_A_GAME({ commit }, {
-    league, whiteId, blackId, result,
-  }) {
-    axios({
-      method: 'post',
-      url: `https://clj-glicko.desperate.no/${league}/games`,
-      data: `whiteId=${encodeURIComponent(whiteId)}&blackId=${encodeURIComponent(blackId)}&result=${encodeURIComponent(result)}`,
-      config: {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      },
-    }).then(
-      (response) => {
+  ADD_A_GAME({ commit }, { league, whiteId, blackId, result }) {
+    addGame(league, whiteId, blackId, result).then(
+      response => {
         commit('POST_SUCCESS', response);
       },
-      (err) => {
+      err => {
         commit('POST_FAILED', err);
-      },
+      }
     );
   },
   GET_ALL_LEAGUES({ commit }) {
-    axios.get('https://clj-glicko.desperate.no/leagues').then(
-      (response) => {
-        commit('SET_LEAGUES', { leagues: response.data });
+    getAllLeagues().then(
+      response => {
+        commit('SET_LEAGUES', { leagues: response });
       },
-      (err) => {
+      err => {
         commit('GET_FAILED', err);
-      },
+      }
     );
+  },
+  SELECT_LEAGUE({ commit }, { selectedLeague }) {
+    commit('SELECT_LEAGUE', { selectedLeague });
   },
 };
 
@@ -81,12 +71,25 @@ const mutations = {
   },
   POST_FAILED: (state, { error }) => {
     const newState = state;
+    newState.success = false;
+    newState.snackbar = {
+      color: 'failed',
+      text: 'Failed to add game',
+    };
     newState.error = error;
   },
   POST_SUCCESS: (state, { response }) => {
     const newState = state;
     newState.success = true;
+    newState.snackbar = {
+      color: 'success',
+      text: 'Game added',
+    };
     newState.successInfo = response;
+  },
+  SELECT_LEAGUE: (state, { selectedLeague }) => {
+    const newState = state;
+    newState.selectedLeague = selectedLeague;
   },
 };
 
@@ -103,6 +106,7 @@ const state = {
   leagues: [],
   players: [],
   selectedLeague: {},
+  snackbar: {},
 };
 
 export default new Vuex.Store({

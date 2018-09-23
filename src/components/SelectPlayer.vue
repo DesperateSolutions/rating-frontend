@@ -4,11 +4,9 @@
           :items="items"
           :label="label"
           v-model="pl"
-          item-value="_id"
+          item-value="id"
           item-text="name"
-          v-on:change="selectPlayer"
-          bottom
-        />
+          v-on:change="selectPlayer"></v-select>
     </v-container>
 </template>
 

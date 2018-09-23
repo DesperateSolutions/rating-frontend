@@ -29,8 +29,7 @@
                   <v-text-field
                     label="Player 1 score:"
                     :mask="whiteMask"
-                    v-model="whiteValue"
-                  />
+                    v-model="whiteValue"></v-text-field>
                 </v-card-text>
               </v-flex>
               <v-flex xs6 sm6>
@@ -38,8 +37,7 @@
                   <v-text-field
                     label="Player 2 score:"
                     :mask="blackMask"
-                    v-model="blackValue"
-                  />
+                    v-model="blackValue"></v-text-field>
                 </v-card-text>
               </v-flex>
             </v-layout>
@@ -63,10 +61,10 @@
               :timeout="timeout"
               :color="color"
               :multi-line="true"
-              v-model="snackbar"
+              v-model="snack"
             >
               {{ text }}
-              <v-btn dark flat @click.native="snackbar = false">Close</v-btn>
+              <v-btn dark flat @click.native="snack = false">Close</v-btn>
             </v-snackbar>
           </v-card>
         </v-flex>
@@ -90,13 +88,13 @@ export default {
     two: '',
     color: '',
     timeout: 6000,
-    snackbar: false,
+    snack: false,
     text: '',
   }),
-  computed: mapState(['players']),
+  computed: mapState(['players', 'selectedLeague', 'snackbar']),
   created() {
     this.$store.dispatch('GET_ALL_PLAYERS', {
-      league: this.$route.params.name,
+      league: this.$store.state.selectedLeague.id,
     });
   },
   components: {
@@ -105,18 +103,15 @@ export default {
   methods: {
     submit() {
       this.$store.dispatch('ADD_A_GAME', {
-        league: this.$route.params.name,
+        league: this.$store.state.selectedLeague.id,
         whiteId: this.one,
         blackId: this.two,
         result: `${this.whiteValue}-${this.blackValue}`,
       });
       if (this.$store.state.success === true) {
-        this.color = 'success';
-        this.text = 'Game added!';
-        this.snackbar = true;
+        this.snack = true;
       } else if (this.$store.state.success === false) {
-        this.color = 'failed';
-        this.snackbar = true;
+        this.snack = true;
       }
     },
     clear() {

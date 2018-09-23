@@ -65,9 +65,6 @@ export default {
       active: null,
     };
   },
-  created() {
-    this.$router.push({ path: `${this.name}/addGame` });
-  },
 };
 </script>
 

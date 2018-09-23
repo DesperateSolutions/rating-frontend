@@ -7,16 +7,17 @@
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn flat>Login</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <router-view/>
     </v-content>
     <v-navigation-drawer
-      temporary
-      :clipped="true"
+      :clipped="false"
       v-model="drawer"
       enable-resize-watcher
-      fixed
       app
     >
       <v-list class="pt-0" dense>
@@ -43,12 +44,10 @@ export default {
   data() {
     return {
       clipped: false,
-      drawer: true,
+      drawer: false,
       fixed: false,
       menuItems: [{ title: 'Leagues', icon: 'dashboard' }],
       miniVariant: false,
-      right: true,
-      rightDrawer: false,
       title: 'Squash Rating 2018',
     };
   },

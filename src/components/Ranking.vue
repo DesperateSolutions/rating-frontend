@@ -41,7 +41,7 @@ export default {
   },
   created() {
     this.$store.dispatch('GET_ALL_PLAYERS', {
-      league: this.$route.params.name,
+      league: this.$store.state.selectedLeague.id,
     });
   },
 };

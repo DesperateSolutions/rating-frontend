@@ -12,9 +12,8 @@
         class="elevation-1"
       >
         <template slot="items" slot-scope="props">
-          <td>{{ props.item.white }}</td>
-          <td class="text-xs-left">{{ props.item.black }}</td>
-          <td class="text-xs-left">{{ props.item.added | moment("MMMM Do YYYY") }}</td>
+          <td>{{ props.item.whiteId }}</td>
+          <td class="text-xs-left">{{ props.item.blackId }}</td>
           <td class="text-xs-left">{{ props.item.result }}</td>
         </template>
       </v-data-table>
@@ -28,7 +27,7 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'games',
-  computed: mapState(['games']),
+  computed: mapState(['games', 'players']),
   data() {
     return {
       headers: [
@@ -44,13 +43,12 @@ export default {
           sortable: false,
           value: 'black',
         },
-        { text: 'Added', value: 'added' },
         { text: 'Result', value: 'result' },
       ],
     };
   },
   created() {
-    this.$store.dispatch('GET_ALL_GAMES', { league: this.$route.params.name });
+    this.$store.dispatch('GET_ALL_GAMES', { league: this.$store.state.selectedLeague.id });
   },
 };
 </script>

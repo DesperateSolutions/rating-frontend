@@ -12,7 +12,7 @@
         class="elevation-1"
       >
         <template slot="items" slot-scope="props">
-          <td class="text-xs-left" @click="chooseLeague(props.item.name)">{{ props.item.name }}</td>
+          <td class="text-xs-left" @click="chooseLeague(props.item.name, props.item)">{{ props.item.name }}</td>
         </template>
       </v-data-table>
     </v-app>
@@ -38,8 +38,9 @@ export default {
     };
   },
   methods: {
-    chooseLeague(league) {
-      this.$router.push({ path: `league/${league}` });
+    chooseLeague(name, league) {
+      this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
+      this.$router.push({ path: `league/${name}/addGame` });
     },
   },
   created() {

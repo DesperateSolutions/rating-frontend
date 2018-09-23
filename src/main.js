@@ -9,7 +9,6 @@ import store from './store';
 import './registerServiceWorker';
 
 import './plugins/axios';
-import './plugins/auth';
 import './plugins/moment';
 
 Vue.config.productionTip = false;
