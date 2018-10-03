@@ -6,10 +6,6 @@
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items>
-        <v-btn flat>Login</v-btn>
-      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <router-view/>

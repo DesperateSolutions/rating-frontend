@@ -16,7 +16,7 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'leagues',
+      name: 'root',
       component: Leagues,
     },
     {
@@ -30,27 +30,33 @@ const router = new Router({
     },
     {
       path: '/leagues',
+      name: 'leagues',
       component: Leagues,
     },
     {
       path: '/league/:name',
+      name: 'specificleague',
       component: SpecificLeague,
       props: true,
       children: [
         {
           path: 'addGame',
+          name: 'addgame',
           component: AddGame,
         },
         {
           path: 'ranking',
+          name: 'ranking',
           component: Ranking,
         },
         {
           path: 'games',
+          name: 'games',
           component: Games,
         },
         {
           path: 'addPlayer',
+          name: 'addplayer',
           component: AddPlayer,
         },
       ],

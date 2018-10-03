@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getAllGames, getAllLeagues, getAllPlayers, addGame } from './util/api';
+import { getAllGames, getAllLeagues, getAllPlayers, addGame, addPlayer } from './util/api';
 
 Vue.use(Vuex);
 
@@ -36,6 +36,18 @@ const actions = {
         commit('POST_FAILED', err);
       }
     );
+  },
+  ADD_PLAYER({ commit }, { league, name }) {
+    console.log(league);
+    console.log(name);
+    addPlayer(league, name).then(
+      response => {
+        commit('POST_SUCCESS', response);
+      },
+      err => {
+        commit('POST_FAILED', err);
+      }
+    )
   },
   GET_ALL_LEAGUES({ commit }) {
     getAllLeagues().then(

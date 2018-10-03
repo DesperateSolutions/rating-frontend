@@ -1,6 +1,8 @@
 import axios from 'axios';
+import router from '../router';
 
-const BASE_URL = 'https://glickorater.desperate.solutions/';
+// const BASE_URL = 'https://glickorater.desperate.solutions/';
+const BASE_URL = 'http://localhost:3000/';
 
 function handleError(error) {
   console.log(error);
@@ -17,7 +19,32 @@ function getAllGames(league) {
 
 function getAllPlayers(league) {
   const url = `${BASE_URL}${league}/player`;
-  return axios.get(url).then(response => response.data);
+  return axios
+    .get(url)
+    .then(response => response.data)
+    .catch(() => {
+      router.push({ path: '/leagues' });
+    });
+}
+
+function addPlayer(league, name) {
+  const url = `${BASE_URL}${league}/player`;
+  return axios({
+    method: 'post',
+    url,
+    data: {
+      name,
+    },
+    config: {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${localStorage.token}`,
+      },
+    },
+  })
+    .then(() => 'Player added')
+    .catch(() => logout());
 }
 
 function addGame(league, whiteId, blackId, result) {
@@ -30,14 +57,13 @@ function addGame(league, whiteId, blackId, result) {
       blackId,
       result,
     },
-    config: {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${localStorage.token}`,
-      },
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.token}`,
     },
-  }).then(() => 'Game added')
+  })
+    .then(() => 'Game added')
     .catch(() => {
       logout();
     });
@@ -73,5 +99,4 @@ function login(username, password) {
     .catch(error => handleError(error));
 }
 
-
-export { getAllGames, getAllPlayers, getAllLeagues, addGame, login };
+export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login };
