@@ -1,8 +1,8 @@
 import axios from 'axios';
 import router from '../router';
 
-// const BASE_URL = 'https://glickorater.desperate.solutions/';
-const BASE_URL = 'http://localhost:3000/';
+const BASE_URL = 'https://glickorater.desperate.solutions/';
+// const BASE_URL = 'http://localhost:3000/';
 
 function getAllGames(league) {
   const url = `${BASE_URL}${league}/game`;
