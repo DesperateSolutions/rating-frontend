@@ -60,10 +60,6 @@ export default {
   },
   methods: {
     login() {
-      console.log('login method');
-      console.log('username', this.username);
-      console.log('password', this.password);
-
       login(this.username, this.password).then(() =>
         this.$router.replace(this.$route.query.redirect)
       );

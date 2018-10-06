@@ -1,6 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getAllGames, getAllLeagues, getAllPlayers, addGame, addPlayer } from './util/api';
+import {
+  getAllGames,
+  getAllLeagues,
+  getAllPlayers,
+  addGame,
+  addPlayer,
+} from './util/api';
 
 Vue.use(Vuex);
 
@@ -8,56 +14,88 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
   GET_ALL_GAMES({ commit }, { league }) {
-    getAllGames(league).then(
-      response => {
+    getAllGames(league)
+      .then(response => {
         commit('SET_GAMES', { games: response });
-      },
-      err => {
-        commit('GET_FAILED', err);
-      }
-    );
+      })
+      .catch(error => {
+        commit('GET_FAILED', { error });
+        commit('SHOW_SNACKBAR', {
+          error,
+          message: 'Failed to retrieve games',
+          info: ` -- ${error.status} - ${error.statusText}`,
+          color: 'red',
+        });
+      });
   },
   GET_ALL_PLAYERS({ commit }, { league }) {
-    getAllPlayers(league).then(
-      response => {
+    getAllPlayers(league)
+      .then(response => {
         commit('SET_PLAYERS', { players: response });
-      },
-      err => {
-        commit('GET_FAILED', err);
-      }
-    );
+      })
+      .catch(error => {
+        commit('GET_FAILED', { error });
+        commit('SHOW_SNACKBAR', {
+          error,
+          message: 'Failed to retrieve all players',
+          info: ` -- ${error.status} - ${error.statusText}`,
+          color: 'red',
+        });
+      });
   },
   ADD_A_GAME({ commit }, { league, whiteId, blackId, result }) {
-    addGame(league, whiteId, blackId, result).then(
-      response => {
-        commit('POST_SUCCESS', response);
-      },
-      err => {
-        commit('POST_FAILED', err);
-      }
-    );
+    addGame(league, whiteId, blackId, result)
+      .then(response => {
+        commit('POST_SUCCESS', { response });
+        commit('SHOW_SNACKBAR', {
+          message: 'Successfully added a game',
+          info: '',
+          color: 'success',
+        });
+      })
+      .catch(error => {
+        commit('POST_FAILED', { error });
+        commit('SHOW_SNACKBAR', {
+          error,
+          message: 'Failed to add game',
+          info: ` -- ${error.status} - ${error.statusText}`,
+          color: 'red',
+        });
+      });
   },
   ADD_PLAYER({ commit }, { league, name }) {
-    console.log(league);
-    console.log(name);
-    addPlayer(league, name).then(
-      response => {
-        commit('POST_SUCCESS', response);
-      },
-      err => {
-        commit('POST_FAILED', err);
-      }
-    )
+    addPlayer(league, name)
+      .then(response => {
+        commit('POST_SUCCESS', { response });
+        commit('SHOW_SNACKBAR', {
+          message: 'Successfully added a new player',
+          info: '',
+          color: 'success',
+        });
+      })
+      .catch(error => {
+        commit('POST_FAILED', { error });
+        commit('SHOW_SNACKBAR', {
+          message: 'Failed to add a new player',
+          info: ` -- ${error.status} - ${error.statusText}`,
+          color: 'red',
+        });
+      });
   },
   GET_ALL_LEAGUES({ commit }) {
-    getAllLeagues().then(
-      response => {
+    getAllLeagues()
+      .then(response => {
         commit('SET_LEAGUES', { leagues: response });
-      },
-      err => {
-        commit('GET_FAILED', err);
-      }
-    );
+      })
+      .catch(error => {
+        commit('GET_FAILED', { error });
+        commit('SHOW_SNACKBAR', {
+          error,
+          message: 'Failed to retrieve leagues',
+          info: ` -- ${error.status} - ${error.statusText}`,
+          color: 'red',
+        });
+      });
   },
   SELECT_LEAGUE({ commit }, { selectedLeague }) {
     commit('SELECT_LEAGUE', { selectedLeague });
@@ -83,33 +121,41 @@ const mutations = {
   },
   POST_FAILED: (state, { error }) => {
     const newState = state;
-    newState.success = false;
-    newState.snackbar = {
-      color: 'failed',
-      text: 'Failed to add game',
-    };
     newState.error = error;
   },
   POST_SUCCESS: (state, { response }) => {
     const newState = state;
-    newState.success = true;
-    newState.snackbar = {
-      color: 'success',
-      text: 'Game added',
-    };
     newState.successInfo = response;
   },
   SELECT_LEAGUE: (state, { selectedLeague }) => {
     const newState = state;
     newState.selectedLeague = selectedLeague;
   },
+  SHOW_SNACKBAR: (state, payload) => {
+    const newState = state;
+    newState.snack = {
+      ...state.snack,
+      ...payload,
+      visible: true,
+    };
+  },
+  CLOSE_SNACKBAR: state => {
+    const newState = state;
+    newState.snack.visible = false;
+    newState.snack.multiline = false;
+    newState.snack.timeout = 6000;
+    newState.snack.message = null;
+    newState.snack.info = null;
+    newState.snack.color = undefined;
+  },
 };
 
-const getters = {};
+const getters = {
+  visible: state => state.snack.visible,
+};
 
 const state = {
   successInfo: {},
-  success: false,
   loading: false,
   error: false,
   selectedWhitePlayer: { name: 'Player One' },
@@ -118,7 +164,14 @@ const state = {
   leagues: [],
   players: [],
   selectedLeague: {},
-  snackbar: {},
+  snack: {
+    visible: false,
+    message: null,
+    info: null,
+    timeout: 6000,
+    multiline: false,
+    color: undefined,
+  },
 };
 
 export default new Vuex.Store({
