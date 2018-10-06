@@ -71,7 +71,7 @@ const router = new Router({
 
 router.beforeEach((to, form, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
-  const publicPages = ['/login'];
+  const publicPages = ['/login', '/leagues', '/'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('token');
 

@@ -48,11 +48,11 @@
   },
   methods: {
     addPlayer() {
-      console.log(this.name);
       this.$store.dispatch('ADD_PLAYER', {
         league: this.$store.state.selectedLeague.id,
         name: this.name,
       });
+      this.name = '';
     },
   },
   created() {

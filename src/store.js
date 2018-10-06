@@ -1,6 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { getAllGames, getAllLeagues, getAllPlayers, addGame, addPlayer } from './util/api';
+import {
+  getAllGames,
+  getAllLeagues,
+  getAllPlayers,
+  addGame,
+  addPlayer,
+} from './util/api';
 
 Vue.use(Vuex);
 
@@ -38,8 +44,6 @@ const actions = {
     );
   },
   ADD_PLAYER({ commit }, { league, name }) {
-    console.log(league);
-    console.log(name);
     addPlayer(league, name).then(
       response => {
         commit('POST_SUCCESS', response);
@@ -47,7 +51,7 @@ const actions = {
       err => {
         commit('POST_FAILED', err);
       }
-    )
+    );
   },
   GET_ALL_LEAGUES({ commit }) {
     getAllLeagues().then(
@@ -61,6 +65,7 @@ const actions = {
   },
   SELECT_LEAGUE({ commit }, { selectedLeague }) {
     commit('SELECT_LEAGUE', { selectedLeague });
+    commit('SET_SNACK', { snackName: 'Valgt league' });
   },
 };
 
@@ -103,6 +108,10 @@ const mutations = {
     const newState = state;
     newState.selectedLeague = selectedLeague;
   },
+  SET_SNACK: (state, snack) => {
+    const newState = state;
+    newState.snack = snack;
+  },
 };
 
 const getters = {};
@@ -118,7 +127,7 @@ const state = {
   leagues: [],
   players: [],
   selectedLeague: {},
-  snackbar: {},
+  snack: '',
 };
 
 export default new Vuex.Store({
