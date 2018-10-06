@@ -4,14 +4,6 @@ import router from '../router';
 // const BASE_URL = 'https://glickorater.desperate.solutions/';
 const BASE_URL = 'http://localhost:3000/';
 
-function handleError(error) {
-  console.log(error);
-}
-
-function logout() {
-  localStorage.removeItem('user');
-}
-
 function getAllGames(league) {
   const url = `${BASE_URL}${league}/game`;
   return axios.get(url).then(response => response.data);
@@ -22,8 +14,9 @@ function getAllPlayers(league) {
   return axios
     .get(url)
     .then(response => response.data)
-    .catch(() => {
+    .catch(error => {
       router.push({ path: '/leagues' });
+      return Promise.reject(error.response);
     });
 }
 
@@ -43,8 +36,8 @@ function addPlayer(league, name) {
       },
     },
   })
-    .then(() => 'Player added')
-    .catch(() => logout());
+    .then(response => response)
+    .catch(error => Promise.reject(error.response));
 }
 
 function addGame(league, whiteId, blackId, result) {
@@ -63,10 +56,8 @@ function addGame(league, whiteId, blackId, result) {
       Authorization: `Bearer ${localStorage.token}`,
     },
   })
-    .then(() => 'Game added')
-    .catch(() => {
-      logout();
-    });
+    .then(response => response)
+    .catch(error => Promise.reject(error.response));
 }
 
 function getAllLeagues() {
@@ -74,7 +65,9 @@ function getAllLeagues() {
   return axios({
     method: 'GET',
     url,
-  }).then(response => response.data);
+  })
+    .then(response => response.data)
+    .catch(error => Promise.reject(error.response));
 }
 
 function login(username, password) {
@@ -96,7 +89,7 @@ function login(username, password) {
       }
       Promise.resolve();
     })
-    .catch(error => handleError(error));
+    .catch(error => Promise.reject(error.response));
 }
 
 export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login };

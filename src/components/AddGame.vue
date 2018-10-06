@@ -91,7 +91,7 @@ export default {
     snack: false,
     text: '',
   }),
-  computed: mapState(['players', 'selectedLeague', 'snackbar']),
+  computed: mapState(['players', 'selectedLeague']),
   created() {
     this.$store.dispatch('GET_ALL_PLAYERS', {
       league: this.$store.state.selectedLeague.id,
@@ -108,11 +108,6 @@ export default {
         blackId: this.two,
         result: `${this.whiteValue}-${this.blackValue}`,
       });
-      if (this.$store.state.success === true) {
-        this.snack = true;
-      } else if (this.$store.state.success === false) {
-        this.snack = true;
-      }
     },
     clear() {
       this.whiteValue = '';

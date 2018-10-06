@@ -1,6 +1,6 @@
 <template>
-    <v-snackbar v-model="show">
-      {{snack}}
+    <v-snackbar v-model="snack.show" :color="snack.color">
+      {{snack.message}}
       <v-btn flat @click="show = false">Close</v-btn>
     </v-snackbar>
 </template>

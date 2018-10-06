@@ -14,54 +14,58 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
   GET_ALL_GAMES({ commit }, { league }) {
-    getAllGames(league).then(
-      response => {
+    getAllGames(league)
+      .then(response => {
         commit('SET_GAMES', { games: response });
-      },
-      err => {
-        commit('GET_FAILED', err);
-      }
-    );
+      })
+      .catch(error => {
+        commit('GET_FAILED', { error });
+      });
   },
   GET_ALL_PLAYERS({ commit }, { league }) {
-    getAllPlayers(league).then(
-      response => {
+    getAllPlayers(league)
+      .then(response => {
         commit('SET_PLAYERS', { players: response });
-      },
-      err => {
-        commit('GET_FAILED', err);
-      }
-    );
+      })
+      .catch(error => {
+        commit('GET_FAILED', { error });
+      });
   },
   ADD_A_GAME({ commit }, { league, whiteId, blackId, result }) {
-    addGame(league, whiteId, blackId, result).then(
-      response => {
-        commit('POST_SUCCESS', response);
-      },
-      err => {
-        commit('POST_FAILED', err);
-      }
-    );
+    addGame(league, whiteId, blackId, result)
+      .then(response => {
+        commit('POST_SUCCESS', {
+          response,
+          message: 'Successfully added a game',
+        });
+      })
+      .catch(error => {
+        commit('POST_FAILED', { error, message: 'Failed to add game' });
+      });
   },
   ADD_PLAYER({ commit }, { league, name }) {
-    addPlayer(league, name).then(
-      response => {
-        commit('POST_SUCCESS', response);
-      },
-      err => {
-        commit('POST_FAILED', err);
-      }
-    );
+    addPlayer(league, name)
+      .then(response => {
+        commit('POST_SUCCESS', {
+          response,
+          snack: {
+            color: 'success',
+            message: 'Game added',
+          },
+        });
+      })
+      .catch(error => {
+        commit('POST_FAILED', { error });
+      });
   },
   GET_ALL_LEAGUES({ commit }) {
-    getAllLeagues().then(
-      response => {
+    getAllLeagues()
+      .then(response => {
         commit('SET_LEAGUES', { leagues: response });
-      },
-      err => {
-        commit('GET_FAILED', err);
-      }
-    );
+      })
+      .catch(error => {
+        commit('GET_FAILED', { error });
+      });
   },
   SELECT_LEAGUE({ commit }, { selectedLeague }) {
     commit('SELECT_LEAGUE', { selectedLeague });
@@ -86,21 +90,23 @@ const mutations = {
     const newState = state;
     newState.error = error;
   },
-  POST_FAILED: (state, { error }) => {
+  POST_FAILED: (state, { error, message }) => {
     const newState = state;
-    newState.success = false;
-    newState.snackbar = {
+    newState.snack = {
       color: 'failed',
-      text: 'Failed to add game',
+      message,
+      info: `${error.status} - ${error.statusText}`,
+      show: true,
     };
     newState.error = error;
   },
-  POST_SUCCESS: (state, { response }) => {
+  POST_SUCCESS: (state, { response, message }) => {
     const newState = state;
-    newState.success = true;
-    newState.snackbar = {
+    newState.snack = {
       color: 'success',
-      text: 'Game added',
+      message,
+      info: '',
+      show: true,
     };
     newState.successInfo = response;
   },
@@ -118,7 +124,6 @@ const getters = {};
 
 const state = {
   successInfo: {},
-  success: false,
   loading: false,
   error: false,
   selectedWhitePlayer: { name: 'Player One' },
