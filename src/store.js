@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import {
+  addGame,
+  addPlayer,
   getAllGames,
   getAllLeagues,
   getAllPlayers,
-  addGame,
-  addPlayer,
 } from './util/api';
+import { getName } from './util/helpers';
 
 Vue.use(Vuex);
 
@@ -105,7 +106,12 @@ const actions = {
 const mutations = {
   SET_GAMES: (state, { games }) => {
     const newState = state;
-    newState.games = games;
+    newState.games = games.map(game => ({
+      blackId: getName(state.players, game.blackId),
+      whiteId: getName(state.players, game.blackId),
+      result: game.result,
+      id: game.id,
+    }));
   },
   SET_PLAYERS: (state, { players }) => {
     const newState = state;
