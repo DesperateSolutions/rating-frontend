@@ -1,11 +1,4 @@
-export const getName = (players, id) => {
-  players.forEach(player => {
-    if (player.id === id) {
-      return player.name;
-    }
-    return player.id;
-  });
-};
+export const getName = (players, id) =>
+  players.find(player => player.id === id).name;
 
-export const isObjectEmpty = obj =>
-  Object.keys(obj).length === 0;
+export const isObjectEmpty = obj => Object.keys(obj).length === 0;
