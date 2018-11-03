@@ -5,75 +5,135 @@
     grid-list-md
   >
     <v-form ref="addGame">
-      <v-layout row wrap>
-        <v-flex xs12 sm6 offset-sm3>
-          <v-card>
-            <v-card-title>
-              <div>
-                <h3 class="headline mb-0">Legg til spill</h3>
-              </div>
-            </v-card-title>
-            <select-player
-              :items="players"
-              v-model="one"
-              label="Player One"
-            />
-            <select-player
-              :items="players"
-              v-model="two"
-              label="Player Two"
-            />
-            <v-layout row wrap>
-              <v-flex xs6 sm6>
-                <v-card-text>
-                  <v-text-field
-                    label="Player 1 score:"
-                    :mask="whiteMask"
-                    v-model="whiteValue"></v-text-field>
-                </v-card-text>
-              </v-flex>
-              <v-flex xs6 sm6>
-                <v-card-text>
-                  <v-text-field
-                    label="Player 2 score:"
-                    :mask="blackMask"
-                    v-model="blackValue"></v-text-field>
-                </v-card-text>
-              </v-flex>
-            </v-layout>
-            <v-card-actions>
-              <v-btn
-                @click="submit"
+      <v-card>
+        <v-container>
+          <v-card-title>
+              <h3 class="headline mb-0">Legg til spill</h3>
+          </v-card-title>
+          <v-layout row wrap>
+            <v-flex lg6 md6>
+              <select-player
+                :items="players"
+                v-model="playerone"
+                label="Player One"
+              />
+            </v-flex>
+            <v-flex lg6 md6>
+              <select-player
+                :items="players"
+                v-model="playertwo"
+                label="Player Two"
+              />
+            </v-flex>
+          </v-layout>
+          <v-layout row wrap>
+            <v-flex lg6 md6>
+                <v-text-field
+                  label="Player 1 score:"
+                  :mask="whiteMask"
+                  v-model="whiteValue"></v-text-field>
+            </v-flex>
+            <v-flex lg6 md6>
+                <v-text-field
+                  label="Player 2 score:"
+                  :mask="blackMask"
+                  v-model="blackValue"></v-text-field>
+            </v-flex>
+          </v-layout>
+          <v-layout row wrap>
+            <v-flex lg6 md6>
+              <v-checkbox
+                :label="`Spesifiser dato og tidspunkt`"
+                v-model="checkbox"
+              ></v-checkbox>
+            </v-flex>
+          </v-layout>
+          <v-layout v-if="checkbox" row wrap>
+            <v-flex lg6 md6>
+              <v-menu
+                :close-on-content-click="true"
+                v-model="menu"
+                :nudge-right="40"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                min-width="290px"
               >
-                Legg til spill
-              </v-btn>
-              <v-tooltip bottom>
-                <v-btn
-                  @click="clear"
+                <v-text-field
                   slot="activator"
-                >
-                  Reset
-                </v-btn>
-                <span>Resetter ikke dropdown-menyen ordentlig, velg spillere på nytt</span>
-              </v-tooltip>
-            </v-card-actions>
-            <v-snackbar
-              :timeout="timeout"
-              :color="color"
-              :multi-line="true"
-              v-model="snack"
+                  v-model="date"
+                  label="Velg dato"
+                  prepend-icon="event"
+                  readonly
+                ></v-text-field>
+                <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+              </v-menu>
+            </v-flex>
+            <v-flex lg6 md6>
+              <v-menu
+                ref="menu"
+                :close-on-content-click="false"
+                v-model="menu2"
+                :nudge-right="40"
+                :return-value.sync="time"
+                lazy
+                transition="scale-transition"
+                offset-y
+                full-width
+                max-width="290px"
+                min-width="290px"
+              >
+                <v-text-field
+                  slot="activator"
+                  v-model="time"
+                  label="Velg tidspunkt"
+                  prepend-icon="access_time"
+                  readonly
+                ></v-text-field>
+                <v-time-picker
+                  v-if="menu2"
+                  v-model="time"
+                  full-width
+                  @change="$refs.menu.save(time)"
+                ></v-time-picker>
+              </v-menu>
+            </v-flex>
+          </v-layout>
+          <v-card-actions>
+            <v-btn
+              @click="submit"
             >
-              {{ text }}
-              <v-btn dark flat @click.native="snack = false">Close</v-btn>
-            </v-snackbar>
-          </v-card>
-        </v-flex>
-      </v-layout>
+              Legg til spill
+            </v-btn>
+            <v-spacer></v-spacer>
+            <v-tooltip bottom>
+              <v-btn
+                @click="clear"
+                slot="activator"
+              >
+                Reset
+              </v-btn>
+              <span>Resetter ikke dropdown-menyen ordentlig, velg spillere på nytt</span>
+            </v-tooltip>
+          </v-card-actions>
+          <v-snackbar
+            :timeout="timeout"
+            :color="color"
+            :multi-line="true"
+            v-model="snack"
+          >
+            {{ text }}
+            <v-btn dark flat @click.native="snack = false">Close</v-btn>
+          </v-snackbar>
+        </v-container>
+      </v-card>
     </v-form>
   </v-container>
 </template>
 
 <script>
+import moment from 'moment';
 import { mapState } from 'vuex';
 import SelectPlayer from './SelectPlayer.vue';
 
@@ -84,12 +144,17 @@ export default {
     blackMask: '##',
     whiteValue: '',
     blackValue: '',
-    one: '',
-    two: '',
+    playerone: '',
+    playertwo: '',
     color: '',
     timeout: 6000,
     snack: false,
     text: '',
+    date: new Date().toISOString().substr(0, 10),
+    menu: false,
+    time: moment().format('LT'),
+    menu2: false,
+    checkbox: false,
   }),
   computed: mapState(['players', 'selectedLeague']),
   created() {
@@ -104,16 +169,17 @@ export default {
     submit() {
       this.$store.dispatch('ADD_A_GAME', {
         league: this.$store.state.selectedLeague.id,
-        whiteId: this.one,
-        blackId: this.two,
+        whiteId: this.playerone,
+        blackId: this.playertwo,
         result: `${this.whiteValue}-${this.blackValue}`,
+        date: moment(new Date(`${this.date} ${this.time}`)).format(),
       });
     },
     clear() {
       this.whiteValue = '';
       this.blackValue = '';
-      this.one = '';
-      this.two = '';
+      this.playerone = '';
+      this.playertwo = '';
     },
   },
 };

@@ -44,8 +44,8 @@ const actions = {
         });
       });
   },
-  ADD_A_GAME({ commit }, { league, whiteId, blackId, result }) {
-    addGame(league, whiteId, blackId, result)
+  ADD_A_GAME({ commit }, { league, whiteId, blackId, result, date }) {
+    addGame(league, whiteId, blackId, result, date)
       .then(response => {
         commit('POST_SUCCESS', { response });
         commit('SHOW_SNACKBAR', {

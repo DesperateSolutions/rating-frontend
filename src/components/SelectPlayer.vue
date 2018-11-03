@@ -1,13 +1,11 @@
 <template>
-    <v-container fluid>
-        <v-select
-          :items="items"
-          :label="label"
-          v-model="pl"
-          item-value="id"
-          item-text="name"
-          v-on:change="selectPlayer"></v-select>
-    </v-container>
+  <v-select
+    :items="items"
+    :label="label"
+    v-model="pl"
+    item-value="id"
+    item-text="name"
+    v-on:change="selectPlayer"></v-select>
 </template>
 
 <script>
