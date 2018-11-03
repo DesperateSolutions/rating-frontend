@@ -40,8 +40,9 @@ function addPlayer(league, name) {
     .catch(error => Promise.reject(error.response));
 }
 
-function addGame(league, whiteId, blackId, result) {
+function addGame(league, whiteId, blackId, result, date) {
   const url = `${BASE_URL}${league}/game`;
+  console.log(date);
   return axios({
     method: 'post',
     url,
@@ -49,6 +50,7 @@ function addGame(league, whiteId, blackId, result) {
       whiteId,
       blackId,
       result,
+      timestamp: date,
     },
     headers: {
       Accept: 'application/json',

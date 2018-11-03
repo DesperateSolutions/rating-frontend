@@ -5,32 +5,28 @@
     grid-list-md
   >
     <v-form ref="addPlayer">
-      <v-layout row wrap>
-        <v-flex xs12 sm6 offset-sm3>
-          <v-card>
-            <v-card-title>
-              <div>
-                <h3 class="headline mb-12">Legg til ny spiller</h3>
-              </div>
-            </v-card-title>
-            <v-flex xs12 sm12>
-              <v-card-text style="height: 200px;" class="text-xs-center">
-                <v-text-field
-                  label="Name:"
-                  v-model="name">
-                </v-text-field>
-                <v-card-actions>
-                  <v-btn block
-                         @click="addPlayer"
-                  >
-                    Add player
-                  </v-btn>
-                </v-card-actions>
-              </v-card-text>
-            </v-flex>
-          </v-card>
+      <v-card>
+        <v-card-title>
+            <h3 class="headline mb-12">Legg til ny spiller</h3>
+        </v-card-title>
+        <v-flex xs12 sm12>
+          <v-card-text style="height: 100px;" class="text-xs-center">
+            <v-text-field
+              label="Name:"
+              v-model="name">
+            </v-text-field>
+          </v-card-text>
         </v-flex>
-      </v-layout>
+        <v-flex xs12 sm12>
+          <v-card-actions>
+            <v-btn block
+                   @click="addPlayer"
+            >
+              Add player
+            </v-btn>
+          </v-card-actions>
+        </v-flex>
+      </v-card>
     </v-form>
   </v-container>
 </template>

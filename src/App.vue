@@ -3,18 +3,22 @@
     <Snackbar />
     <v-toolbar
       app
-      :clipped-left="false"
+      :clipped-left="true"
     >
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
       <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items>
+        <v-btn flat @click="changeRoute('leagues')">Leagues</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <router-view/>
     </v-content>
     <v-navigation-drawer
-      :clipped="false"
+      :clipped="true"
       v-model="drawer"
-      enable-resize-watcher
+      disable-resize-watcher
       app
     >
       <v-list class="pt-0" dense>
@@ -46,8 +50,13 @@ export default {
       drawer: false,
       fixed: true,
       menuItems: [{ title: 'Leagues', icon: 'dashboard' }],
-      title: 'Squash Rating 2018',
+      title: 'Squash Rating',
     };
   },
+  methods: {
+    changeRoute(path) {
+      this.$router.push({ name: path });
+    }
+  }
 };
 </script>
