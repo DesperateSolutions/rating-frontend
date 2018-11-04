@@ -61,13 +61,13 @@ function addGame(league, whiteId, blackId, result, date) {
     .catch(error => Promise.reject(error.response));
 }
 
-const addLeague = (league, settings) => {
+const addLeague = (name, settings) => {
   const url = `${BASE_URL}$league`;
   return axios({
     method: 'post',
     url,
     data: {
-      league,
+      name,
       settings,
     },
     headers: {
