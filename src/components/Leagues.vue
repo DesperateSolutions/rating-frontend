@@ -4,18 +4,21 @@
     style="min-height: 0;"
     grid-list-md
   >
-    <v-app id="inspire">
-      <v-data-table
-        :headers="headers"
-        :items="leagues"
-        hide-actions
-        class="elevation-1"
-      >
-        <template slot="items" slot-scope="props">
-          <td class="text-xs-left" @click="chooseLeague(props.item.name, props.item)">{{ props.item.name }}</td>
-        </template>
-      </v-data-table>
-    </v-app>
+    <v-data-table
+      :headers="headers"
+      :items="leagues"
+      hide-actions
+      class="elevation-1"
+    >
+      <template slot="items" slot-scope="props">
+        <td class="text-xs-left" @click="chooseLeague(props.item.name, props.item)">{{ props.item.name }}</td>
+      </template>
+    </v-data-table>
+    <v-layout class="fab-container">
+      <v-btn fab>
+        <v-icon>add</v-icon>
+      </v-btn>
+    </v-layout>
   </v-container>
 </template>
 
@@ -50,4 +53,9 @@ export default {
 </script>
 
 <style scoped>
+  .fab-container {
+    position: fixed;
+    bottom: 3rem;
+    right: 0;
+  }
 </style>
