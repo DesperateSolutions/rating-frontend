@@ -66,7 +66,13 @@ export default {
     checkDraw: false,
     checkScored: true,
     scoredResults: '0',
+    name: '',
   }),
+  methods: {
+    addLeague() {
+      console.log(this.name)
+    }
+  }
 };
 </script>
 
