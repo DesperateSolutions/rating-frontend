@@ -42,7 +42,6 @@ function addPlayer(league, name) {
 
 function addGame(league, whiteId, blackId, result, date) {
   const url = `${BASE_URL}${league}/game`;
-  console.log(date);
   return axios({
     method: 'post',
     url,
@@ -61,6 +60,25 @@ function addGame(league, whiteId, blackId, result, date) {
     .then(response => response)
     .catch(error => Promise.reject(error.response));
 }
+
+const addLeague = (name, settings) => {
+  const url = `${BASE_URL}league`;
+  return axios({
+    method: 'post',
+    url,
+    data: {
+      name,
+      settings,
+    },
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.token}`,
+    },
+  })
+    .then(response => response)
+    .catch(error => Promise.reject(error.response));
+};
 
 function getAllLeagues() {
   const url = `${BASE_URL}league`;
@@ -94,4 +112,4 @@ function login(username, password) {
     .catch(error => Promise.reject(error.response));
 }
 
-export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login };
+export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login, addLeague };

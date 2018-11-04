@@ -52,7 +52,7 @@
             <v-flex lg6 md6>
               <v-menu
                 :close-on-content-click="true"
-                v-model="menu"
+                v-model="datemenu"
                 :nudge-right="40"
                 lazy
                 transition="scale-transition"
@@ -67,14 +67,14 @@
                   prepend-icon="event"
                   readonly
                 ></v-text-field>
-                <v-date-picker v-model="date" @input="menu2 = false"></v-date-picker>
+                <v-date-picker v-model="date" @input="datemenu = false"></v-date-picker>
               </v-menu>
             </v-flex>
             <v-flex lg6 md6>
               <v-menu
                 ref="menu"
                 :close-on-content-click="false"
-                v-model="menu2"
+                v-model="timemenu"
                 :nudge-right="40"
                 :return-value.sync="time"
                 lazy
@@ -92,10 +92,11 @@
                   readonly
                 ></v-text-field>
                 <v-time-picker
-                  v-if="menu2"
+                  v-if="timemenu"
                   v-model="time"
                   full-width
                   @change="$refs.menu.save(time)"
+                  format="24hr"
                 ></v-time-picker>
               </v-menu>
             </v-flex>
@@ -117,15 +118,6 @@
               <span>Resetter ikke dropdown-menyen ordentlig, velg spillere på nytt</span>
             </v-tooltip>
           </v-card-actions>
-          <v-snackbar
-            :timeout="timeout"
-            :color="color"
-            :multi-line="true"
-            v-model="snack"
-          >
-            {{ text }}
-            <v-btn dark flat @click.native="snack = false">Close</v-btn>
-          </v-snackbar>
         </v-container>
       </v-card>
     </v-form>
@@ -137,6 +129,8 @@ import moment from 'moment';
 import { mapState } from 'vuex';
 import SelectPlayer from './SelectPlayer.vue';
 
+moment.locale('nb');
+
 export default {
   name: 'add-game',
   data: () => ({
@@ -146,14 +140,10 @@ export default {
     blackValue: '',
     playerone: '',
     playertwo: '',
-    color: '',
-    timeout: 6000,
-    snack: false,
-    text: '',
     date: new Date().toISOString().substr(0, 10),
-    menu: false,
+    datemenu: false,
     time: moment().format('LT'),
-    menu2: false,
+    timemenu: false,
     checkbox: false,
   }),
   computed: mapState(['players', 'selectedLeague']),

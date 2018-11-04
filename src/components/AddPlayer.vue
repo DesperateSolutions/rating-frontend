@@ -9,23 +9,19 @@
         <v-card-title>
             <h3 class="headline mb-12">Legg til ny spiller</h3>
         </v-card-title>
-        <v-flex xs12 sm12>
-          <v-card-text style="height: 100px;" class="text-xs-center">
-            <v-text-field
-              label="Name:"
-              v-model="name">
-            </v-text-field>
-          </v-card-text>
-        </v-flex>
-        <v-flex xs12 sm12>
-          <v-card-actions>
-            <v-btn block
-                   @click="addPlayer"
-            >
-              Add player
-            </v-btn>
-          </v-card-actions>
-        </v-flex>
+        <v-card-text style="height: 100px;" class="text-xs-center">
+          <v-text-field
+            label="Name:"
+            v-model="name">
+          </v-text-field>
+        </v-card-text>
+        <v-card-actions>
+          <v-btn block
+                 @click="addPlayer"
+          >
+            Add player
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-form>
   </v-container>
