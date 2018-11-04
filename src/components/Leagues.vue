@@ -15,7 +15,7 @@
       </template>
     </v-data-table>
     <v-layout class="fab-container">
-      <v-btn fab>
+      <v-btn fab @click="addLeague">
         <v-icon>add</v-icon>
       </v-btn>
     </v-layout>
@@ -45,6 +45,9 @@ export default {
       this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
       this.$router.push({ path: `league/${name}/addGame` });
     },
+    addLeague() {
+      this.$router.push({ name: 'newLeague' });
+    }
   },
   created() {
     this.$store.dispatch('GET_ALL_LEAGUES');

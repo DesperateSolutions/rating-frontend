@@ -7,6 +7,7 @@ import Games from './components/Games.vue';
 import Ranking from './components/Ranking.vue';
 import AddPlayer from './components/AddPlayer.vue';
 import Login from './views/Login.vue';
+import AddLeague from './components/AddLeague.vue';
 
 Vue.use(Router);
 
@@ -65,6 +66,11 @@ const router = new Router({
       path: '/login',
       name: 'login',
       component: Login,
+    },
+    {
+      path: 'addLeague',
+      name: 'newLeague',
+      component: AddLeague,
     },
   ],
 });
