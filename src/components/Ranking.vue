@@ -42,7 +42,7 @@ export default {
   },
   created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      this.$router.push({ path: '/leagues' })
+      this.$router.push({ path: '/leagues' });
     }
     this.$store.dispatch('GET_ALL_PLAYERS', {
       league: this.$store.state.selectedLeague.id,

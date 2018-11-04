@@ -16,7 +16,6 @@ Vue.config.productionTip = false;
 Vue.axios.defaults.baseURL = 'https://glickorater.desperate.solutions/';
 // Vue.axios.defaults.baseURL = 'http://localhost:3000/';
 
-
 new Vue({
   router,
   store,

@@ -4,12 +4,12 @@ import router from '../router';
 const BASE_URL = 'https://glickorater.desperate.solutions/';
 // const BASE_URL = 'http://localhost:3000/';
 
-function getAllGames(league) {
+const getAllGames = league => {
   const url = `${BASE_URL}${league}/game`;
   return axios.get(url).then(response => response.data);
-}
+};
 
-function getAllPlayers(league) {
+const getAllPlayers = league => {
   const url = `${BASE_URL}${league}/player`;
   return axios
     .get(url)
@@ -18,9 +18,9 @@ function getAllPlayers(league) {
       router.push({ path: '/leagues' });
       return Promise.reject(error.response);
     });
-}
+};
 
-function addPlayer(league, name) {
+const addPlayer = (league, name) => {
   const url = `${BASE_URL}${league}/player`;
   return axios({
     method: 'post',
@@ -38,9 +38,9 @@ function addPlayer(league, name) {
   })
     .then(response => response)
     .catch(error => Promise.reject(error.response));
-}
+};
 
-function addGame(league, whiteId, blackId, result, date) {
+const addGame = (league, whiteId, blackId, result, date) => {
   const url = `${BASE_URL}${league}/game`;
   return axios({
     method: 'post',
@@ -59,7 +59,7 @@ function addGame(league, whiteId, blackId, result, date) {
   })
     .then(response => response)
     .catch(error => Promise.reject(error.response));
-}
+};
 
 const addLeague = (name, settings) => {
   const url = `${BASE_URL}league`;
@@ -80,7 +80,7 @@ const addLeague = (name, settings) => {
     .catch(error => Promise.reject(error.response));
 };
 
-function getAllLeagues() {
+const getAllLeagues = () => {
   const url = `${BASE_URL}league`;
   return axios({
     method: 'GET',
@@ -88,9 +88,9 @@ function getAllLeagues() {
   })
     .then(response => response.data)
     .catch(error => Promise.reject(error.response));
-}
+};
 
-function login(username, password) {
+const login = (username, password) => {
   const url = `${BASE_URL}token`;
   return axios({
     method: 'post',
@@ -110,6 +110,14 @@ function login(username, password) {
       Promise.resolve();
     })
     .catch(error => Promise.reject(error.response));
-}
+};
 
-export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login, addLeague };
+export {
+  getAllGames,
+  getAllPlayers,
+  getAllLeagues,
+  addGame,
+  addPlayer,
+  login,
+  addLeague,
+};

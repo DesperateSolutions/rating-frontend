@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { isObjectEmpty } from "../util/helpers";
+import { isObjectEmpty } from '../util/helpers';
 
 export default {
   name: 'league',
@@ -69,9 +69,9 @@ export default {
   },
   created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      this.$router.push({ path: '/leagues' })
+      this.$router.push({ path: '/leagues' });
     }
-  }
+  },
 };
 </script>
 

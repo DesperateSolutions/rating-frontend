@@ -24,7 +24,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { isObjectEmpty } from "../util/helpers";
+import { isObjectEmpty } from '../util/helpers';
 
 export default {
   name: 'games',
@@ -50,9 +50,11 @@ export default {
   },
   created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      this.$router.push({ path: '/leagues' })
+      this.$router.push({ path: '/leagues' });
     }
-    this.$store.dispatch('GET_ALL_GAMES', { league: this.$store.state.selectedLeague.id });
+    this.$store.dispatch('GET_ALL_GAMES', {
+      league: this.$store.state.selectedLeague.id,
+    });
   },
 };
 </script>

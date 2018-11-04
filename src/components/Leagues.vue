@@ -47,7 +47,7 @@ export default {
     },
     addLeague() {
       this.$router.push({ name: 'newLeague' });
-    }
+    },
   },
   created() {
     this.$store.dispatch('GET_ALL_LEAGUES');
@@ -57,9 +57,9 @@ export default {
 </script>
 
 <style scoped>
-  .fab-container {
-    position: fixed;
-    bottom: 3rem;
-    right: 0;
-  }
+.fab-container {
+  position: fixed;
+  bottom: 3rem;
+  right: 0;
+}
 </style>
