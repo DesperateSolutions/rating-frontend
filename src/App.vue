@@ -56,7 +56,7 @@ export default {
   methods: {
     changeRoute(path) {
       this.$router.push({ name: path });
-    }
-  }
+    },
+  },
 };
 </script>

@@ -82,7 +82,7 @@ router.beforeEach((to, form, next) => {
 
   if (authRequired && !loggedIn) {
     const loginpath = window.location.pathname;
-    return next({ name: 'login', query: { redirect: loginpath }});
+    return next({ name: 'login', query: { redirect: loginpath } });
   }
 
   return next();
