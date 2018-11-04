@@ -51,6 +51,7 @@ export default {
   },
   created() {
     this.$store.dispatch('GET_ALL_LEAGUES');
+    this.name = '';
   },
 };
 </script>

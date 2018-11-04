@@ -39,8 +39,8 @@
               <v-card-text class="text-xs-center">
                 <v-text-field
                   label="Period length:"
-                  v-model="scoredResults"
-                  :mask="scoredMask"
+                  v-model="periodLength"
+                  :mask="periodMask"
                 >
                 </v-text-field>
               </v-card-text>
@@ -62,16 +62,23 @@
 export default {
   name: 'AddLeague',
   data: () => ({
-    scoredMask: '#',
+    periodMask: '#',
     checkDraw: false,
     checkScored: true,
-    scoredResults: '0',
+    periodLength: 0,
     name: '',
   }),
   methods: {
     addLeague() {
-      console.log(this.name)
-    }
+      this.$store.dispatch('ADD_A_LEAGUE', {
+        name: this.name,
+        settings: {
+          drawAllowed: this.checkDraw,
+          periodLength: parseInt(this.periodLength, 10),
+          scoredResults: this.checkScored,
+        },
+      });
+    },
   }
 };
 </script>

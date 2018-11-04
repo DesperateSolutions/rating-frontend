@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import {
   addGame,
+  addLeague,
   addPlayer,
   getAllGames,
   getAllLeagues,
@@ -59,6 +60,26 @@ const actions = {
         commit('SHOW_SNACKBAR', {
           error,
           message: 'Failed to add game',
+          info: ` -- ${error.status} - ${error.statusText}`,
+          color: 'red',
+        });
+      });
+  },
+  ADD_A_LEAGUE({ commit }, { name, settings }) {
+    addLeague(name, settings)
+      .then(response => {
+        commit('POST_SUCCESS', { response });
+        commit('SHOW_SNACKBAR', {
+          message: 'Successfully added a league',
+          info: '',
+          color: 'success',
+        });
+      })
+      .catch(error => {
+        commit('POST_FAILED', { error });
+        commit('SHOW_SNACKBAR', {
+          error,
+          message: 'Failed to add new league',
           info: ` -- ${error.status} - ${error.statusText}`,
           color: 'red',
         });

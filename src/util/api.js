@@ -62,7 +62,7 @@ function addGame(league, whiteId, blackId, result, date) {
 }
 
 const addLeague = (name, settings) => {
-  const url = `${BASE_URL}$league`;
+  const url = `${BASE_URL}league`;
   return axios({
     method: 'post',
     url,
