@@ -8,17 +8,23 @@
       <v-card>
         <v-container>
           <v-card-title>
-              <h3 class="headline mb-0">Legg til spill</h3>
+            <h3 class="headline mb-0">Legg til spill</h3>
           </v-card-title>
-          <v-layout row wrap>
-            <v-flex lg6 md6>
+          <v-layout 
+            row 
+            wrap>
+            <v-flex 
+              lg6 
+              md6>
               <select-player
                 :items="players"
                 v-model="playerone"
                 label="Player One"
               />
             </v-flex>
-            <v-flex lg6 md6>
+            <v-flex 
+              lg6 
+              md6>
               <select-player
                 :items="players"
                 v-model="playertwo"
@@ -26,30 +32,45 @@
               />
             </v-flex>
           </v-layout>
-          <v-layout row wrap>
-            <v-flex lg6 md6>
-                <v-text-field
-                  label="Player 1 score:"
-                  :mask="whiteMask"
-                  v-model="whiteValue"></v-text-field>
+          <v-layout 
+            row 
+            wrap>
+            <v-flex 
+              lg6 
+              md6>
+              <v-text-field
+                label="Player 1 score:"
+                :mask="whiteMask"
+                v-model="whiteValue"/>
             </v-flex>
-            <v-flex lg6 md6>
-                <v-text-field
-                  label="Player 2 score:"
-                  :mask="blackMask"
-                  v-model="blackValue"></v-text-field>
+            <v-flex 
+              lg6 
+              md6>
+              <v-text-field
+                label="Player 2 score:"
+                :mask="blackMask"
+                v-model="blackValue"/>
             </v-flex>
           </v-layout>
-          <v-layout row wrap>
-            <v-flex lg6 md6>
+          <v-layout 
+            row 
+            wrap>
+            <v-flex 
+              lg6 
+              md6>
               <v-checkbox
                 :label="`Spesifiser dato og tidspunkt`"
                 v-model="checkbox"
-              ></v-checkbox>
+              />
             </v-flex>
           </v-layout>
-          <v-layout v-if="checkbox" row wrap>
-            <v-flex lg6 md6>
+          <v-layout 
+            v-if="checkbox" 
+            row 
+            wrap>
+            <v-flex 
+              lg6 
+              md6>
               <v-menu
                 :close-on-content-click="true"
                 v-model="datemenu"
@@ -66,11 +87,15 @@
                   label="Velg dato"
                   prepend-icon="event"
                   readonly
-                ></v-text-field>
-                <v-date-picker v-model="date" @input="datemenu = false"></v-date-picker>
+                />
+                <v-date-picker 
+                  v-model="date" 
+                  @input="datemenu = false"/>
               </v-menu>
             </v-flex>
-            <v-flex lg6 md6>
+            <v-flex 
+              lg6 
+              md6>
               <v-menu
                 ref="menu"
                 :close-on-content-click="false"
@@ -90,14 +115,14 @@
                   label="Velg tidspunkt"
                   prepend-icon="access_time"
                   readonly
-                ></v-text-field>
+                />
                 <v-time-picker
                   v-if="timemenu"
                   v-model="time"
                   full-width
                   @change="$refs.menu.save(time)"
                   format="24hr"
-                ></v-time-picker>
+                />
               </v-menu>
             </v-flex>
           </v-layout>
@@ -107,7 +132,7 @@
             >
               Legg til spill
             </v-btn>
-            <v-spacer></v-spacer>
+            <v-spacer/>
             <v-tooltip bottom>
               <v-btn
                 @click="clear"
@@ -132,7 +157,7 @@ import SelectPlayer from './SelectPlayer.vue';
 moment.locale('nb');
 
 export default {
-  name: 'add-game',
+  name: 'AddGame',
   data: () => ({
     whiteMask: '##',
     blackMask: '##',

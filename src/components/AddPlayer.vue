@@ -7,17 +7,19 @@
     <v-form ref="addPlayer">
       <v-card>
         <v-card-title>
-            <h3 class="headline mb-12">Legg til ny spiller</h3>
+          <h3 class="headline mb-12">Legg til ny spiller</h3>
         </v-card-title>
-        <v-card-text style="height: 100px;" class="text-xs-center">
+        <v-card-text 
+          style="height: 100px;" 
+          class="text-xs-center">
           <v-text-field
             label="Name:"
-            v-model="name">
-          </v-text-field>
+            v-model="name"/>
         </v-card-text>
         <v-card-actions>
-          <v-btn block
-                 @click="addPlayer"
+          <v-btn 
+            block
+            @click="addPlayer"
           >
             Add player
           </v-btn>
@@ -31,7 +33,7 @@
 import { isObjectEmpty } from '../util/helpers';
 
 export default {
-  name: 'addPlayer',
+  name: 'AddPlayer',
   data() {
     return {
       name: '',

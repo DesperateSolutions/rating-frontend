@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.3d730521b1d8b6485aa3e77bd43a951b.js"
+  "/precache-manifest.bd92950cc10bfeca43ca4470cdd29d31.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "rating-frontend-vuejs-cli3"});

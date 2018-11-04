@@ -10,12 +10,18 @@
       hide-actions
       class="elevation-1"
     >
-      <template slot="items" slot-scope="props">
-        <td class="text-xs-left" @click="chooseLeague(props.item.name, props.item)">{{ props.item.name }}</td>
+      <template 
+        slot="items" 
+        slot-scope="props">
+        <td 
+          class="text-xs-left" 
+          @click="chooseLeague(props.item.name, props.item)">{{ props.item.name }}</td>
       </template>
     </v-data-table>
     <v-layout class="fab-container">
-      <v-btn fab @click="addLeague">
+      <v-btn 
+        fab 
+        @click="addLeague">
         <v-icon>add</v-icon>
       </v-btn>
     </v-layout>
@@ -26,7 +32,7 @@
 import { mapState } from 'vuex';
 
 export default {
-  name: 'leagues',
+  name: 'Leagues',
   computed: mapState(['leagues']),
   data() {
     return {

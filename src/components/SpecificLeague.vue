@@ -35,7 +35,9 @@
       </v-tab>
     </v-tabs>
     <v-slide-y-transition mode="out-in">
-      <v-layout column align-center>
+      <v-layout 
+        column 
+        align-center>
         <router-view />
       </v-layout>
     </v-slide-y-transition>
@@ -46,8 +48,13 @@
 import { isObjectEmpty } from '../util/helpers';
 
 export default {
-  name: 'league',
-  props: ['name'],
+  name: 'League',
+  props: {
+    name: {
+      type: String,
+      required: true,
+    }
+  },
   methods: {
     getAddGameLink() {
       return `/league/${this.name}/addGame`;

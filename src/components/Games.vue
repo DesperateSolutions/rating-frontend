@@ -11,14 +11,16 @@
         hide-actions
         class="elevation-1"
       >
-        <template slot="items" slot-scope="props">
+        <template 
+          slot="items" 
+          slot-scope="props">
           <td>{{ props.item.whiteId }}</td>
           <td class="text-xs-left">{{ props.item.blackId }}</td>
           <td class="text-xs-left">{{ props.item.result }}</td>
         </template>
       </v-data-table>
     </v-app>
-    <v-app></v-app>
+    <v-app/>
   </v-container>
 </template>
 
@@ -27,7 +29,7 @@ import { mapState } from 'vuex';
 import { isObjectEmpty } from '../util/helpers';
 
 export default {
-  name: 'games',
+  name: 'Games',
   computed: mapState(['games', 'players']),
   data() {
     return {

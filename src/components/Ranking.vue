@@ -11,7 +11,9 @@
         hide-actions
         class="elevation-1"
       >
-        <template slot="items" slot-scope="props">
+        <template 
+          slot="items" 
+          slot-scope="props">
           <td class="text-xs-left">{{ props.item.name }}</td>
           <td class="text-xs-left">{{ props.item.rating }}</td>
         </template>
@@ -25,7 +27,7 @@ import { mapState } from 'vuex';
 import { isObjectEmpty } from '../util/helpers';
 
 export default {
-  name: 'ranking',
+  name: 'Ranking',
   computed: mapState(['players']),
   data() {
     return {

@@ -5,7 +5,7 @@
     v-model="pl"
     item-value="id"
     item-text="name"
-    v-on:change="selectPlayer"></v-select>
+    @change="selectPlayer"/>
 </template>
 
 <script>
@@ -15,7 +15,16 @@ export default {
       pl: '',
     };
   },
-  props: ['items', 'label'],
+  props: {
+    items: {
+      type: Array,
+      required: true
+    },
+    label: {
+      type: String,
+      required: true,
+    },
+  },
   watch: {
     selected(val) {
       this.pl = val;

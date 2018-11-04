@@ -1,14 +1,16 @@
 <template>
-    <v-snackbar
-      :value="snack.visible"
-      :color="snack.color"
-      :timeout="snack.timeout"
-      :multi-line="true"
-      @input="CLOSE_SNACKBAR"
-    >
-      {{snack.message}}{{snack.info}}
-      <v-btn flat @click="CLOSE_SNACKBAR">Close</v-btn>
-    </v-snackbar>
+  <v-snackbar
+    :value="snack.visible"
+    :color="snack.color"
+    :timeout="snack.timeout"
+    :multi-line="true"
+    @input="CLOSE_SNACKBAR"
+  >
+    {{ snack.message }}{{ snack.info }}
+    <v-btn 
+      flat 
+      @click="CLOSE_SNACKBAR">Close</v-btn>
+  </v-snackbar>
 </template>
 
 <script>
