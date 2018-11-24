@@ -41,7 +41,9 @@
               <v-text-field
                 label="Player 1 score:"
                 :mask="whiteMask"
-                v-model="whiteValue"/>
+                v-model="whiteValue"
+                type="tel"
+              />
             </v-flex>
             <v-flex 
               lg6 
@@ -49,7 +51,9 @@
               <v-text-field
                 label="Player 2 score:"
                 :mask="blackMask"
-                v-model="blackValue"/>
+                v-model="blackValue"
+                type="tel"
+              />
             </v-flex>
           </v-layout>
           <v-layout 
@@ -128,20 +132,17 @@
           </v-layout>
           <v-card-actions>
             <v-btn
+              @click="clear"
+              slot="activator"
+            >
+              Reset
+            </v-btn>
+            <v-spacer/>
+            <v-btn
               @click="submit"
             >
               Legg til spill
             </v-btn>
-            <v-spacer/>
-            <v-tooltip bottom>
-              <v-btn
-                @click="clear"
-                slot="activator"
-              >
-                Reset
-              </v-btn>
-              <span>Resetter ikke dropdown-menyen ordentlig, velg spillere på nytt</span>
-            </v-tooltip>
           </v-card-actions>
         </v-container>
       </v-card>
@@ -189,12 +190,10 @@ export default {
         result: `${this.whiteValue}-${this.blackValue}`,
         date: moment(new Date(`${this.date} ${this.time}`)).format(),
       });
+      this.$refs.addGame.reset();
     },
     clear() {
-      this.whiteValue = '';
-      this.blackValue = '';
-      this.playerone = '';
-      this.playertwo = '';
+      this.$refs.addGame.reset();
     },
   },
 };

@@ -5,7 +5,9 @@
     v-model="pl"
     item-value="id"
     item-text="name"
-    @change="selectPlayer"/>
+    @change="selectPlayer"
+    clearable
+  />
 </template>
 
 <script>

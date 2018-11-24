@@ -1,6 +1,6 @@
 {
-  "name": "rating-frontend-vuejs-cli3",
-  "short_name": "rating-frontend-vuejs-cli3",
+  "name": "Squash Rating",
+  "short_name": "Squash",
   "icons": [
     {
       "src": "/img/icons/android-chrome-192x192.png",

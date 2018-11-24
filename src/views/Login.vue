@@ -24,7 +24,8 @@
               <v-card-text>
                 <v-text-field
                   label="Username:"
-                  v-model="username"/>
+                  v-model="username"
+                />
               </v-card-text>
             </v-flex>
             <v-flex 
