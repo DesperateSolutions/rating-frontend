@@ -10,11 +10,13 @@
         :items="players"
         hide-actions
         class="elevation-1"
+        disable-initial-sort
       >
         <template 
           slot="items" 
           slot-scope="props">
           <td class="text-xs-left">{{ props.item.name }}</td>
+          <td class="text-xs-left">{{ props.item.games.length }}</td>
           <td class="text-xs-left">{{ props.item.rating }}</td>
         </template>
       </v-data-table>
@@ -38,7 +40,8 @@ export default {
           sortable: false,
           value: 'name',
         },
-        { text: 'Rating', value: 'rating', sortable: true },
+        { text: '# of Games', value: 'games' },
+        { text: 'Rating', value: 'rating' },
       ],
     };
   },
