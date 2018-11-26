@@ -129,9 +129,10 @@ const mutations = {
     const newState = state;
     newState.games = games.map(game => ({
       blackId: getName(state.players, game.blackId),
-      whiteId: getName(state.players, game.blackId),
+      whiteId: getName(state.players, game.whiteId),
       result: game.result,
       id: game.id,
+      timestamp: game.timestamp,
     }));
   },
   SET_PLAYERS: (state, { players }) => {

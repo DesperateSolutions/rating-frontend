@@ -16,6 +16,7 @@
           slot-scope="props">
           <td>{{ props.item.whiteId }}</td>
           <td class="text-xs-left">{{ props.item.blackId }}</td>
+          <td class="text-ws-left">{{ props.item.timestamp | moment("L LTS") }}</td>
           <td class="text-xs-left">{{ props.item.result }}</td>
         </template>
       </v-data-table>
@@ -46,6 +47,7 @@ export default {
           sortable: false,
           value: 'black',
         },
+        { text: 'Date', align: 'left', value: 'timestamp' },
         { text: 'Result', value: 'result' },
       ],
     };
