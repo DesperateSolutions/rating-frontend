@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.4ab1c65ff3f45285f5d98bde2f592215.js"
+  "/precache-manifest.9c85b8c848cf77f6e93b32292a75d4c2.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "rating-frontend-vuejs-cli3"});
+workbox.core.setCacheNameDetails({prefix: "rating-frontend"});
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to
