@@ -8,8 +8,8 @@
       <v-data-table
         :headers="headers"
         :items="games"
-        hide-actions
-        class="elevation-1"
+        disable-initial-sort
+        :rows-per-page-items="rowsPerPage"
       >
         <template 
           slot="items" 
@@ -34,6 +34,7 @@ export default {
   computed: mapState(['games', 'players']),
   data() {
     return {
+      rowsPerPage: [ 20, 30, 40, { "text": "$vuetify.dataIterator.rowsPerPageAll", "value": -1 } ],
       headers: [
         {
           text: 'Player One',

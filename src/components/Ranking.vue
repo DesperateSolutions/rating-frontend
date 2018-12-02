@@ -10,7 +10,7 @@
         :items="players"
         hide-actions
         class="elevation-1"
-        disable-initial-sort
+        :pagination.sync="pagination"
       >
         <template 
           slot="items" 
@@ -33,6 +33,10 @@ export default {
   computed: mapState(['players']),
   data() {
     return {
+      pagination: {
+        sortBy: 'rating',
+        descending: true,
+      },
       headers: [
         {
           text: 'Player',
@@ -40,7 +44,7 @@ export default {
           sortable: false,
           value: 'name',
         },
-        { text: '# of Games', value: 'games' },
+        { text: '# of Games', sortable: false, value: 'games' },
         { text: 'Rating', value: 'rating' },
       ],
     };
