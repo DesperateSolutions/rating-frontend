@@ -62,10 +62,6 @@ jobs:
               git config user.name "$GIT_AUTHOR_NAME"
               git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
               git rm -rf .
-              echo ls
-              ls
-              echo ls build
-              ls ~/build
               cp -a ~/build/. .
 
               git checkout $SOURCE_BRANCH -- .circleci/
