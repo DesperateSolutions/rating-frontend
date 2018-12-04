@@ -1,0 +1,91 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+  - image: circleci/node:10
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+            - yarn-packages-
+      - run:
+          name: yarn install
+          command: yarn install
+      - save_cache:
+          name: Save cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          name: Restore cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+            - yarn-packages-
+      - run:
+          name: yarn run build
+          command: |
+            yarn install
+            yarn run build
+      - persist_to_workspace:
+          root: docs
+          paths: .
+
+  deploy:
+    <<: *defaults
+    environment:
+      - SOURCE_BRANCH: master
+      - TARGET_BRANCH: gh-pages
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/build/
+      - add_ssh_keys:
+          fingerprints:
+            - "63:08:9f:1f:4c:78:07:a5:61:1b:98:d0:fb:94:10:d1"
+      - run:
+          name: deploy
+          command: |
+            if [ $CIRCLE_BRANCH == $SOURCE_BRANCH ]; then
+              git config user.email "$GIT_AUTHOR_EMAIL"
+              git config user.name "$GIT_AUTHOR_NAME"
+              git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+              git rm -rf .
+              echo ls
+              ls
+              echo ls build
+              ls ~/build
+              cp -a ~/build/. .
+
+              git checkout $SOURCE_BRANCH -- .circleci/
+              git add -A
+              git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
+
+              git push origin $TARGET_BRANCH
+            fi
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - install:
+          filters:
+            branches:
+              ignore: gh-pages
+      - build:
+          requires:
+            - install
+      - deploy:
+          requires:
+            - build

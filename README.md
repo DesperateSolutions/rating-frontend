@@ -1,5 +1,5 @@
 # rating-frontend-vuejs-cli3
-
+[![CircleCI](https://circleci.com/gh/DesperateSolutions/rating-frontend.svg?style=svg)](https://circleci.com/gh/DesperateSolutions/rating-frontend)
 ## Project setup
 ```
 yarn install
