@@ -63,7 +63,8 @@ jobs:
               git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
               git rm -rf .
               cp -a ~/build/. .
-
+              echo "rating.desperate.solutions" > CNAME
+              
               git checkout $SOURCE_BRANCH -- .circleci/
               git add -A
               git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
