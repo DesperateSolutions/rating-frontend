@@ -36,6 +36,7 @@ export default {
       pagination: {
         sortBy: 'rating',
         descending: true,
+        rowsPerPage: -1,
       },
       headers: [
         {
