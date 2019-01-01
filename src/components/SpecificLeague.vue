@@ -33,6 +33,12 @@
       >
         Ranking
       </v-tab>
+      <v-tab 
+        key="5" 
+        :to="{ path: getStatisticsLink() }" 
+        ripple>
+        Statistics
+      </v-tab>
     </v-tabs>
     <v-slide-y-transition mode="out-in">
       <v-layout 
@@ -67,6 +73,9 @@ export default {
     },
     getRankingLink() {
       return `/league/${this.name}/ranking`;
+    },
+    getStatisticsLink() {
+      return `/league/${this.name}/statistics`;
     },
   },
   data() {

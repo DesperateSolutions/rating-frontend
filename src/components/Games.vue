@@ -21,7 +21,6 @@
         </template>
       </v-data-table>
     </v-app>
-    <v-app/>
   </v-container>
 </template>
 

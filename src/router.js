@@ -8,6 +8,7 @@ import Ranking from './components/Ranking.vue';
 import AddPlayer from './components/AddPlayer.vue';
 import Login from './views/Login.vue';
 import AddLeague from './components/AddLeague.vue';
+import Statistics from './components/Statistics.vue';
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ const router = new Router({
           path: 'addPlayer',
           name: 'addplayer',
           component: AddPlayer,
+        },
+        {
+          path: 'statistics',
+          name: 'statistics',
+          component: Statistics,
         },
       ],
     },
