@@ -16,8 +16,10 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
   GET_ALL_GAMES({ commit }, { league }) {
+    console.log('set games', league);
     getAllGames(league)
       .then(response => {
+        console.log('test');
         commit('SET_GAMES', { games: response });
       })
       .catch(error => {
@@ -104,8 +106,8 @@ const actions = {
         });
       });
   },
-  GET_ALL_LEAGUES({ commit }) {
-    getAllLeagues()
+  async GET_ALL_LEAGUES({ commit }) {
+    await getAllLeagues()
       .then(response => {
         commit('SET_LEAGUES', { leagues: response });
       })
@@ -134,6 +136,7 @@ const mutations = {
       id: game.id,
       timestamp: game.timestamp,
     }));
+    newState.games.reverse();
   },
   SET_PLAYERS: (state, { players }) => {
     const newState = state;

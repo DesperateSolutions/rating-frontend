@@ -33,9 +33,9 @@
       >
         Ranking
       </v-tab>
-      <v-tab 
-        key="5" 
-        :to="{ path: getStatisticsLink() }" 
+      <v-tab
+        key="5"
+        :to="{ path: getStatisticsLink() }"
         ripple>
         Statistics
       </v-tab>
@@ -83,10 +83,11 @@ export default {
       active: null,
     };
   },
-  created() {
-    if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      this.$router.push({ path: '/leagues' });
-    }
+  async created() {
+    await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
+      const league = this.$store.state.leagues.find(league => league.name === this.$route.params.name);
+      this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
+    });
   },
 };
 </script>

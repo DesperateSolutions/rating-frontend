@@ -37,11 +37,6 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-footer 
-      :fixed="fixed" 
-      app>
-      <span>&copy; 2018 Desperate Solutions</span>
-    </v-footer>
   </v-app>
 </template>
 

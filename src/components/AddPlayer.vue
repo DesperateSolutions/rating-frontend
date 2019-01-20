@@ -42,6 +42,7 @@ export default {
   },
   methods: {
     addPlayer() {
+      console.log(this.$store.state.selectedLeague)
       this.$store.dispatch('ADD_PLAYER', {
         league: this.$store.state.selectedLeague.id,
         name: this.name,
@@ -49,9 +50,12 @@ export default {
       this.name = '';
     },
   },
-  created() {
+  async created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      this.$router.push({ path: '/leagues' });
+      await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
+        const league = this.$store.state.leagues.find(league => league.name === this.$route.params.name);
+        this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
+      });
     }
   },
 };

@@ -6,7 +6,7 @@ const BASE_URL = 'https://glickorater.desperate.solutions/';
 
 const getAllGames = league => {
   const url = `${BASE_URL}${league}/game`;
-  return axios.get(url).then(response => response.data);
+  return axios.get(url).then(response => response.data).catch((error) => error.response);
 };
 
 const getAllPlayers = league => {
@@ -86,7 +86,7 @@ const getAllLeagues = () => {
     method: 'GET',
     url,
   })
-    .then(response => response.data)
+    .then(response => Promise.resolve(response.data))
     .catch(error => Promise.reject(error.response));
 };
 

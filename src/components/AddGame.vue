@@ -154,6 +154,7 @@
 import moment from 'moment';
 import { mapState } from 'vuex';
 import SelectPlayer from './SelectPlayer.vue';
+import { isObjectEmpty } from "../util/helpers";
 
 moment.locale('nb');
 
@@ -173,10 +174,15 @@ export default {
     checkbox: false,
   }),
   computed: mapState(['players', 'selectedLeague']),
-  created() {
-    this.$store.dispatch('GET_ALL_PLAYERS', {
-      league: this.$store.state.selectedLeague.id,
-    });
+  async created() {
+    if (isObjectEmpty(this.$store.state.selectedLeague)) {
+      await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
+        const league = this.$store.state.leagues.find(league => league.name === this.$route.params.name);
+        this.$store.dispatch('GET_ALL_PLAYERS', { league: league.id });
+        this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
+      });
+    }
+    this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
   },
   components: {
     'select-player': SelectPlayer,

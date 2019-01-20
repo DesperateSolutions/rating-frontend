@@ -1,14 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import AddGame from './components/AddGame.vue';
-import Leagues from './components/Leagues.vue';
-import SpecificLeague from './components/SpecificLeague.vue';
-import Games from './components/Games.vue';
-import Ranking from './components/Ranking.vue';
-import AddPlayer from './components/AddPlayer.vue';
-import Login from './views/Login.vue';
-import AddLeague from './components/AddLeague.vue';
-import Statistics from './components/Statistics.vue';
+
+const AddGame = () => import ('./components/AddGame.vue');
+const Leagues = () => import ('./components/Leagues.vue');
+const SpecificLeague = () => import ('./components/SpecificLeague.vue');
+const Games = () => import ('./components/Games.vue');
+const Ranking = () => import ('./components/Ranking.vue');
+const AddPlayer = () => import ('./components/AddPlayer.vue');
+const Login = () => import ('./views/Login.vue');
+const AddLeague = () => import ('./components/AddLeague.vue');
+const Statistics= () => import ('./components/Statistics.vue');
+
 
 Vue.use(Router);
 
@@ -80,14 +82,14 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, form, next) => {
+router.beforeEach((to, from, next) => {
   // redirect to login page if not logged in and trying to access a restricted page
   const publicPages = ['/login', '/leagues', '/'];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = localStorage.getItem('token');
 
   if (authRequired && !loggedIn) {
-    const loginpath = window.location.pathname;
+    const loginpath = to.path;
     return next({ name: 'login', query: { redirect: loginpath } });
   }
 
