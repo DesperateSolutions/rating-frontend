@@ -42,7 +42,6 @@ export default {
   },
   methods: {
     addPlayer() {
-      console.log(this.$store.state.selectedLeague);
       this.$store.dispatch('ADD_PLAYER', {
         league: this.$store.state.selectedLeague.id,
         name: this.name,

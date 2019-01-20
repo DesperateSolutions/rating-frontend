@@ -9,10 +9,8 @@ const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
   GET_ALL_GAMES({ commit }, { league }) {
-    console.log('set games', league);
     getAllGames(league)
       .then(response => {
-        console.log('test');
         commit('SET_GAMES', { games: response });
       })
       .catch(error => {
