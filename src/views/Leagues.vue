@@ -19,8 +19,8 @@
       </template>
     </v-data-table>
     <v-layout class="fab-container">
-      <v-btn 
-        fab 
+      <v-btn
+        fab
         @click="addLeague">
         <v-icon>add</v-icon>
       </v-btn>

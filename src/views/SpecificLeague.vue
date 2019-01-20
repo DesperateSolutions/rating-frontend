@@ -4,48 +4,45 @@
       v-model="active"
       dark
       grow
+      show-arrows
     >
       <v-tab
         key="1"
-        :to="{ path: getAddGameLink() }"
+        :to="{ path: switchTab('addGame') }"
         ripple
       >
         Add Game
       </v-tab>
       <v-tab
         key="2"
-        :to="{ path: getGamesLink() }"
+        :to="{ path: switchTab('games') }"
         ripple
       >
         Games
       </v-tab>
       <v-tab
         key="3"
-        :to="{ path: getAddPlayerLink() }"
+        :to="{ path: switchTab('addPlayer') }"
         ripple
       >
         Add Player
       </v-tab>
       <v-tab
         key="4"
-        :to="{ path: getRankingLink() }"
+        :to="{ path: switchTab('ranking') }"
         ripple
       >
         Ranking
       </v-tab>
       <v-tab
         key="5"
-        :to="{ path: getStatisticsLink() }"
+        :to="{ path: switchTab('statistics') }"
         ripple>
         Statistics
       </v-tab>
     </v-tabs>
     <v-slide-y-transition mode="out-in">
-      <v-layout 
-        column 
-        align-center>
         <router-view />
-      </v-layout>
     </v-slide-y-transition>
   </v-container>
 </template>
@@ -60,20 +57,8 @@ export default {
     },
   },
   methods: {
-    getAddGameLink() {
-      return `/league/${this.name}/addGame`;
-    },
-    getGamesLink() {
-      return `/league/${this.name}/games`;
-    },
-    getAddPlayerLink() {
-      return `/league/${this.name}/addPlayer`;
-    },
-    getRankingLink() {
-      return `/league/${this.name}/ranking`;
-    },
-    getStatisticsLink() {
-      return `/league/${this.name}/statistics`;
+    switchTab(tab) {
+      return `/league/${this.name}/${tab}`;
     },
   },
   data() {
