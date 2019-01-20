@@ -1,13 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {
-  addGame,
-  addLeague,
-  addPlayer,
-  getAllGames,
-  getAllLeagues,
-  getAllPlayers,
-} from './util/api';
+import { addGame, addLeague, addPlayer, getAllGames, getAllLeagues, getAllPlayers } from './util/api';
 import { getName } from './util/helpers';
 
 Vue.use(Vuex);

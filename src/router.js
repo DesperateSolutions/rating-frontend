@@ -1,16 +1,15 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-const AddGame = () => import ('./components/AddGame.vue');
-const Leagues = () => import ('./components/Leagues.vue');
-const SpecificLeague = () => import ('./components/SpecificLeague.vue');
-const Games = () => import ('./components/Games.vue');
-const Ranking = () => import ('./components/Ranking.vue');
-const AddPlayer = () => import ('./components/AddPlayer.vue');
-const Login = () => import ('./views/Login.vue');
-const AddLeague = () => import ('./components/AddLeague.vue');
-const Statistics= () => import ('./components/Statistics.vue');
-
+const AddGame = () => import('./components/AddGame.vue');
+const Leagues = () => import('./components/Leagues.vue');
+const SpecificLeague = () => import('./components/SpecificLeague.vue');
+const Games = () => import('./components/Games.vue');
+const Ranking = () => import('./components/Ranking.vue');
+const AddPlayer = () => import('./components/AddPlayer.vue');
+const Login = () => import('./views/Login.vue');
+const AddLeague = () => import('./components/AddLeague.vue');
+const Statistics = () => import('./components/Statistics.vue');
 
 Vue.use(Router);
 
@@ -28,8 +27,7 @@ const router = new Router({
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () =>
-        import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
     },
     {
       path: '/leagues',

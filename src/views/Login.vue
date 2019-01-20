@@ -71,9 +71,7 @@ export default {
   },
   methods: {
     login() {
-      login(this.username, this.password).then(() =>
-        this.$router.replace(this.$route.query.redirect)
-      );
+      login(this.username, this.password).then(() => this.$router.replace(this.$route.query.redirect));
     },
   },
 };

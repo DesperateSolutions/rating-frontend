@@ -51,15 +51,13 @@
 </template>
 
 <script>
-import { isObjectEmpty } from '../util/helpers';
-
 export default {
   name: 'League',
   props: {
     name: {
       type: String,
       required: true,
-    }
+    },
   },
   methods: {
     getAddGameLink() {
@@ -85,7 +83,7 @@ export default {
   },
   async created() {
     await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-      const league = this.$store.state.leagues.find(league => league.name === this.$route.params.name);
+      const league = this.$store.state.leagues.find(item => item.name === this.$route.params.name);
       this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
     });
   },

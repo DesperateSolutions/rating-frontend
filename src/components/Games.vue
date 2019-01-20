@@ -35,7 +35,7 @@ export default {
   computed: mapState(['games', 'players']),
   data() {
     return {
-      rowsPerPage: [ 20, 30, 40, { "text": "$vuetify.dataIterator.rowsPerPageAll", "value": -1 } ],
+      rowsPerPage: [20, 30, 40, { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }],
       headers: [
         {
           text: 'Player One',
@@ -57,13 +57,19 @@ export default {
   async created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
       await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-        const league = this.$store.state.leagues.find(league => league.name === this.$route.params.name);
+        const league = this.$store.state.leagues.find(item => item.name === this.$route.params.name);
         this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-        this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
-        this.$store.dispatch('GET_ALL_GAMES', { league: this.$store.state.selectedLeague.id });
+        this.$store.dispatch('GET_ALL_PLAYERS', {
+          league: this.$store.state.selectedLeague.id,
+        });
+        this.$store.dispatch('GET_ALL_GAMES', {
+          league: this.$store.state.selectedLeague.id,
+        });
       });
     }
-    this.$store.dispatch('GET_ALL_GAMES', { league: this.$store.state.selectedLeague.id });
+    this.$store.dispatch('GET_ALL_GAMES', {
+      league: this.$store.state.selectedLeague.id,
+    });
   },
 };
 </script>

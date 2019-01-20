@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     addPlayer() {
-      console.log(this.$store.state.selectedLeague)
+      console.log(this.$store.state.selectedLeague);
       this.$store.dispatch('ADD_PLAYER', {
         league: this.$store.state.selectedLeague.id,
         name: this.name,
@@ -53,7 +53,7 @@ export default {
   async created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
       await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-        const league = this.$store.state.leagues.find(league => league.name === this.$route.params.name);
+        const league = this.$store.state.leagues.find(item => item.name === this.$route.params.name);
         this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
       });
     }
