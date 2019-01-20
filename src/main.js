@@ -1,5 +1,6 @@
 import '@babel/polyfill';
 import Vue from 'vue';
+import * as Sentry from '@sentry/browser'
 
 import './plugins/vuetify';
 
@@ -20,3 +21,8 @@ new Vue({
   store,
   render: h => h(App),
 }).$mount('#app');
+
+Sentry.init({
+  dsn: 'https://a3317439554d4fbb9692436df573fbb2@sentry.io/1375287',
+  integrations: [new Sentry.Integrations.Vue({ Vue })]
+});
