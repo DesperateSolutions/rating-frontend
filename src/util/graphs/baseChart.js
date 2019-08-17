@@ -1,6 +1,6 @@
 import d3 from 'd3';
 
-function Base_Chart(svg) {
+function BaseChart(svg) {
   this.data = {};
   this.height = 0;
   this.witdh = 0;
@@ -17,23 +17,17 @@ function Base_Chart(svg) {
     // Clear the contents of the svg
     this.svg.selectAll('*').remove();
 
-    // Remove dropdown element
-    d3.select(svg.parentNode.parentNode)
-      .select('.graph__dropdown')
-      .remove();
-
     this.background = this.svg
       .append('rect')
       .attr('class', 'background')
       .attr('width', '100%')
       .attr('height', '100%')
-      .attr('fill', 'white');
+      .attr('fill', 'black');
 
     // Append heading element
     this.heading = this.svg
       .append('text')
       .attr('class', 'heading')
-      .attr('fill', color.purple)
       .attr('font-weight', 500)
       .attr('font-size', '1em')
       .attr('y', '1em');
@@ -49,6 +43,8 @@ function Base_Chart(svg) {
     this.yAxis = this.canvas.append('g').attr('class', 'axis y');
     this.x2Axis = this.canvas.append('g').attr('class', 'axis x2');
     this.y2Axis = this.canvas.append('g').attr('class', 'axis y2');
+
+    this.created();
   };
 
   // The parent container width is needed for each render of a template.
@@ -81,4 +77,4 @@ function Base_Chart(svg) {
 }
 
 
-export default Base_Chart;
+export default BaseChart;
