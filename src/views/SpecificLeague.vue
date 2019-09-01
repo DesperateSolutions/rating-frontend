@@ -2,9 +2,9 @@
   <v-container fluid>
     <v-tabs
       v-model="active"
-      dark
       grow
       show-arrows
+      class="elevation-24"
     >
       <v-tab
         key="1"

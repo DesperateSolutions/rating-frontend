@@ -1,80 +1,72 @@
 <template>
-  <v-container
-    fluid
-    style="min-height: 0;"
-    grid-list-md
-  >
-    <v-form ref="addGame">
+  <v-container>
+    <v-form 
+      ref="addGame" 
+      class="elevation-24"
+    >
       <v-card>
         <v-container>
           <v-card-title>
             <h3 class="headline mb-0">Legg til spill</h3>
           </v-card-title>
-          <v-layout 
-            row 
-            wrap>
-            <v-flex 
-              lg6 
-              md6>
+          <v-row>
+            <v-col
+              lg="6"
+              md="6">
               <select-player
                 :items="players"
                 v-model="playerone"
                 label="Player One"
               />
-            </v-flex>
-            <v-flex 
-              lg6 
-              md6>
+            </v-col>
+            <v-col
+              lg="6"
+              md="6">
               <select-player
                 :items="players"
                 v-model="playertwo"
                 label="Player Two"
               />
-            </v-flex>
-          </v-layout>
-          <v-layout 
-            row 
-            wrap>
-            <v-flex 
-              lg6 
-              md6>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col
+              lg="6"
+              md="6">
               <v-text-field
                 label="Player 1 score:"
                 :mask="whiteMask"
                 v-model="whiteValue"
                 type="tel"
               />
-            </v-flex>
-            <v-flex 
-              lg6 
-              md6>
+            </v-col>
+            <v-col
+              lg="6"
+              md="6">
               <v-text-field
                 label="Player 2 score:"
                 :mask="blackMask"
                 v-model="blackValue"
                 type="tel"
               />
-            </v-flex>
-          </v-layout>
-          <v-layout 
-            row 
-            wrap>
-            <v-flex 
-              lg6 
-              md6>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col
+              lg="6"
+              md="6">
               <v-checkbox
                 :label="`Spesifiser dato og tidspunkt`"
                 v-model="checkbox"
               />
-            </v-flex>
-          </v-layout>
-          <v-layout 
-            v-if="checkbox" 
-            row 
-            wrap>
-            <v-flex 
-              lg6 
-              md6>
+            </v-col>
+          </v-row>
+          <v-row
+            v-if="checkbox"
+          >
+            <v-col
+              lg="6"
+              md="6">
               <v-menu
                 :close-on-content-click="true"
                 v-model="datemenu"
@@ -92,14 +84,14 @@
                   prepend-icon="event"
                   readonly
                 />
-                <v-date-picker 
-                  v-model="date" 
+                <v-date-picker
+                  v-model="date"
                   @input="datemenu = false"/>
               </v-menu>
-            </v-flex>
-            <v-flex 
-              lg6 
-              md6>
+            </v-col>
+            <v-col
+              lg="6"
+              md="6">
               <v-menu
                 ref="menu"
                 :close-on-content-click="false"
@@ -128,8 +120,8 @@
                   format="24hr"
                 />
               </v-menu>
-            </v-flex>
-          </v-layout>
+            </v-col>
+          </v-row>
           <v-card-actions>
             <v-btn
               @click="clear"

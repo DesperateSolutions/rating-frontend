@@ -1,30 +1,26 @@
 <template>
   <v-container
     fluid
-    style="min-height: 0;"
-    grid-list-md
   >
-    <v-data-table
-      :headers="headers"
-      :items="leagues"
-      hide-actions
-      class="elevation-1"
+    <v-simple-table 
+      class="elevation-24"
     >
-      <template 
-        slot="items" 
-        slot-scope="props">
-        <td 
-          class="text-xs-left" 
-          @click="chooseLeague(props.item.name, props.item)">{{ props.item.name }}</td>
-      </template>
-    </v-data-table>
-    <v-layout class="fab-container">
+      <tbody>
+        <tr
+          v-for="item in leagues"
+          :key="item.name "
+          @click="chooseLeague(item.name, item)">
+          <td>{{ item.name }}</td>
+        </tr>
+      </tbody>
+    </v-simple-table>
+    <v-row class="fab-container">
       <v-btn
         fab
         @click="addLeague">
         <v-icon>add</v-icon>
       </v-btn>
-    </v-layout>
+    </v-row>
   </v-container>
 </template>
 
@@ -66,6 +62,6 @@ export default {
 .fab-container {
   position: fixed;
   bottom: 3rem;
-  right: 0;
+  right: 2rem;
 }
 </style>

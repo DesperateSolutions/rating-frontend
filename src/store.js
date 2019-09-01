@@ -1,9 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import moment from 'moment';
 import { addGame, addLeague, addPlayer, getAllGames, getAllLeagues, getAllPlayers } from './util/api';
 import { getName } from './util/helpers';
 
 Vue.use(Vuex);
+
+moment.locale('nb');
 
 const debug = process.env.NODE_ENV !== 'production';
 

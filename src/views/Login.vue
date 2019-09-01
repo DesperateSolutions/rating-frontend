@@ -1,36 +1,34 @@
 <template>
   <v-container
     fluid
-    style="min-height: 0;"
-    grid-list-md
   >
     <v-form ref="addGame">
-      <v-layout 
-        row 
-        wrap>
-        <v-flex 
-          xs12 
-          sm6 
-          offset-sm3>
+      <v-row
+
+      >
+        <v-col
+          cols="12"
+          sm="6"
+          offset-sm="3">
           <v-card>
             <v-card-title>
               <div>
                 <h3 class="headline mb-0">Log inn</h3>
               </div>
             </v-card-title>
-            <v-flex 
-              xs12 
-              sm12>
+            <v-col
+              cols="12"
+              sm="12">
               <v-card-text>
                 <v-text-field
                   label="Username:"
                   v-model="username"
                 />
               </v-card-text>
-            </v-flex>
-            <v-flex 
-              xs12 
-              sm12>
+            </v-col>
+            <v-col
+              cols="12"
+              sm="12">
               <v-card-text>
                 <v-text-field
                   label="Password:"
@@ -39,9 +37,9 @@
                   :type="show ? 'text' : 'password'"
                   @click:append="show = !show"/>
               </v-card-text>
-            </v-flex>
+            </v-col>
             <v-card-actions>
-              <v-btn 
+              <v-btn
                 block
                 @click="login"
               >
@@ -49,8 +47,8 @@
               </v-btn>
             </v-card-actions>
           </v-card>
-        </v-flex>
-      </v-layout>
+        </v-col>
+      </v-row>
     </v-form>
   </v-container>
 </template>

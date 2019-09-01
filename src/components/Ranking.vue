@@ -1,26 +1,18 @@
 <template>
   <v-container
     fluid
-    style="min-height: 0;"
-    grid-list-md
   >
     <v-app id="inspire">
       <v-card>
         <v-data-table
           :headers="headers"
           :items="players"
-          hide-actions
-          class="elevation-1"
-          :pagination.sync="pagination"
-        >
-          <template
-            slot="items"
-            slot-scope="props">
-            <td class="text-xs-left">{{ props.item.name }}</td>
-            <td class="text-xs-left">{{ props.item.games.length }}</td>
-            <td class="text-xs-left">{{ props.item.rating }}</td>
-          </template>
-        </v-data-table>
+          hide-default-footer
+          class="elevation-24"
+          :sort-by="sortBy"
+          :sort-desc="descending"
+          :items-per-page="rowsPerPage"
+        />
       </v-card>
     </v-app>
   </v-container>
@@ -35,11 +27,9 @@ export default {
   computed: mapState(['players']),
   data() {
     return {
-      pagination: {
         sortBy: 'rating',
         descending: true,
         rowsPerPage: -1,
-      },
       headers: [
         {
           text: 'Player',
@@ -47,7 +37,7 @@ export default {
           sortable: false,
           value: 'name',
         },
-        { text: '# of Games', sortable: false, value: 'games' },
+        { text: '# of Games', sortable: false, value: 'games.length' },
         { text: 'Rating', value: 'rating' },
       ],
     };

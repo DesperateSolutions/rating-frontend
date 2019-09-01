@@ -1,26 +1,16 @@
 <template>
   <v-container
     fluid
-    style="min-height: 0;"
-    grid-list-md
   >
     <v-app id="inspire">
       <v-card>
         <v-data-table
           :headers="headers"
           :items="games"
-          disable-initial-sort
-          :rows-per-page-items="rowsPerPage"
-        >
-          <template
-            slot="items"
-            slot-scope="props">
-            <td>{{ props.item.whiteId }}</td>
-            <td class="text-xs-left">{{ props.item.blackId }}</td>
-            <td class="text-ws-left">{{ props.item.timestamp | moment("L LTS") }}</td>
-            <td class="text-xs-left">{{ props.item.result }}</td>
-          </template>
-        </v-data-table>
+          :footer-props="footerOptions"
+          sort-by="date"
+          class="elevation-24"
+        />
       </v-card>
     </v-app>
   </v-container>
@@ -35,19 +25,23 @@ export default {
   computed: mapState(['games', 'players']),
   data() {
     return {
-      rowsPerPage: [20, 30, 40, { text: '$vuetify.dataIterator.rowsPerPageAll', value: -1 }],
+        footerOptions: {
+            itemsPerPage: [20, 40, 60],
+            sortBy: 'rating',
+            sortDesc: true,
+        },
       headers: [
         {
           text: 'Player One',
           align: 'left',
           sortable: false,
-          value: 'white',
+          value: 'whiteId',
         },
         {
           text: 'Player Two',
           align: 'left',
           sortable: false,
-          value: 'black',
+          value: 'blackId',
         },
         { text: 'Date', align: 'left', value: 'timestamp' },
         { text: 'Result', value: 'result' },
