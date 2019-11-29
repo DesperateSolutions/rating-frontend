@@ -1,7 +1,5 @@
 <template>
-  <v-container
-    fluid
-  >
+  <v-container fluid>
     <v-app id="inspire">
       <v-card>
         <v-data-table
@@ -22,14 +20,13 @@ import { isObjectEmpty } from '../util/helpers';
 
 export default {
   name: 'Games',
-  computed: mapState(['games', 'players']),
   data() {
     return {
-        footerOptions: {
-            itemsPerPage: [20, 40, 60],
-            sortBy: 'rating',
-            sortDesc: true,
-        },
+      footerOptions: {
+        itemsPerPage: [20, 40, 60],
+        sortBy: 'rating',
+        sortDesc: true,
+      },
       headers: [
         {
           text: 'Player One',
@@ -48,6 +45,7 @@ export default {
       ],
     };
   },
+  computed: mapState(['games', 'players']),
   async created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
       await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
@@ -68,5 +66,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

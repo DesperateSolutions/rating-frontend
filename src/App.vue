@@ -1,20 +1,17 @@
 <template>
   <v-app>
-    <Snackbar />
-    <v-app-bar
-      app
-      absolute
-    >
-      <v-toolbar-title v-text="title"/>
-      <v-spacer/>
+    <snackbar />
+    <v-app-bar app absolute>
+      <v-toolbar-title v-text="title" />
+      <v-spacer />
       <v-toolbar-items>
-        <v-btn
-          text
-          @click="changeRoute('leagues')">Leagues</v-btn>
+        <v-btn text @click="changeRoute('leagues')">
+          Leagues
+        </v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
-      <router-view/>
+      <router-view />
     </v-content>
   </v-app>
 </template>

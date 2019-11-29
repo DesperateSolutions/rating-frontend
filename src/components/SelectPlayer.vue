@@ -1,22 +1,17 @@
 <template>
   <v-select
+    v-model="pl"
     :items="items"
     :label="label"
-    v-model="pl"
     item-value="id"
     item-text="name"
-    @change="selectPlayer"
     clearable
+    @change="selectPlayer"
   />
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      pl: '',
-    };
-  },
   props: {
     items: {
       type: Array,
@@ -26,6 +21,11 @@ export default {
       type: String,
       required: true,
     },
+  },
+  data() {
+    return {
+      pl: '',
+    };
   },
   watch: {
     selected(val) {
@@ -40,5 +40,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

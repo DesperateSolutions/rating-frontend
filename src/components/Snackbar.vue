@@ -7,9 +7,9 @@
     @input="CLOSE_SNACKBAR"
   >
     {{ snack.message }}{{ snack.info }}
-    <v-btn
-      text
-      @click="CLOSE_SNACKBAR">Close</v-btn>
+    <v-btn text @click="CLOSE_SNACKBAR">
+      Close
+    </v-btn>
   </v-snackbar>
 </template>
 
@@ -23,5 +23,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

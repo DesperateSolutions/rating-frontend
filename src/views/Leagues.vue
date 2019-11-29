@@ -1,23 +1,14 @@
 <template>
-  <v-container
-    fluid
-  >
-    <v-simple-table 
-      class="elevation-24"
-    >
+  <v-container fluid>
+    <v-simple-table class="elevation-24">
       <tbody>
-        <tr
-          v-for="item in leagues"
-          :key="item.name "
-          @click="chooseLeague(item.name, item)">
+        <tr v-for="item in leagues" :key="item.name" @click="chooseLeague(item.name, item)">
           <td>{{ item.name }}</td>
         </tr>
       </tbody>
     </v-simple-table>
     <v-row class="fab-container">
-      <v-btn
-        fab
-        @click="addLeague">
+      <v-btn fab @click="addLeague">
         <v-icon>add</v-icon>
       </v-btn>
     </v-row>
@@ -29,7 +20,6 @@ import { mapState } from 'vuex';
 
 export default {
   name: 'Leagues',
-  computed: mapState(['leagues']),
   data() {
     return {
       headers: [
@@ -42,6 +32,11 @@ export default {
       ],
     };
   },
+  computed: mapState(['leagues']),
+  created() {
+    this.$store.dispatch('GET_ALL_LEAGUES');
+    this.name = '';
+  },
   methods: {
     chooseLeague(name, league) {
       this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
@@ -50,10 +45,6 @@ export default {
     addLeague() {
       this.$router.push({ name: 'newLeague' });
     },
-  },
-  created() {
-    this.$store.dispatch('GET_ALL_LEAGUES');
-    this.name = '';
   },
 };
 </script>

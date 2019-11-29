@@ -1,7 +1,5 @@
 <template>
-  <v-container
-    fluid
-  >
+  <v-container fluid>
     <v-app id="inspire">
       <v-card>
         <v-data-table
@@ -24,12 +22,11 @@ import { isObjectEmpty } from '../util/helpers';
 
 export default {
   name: 'Ranking',
-  computed: mapState(['players']),
   data() {
     return {
-        sortBy: 'rating',
-        descending: true,
-        rowsPerPage: -1,
+      sortBy: 'rating',
+      descending: true,
+      rowsPerPage: -1,
       headers: [
         {
           text: 'Player',
@@ -42,6 +39,7 @@ export default {
       ],
     };
   },
+  computed: mapState(['players']),
   async created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
       await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
@@ -56,5 +54,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

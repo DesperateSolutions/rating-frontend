@@ -1,61 +1,34 @@
 <template>
-  <v-container
-    fluid
-  >
+  <v-container fluid>
     <v-form ref="addLeague">
       <v-row>
-        <v-col
-          lg="6"
-          md="6"
-          sm="12"
-          offset-lg="3"
-          offset-md="3">
-          <v-card 
-            class="elevation-24"
-          >
+        <v-col lg="6" md="6" sm="12" offset-lg="3" offset-md="3">
+          <v-card class="elevation-24">
             <v-card-title>
-              <h3 class="headline mb-12">Opprett liga</h3>
+              <h3 class="headline mb-12">
+                Opprett liga
+              </h3>
             </v-card-title>
             <v-card-text class="text-center">
-              <v-text-field
-                label="Name:"
-                v-model="name"
-              />
+              <v-text-field v-model="name" label="Name:" />
             </v-card-text>
             <v-row>
-              <v-col
-                lg="6"
-                md="6">
+              <v-col lg="6" md="6">
                 <v-card-text class="text-center">
-                  <v-checkbox
-                    :label="`Draw allowed`"
-                    v-model="checkDraw"
-                  />
+                  <v-checkbox v-model="checkDraw" :label="`Draw allowed`" />
                 </v-card-text>
               </v-col>
-              <v-col
-                lg="6"
-                md="6">
+              <v-col lg="6" md="6">
                 <v-card-text class="text-center">
-                  <v-checkbox
-                    :label="`Scored results`"
-                    v-model="checkScored"
-                  />
+                  <v-checkbox v-model="checkScored" :label="`Scored results`" />
                 </v-card-text>
               </v-col>
             </v-row>
             <v-card-text class="text-center">
-              <v-text-field
-                label="Period length:"
-                v-model="periodLength"
-                :mask="periodMask"
-              />
+              <v-text-field v-model="periodLength" label="Period length:" :mask="periodMask" />
             </v-card-text>
             <v-card-actions>
-              <v-btn
-                block
-                @click="addLeague"
-              >
+              <v-btn block @click="addLeague">
                 Add League
               </v-btn>
             </v-card-actions>
@@ -91,5 +64,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

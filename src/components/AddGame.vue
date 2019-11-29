@@ -1,75 +1,39 @@
 <template>
   <v-container>
-    <v-form 
-      ref="addGame" 
-      class="elevation-24"
-    >
+    <v-form ref="addGame" class="elevation-24">
       <v-card>
         <v-container>
           <v-card-title>
-            <h3 class="headline mb-0">Legg til spill</h3>
+            <h3 class="headline mb-0">
+              Legg til spill
+            </h3>
           </v-card-title>
           <v-row>
-            <v-col
-              lg="6"
-              md="6">
-              <select-player
-                :items="players"
-                v-model="playerone"
-                label="Player One"
-              />
+            <v-col lg="6" md="6">
+              <select-player v-model="playerone" :items="players" label="Player One" />
             </v-col>
-            <v-col
-              lg="6"
-              md="6">
-              <select-player
-                :items="players"
-                v-model="playertwo"
-                label="Player Two"
-              />
+            <v-col lg="6" md="6">
+              <select-player v-model="playertwo" :items="players" label="Player Two" />
             </v-col>
           </v-row>
           <v-row>
-            <v-col
-              lg="6"
-              md="6">
-              <v-text-field
-                label="Player 1 score:"
-                :mask="whiteMask"
-                v-model="whiteValue"
-                type="tel"
-              />
+            <v-col lg="6" md="6">
+              <v-text-field v-model="whiteValue" label="Player 1 score:" :mask="whiteMask" type="tel" />
             </v-col>
-            <v-col
-              lg="6"
-              md="6">
-              <v-text-field
-                label="Player 2 score:"
-                :mask="blackMask"
-                v-model="blackValue"
-                type="tel"
-              />
+            <v-col lg="6" md="6">
+              <v-text-field v-model="blackValue" label="Player 2 score:" :mask="blackMask" type="tel" />
             </v-col>
           </v-row>
           <v-row>
-            <v-col
-              lg="6"
-              md="6">
-              <v-checkbox
-                :label="`Spesifiser dato og tidspunkt`"
-                v-model="checkbox"
-              />
+            <v-col lg="6" md="6">
+              <v-checkbox v-model="checkbox" :label="`Spesifiser dato og tidspunkt`" />
             </v-col>
           </v-row>
-          <v-row
-            v-if="checkbox"
-          >
-            <v-col
-              lg="6"
-              md="6">
+          <v-row v-if="checkbox">
+            <v-col lg="6" md="6">
               <v-menu
-                :close-on-content-click="true"
                 v-model="datemenu"
+                :close-on-content-click="true"
                 :nudge-right="40"
                 lazy
                 transition="scale-transition"
@@ -77,25 +41,15 @@
                 full-width
                 min-width="290px"
               >
-                <v-text-field
-                  slot="activator"
-                  v-model="date"
-                  label="Velg dato"
-                  prepend-icon="event"
-                  readonly
-                />
-                <v-date-picker
-                  v-model="date"
-                  @input="datemenu = false"/>
+                <v-text-field slot="activator" v-model="date" label="Velg dato" prepend-icon="event" readonly />
+                <v-date-picker v-model="date" @input="datemenu = false" />
               </v-menu>
             </v-col>
-            <v-col
-              lg="6"
-              md="6">
+            <v-col lg="6" md="6">
               <v-menu
                 ref="menu"
-                :close-on-content-click="false"
                 v-model="timemenu"
+                :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="time"
                 lazy
@@ -116,23 +70,18 @@
                   v-if="timemenu"
                   v-model="time"
                   full-width
-                  @change="$refs.menu.save(time)"
                   format="24hr"
+                  @change="$refs.menu.save(time)"
                 />
               </v-menu>
             </v-col>
           </v-row>
           <v-card-actions>
-            <v-btn
-              @click="clear"
-              slot="activator"
-            >
+            <v-btn slot="activator" @click="clear">
               Reset
             </v-btn>
-            <v-spacer/>
-            <v-btn
-              @click="submit"
-            >
+            <v-spacer />
+            <v-btn @click="submit">
               Legg til spill
             </v-btn>
           </v-card-actions>
@@ -152,6 +101,9 @@ moment.locale('nb');
 
 export default {
   name: 'AddGame',
+  components: {
+    'select-player': SelectPlayer,
+  },
   data: () => ({
     whiteMask: '##',
     blackMask: '##',
@@ -176,9 +128,6 @@ export default {
     }
     this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
   },
-  components: {
-    'select-player': SelectPlayer,
-  },
   methods: {
     submit() {
       this.$store.dispatch('ADD_A_GAME', {
@@ -197,5 +146,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

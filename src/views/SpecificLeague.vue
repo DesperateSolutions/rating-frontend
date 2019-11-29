@@ -1,43 +1,19 @@
 <template>
   <v-container fluid>
-    <v-tabs
-      v-model="active"
-      grow
-      show-arrows
-      class="elevation-24"
-    >
-      <v-tab
-        key="1"
-        :to="{ path: switchTab('addGame') }"
-        ripple
-      >
+    <v-tabs v-model="active" grow show-arrows class="elevation-24">
+      <v-tab key="1" :to="{ path: switchTab('addGame') }" ripple>
         Add Game
       </v-tab>
-      <v-tab
-        key="2"
-        :to="{ path: switchTab('games') }"
-        ripple
-      >
+      <v-tab key="2" :to="{ path: switchTab('games') }" ripple>
         Games
       </v-tab>
-      <v-tab
-        key="3"
-        :to="{ path: switchTab('addPlayer') }"
-        ripple
-      >
+      <v-tab key="3" :to="{ path: switchTab('addPlayer') }" ripple>
         Add Player
       </v-tab>
-      <v-tab
-        key="4"
-        :to="{ path: switchTab('ranking') }"
-        ripple
-      >
+      <v-tab key="4" :to="{ path: switchTab('ranking') }" ripple>
         Ranking
       </v-tab>
-      <v-tab
-        key="5"
-        :to="{ path: switchTab('statistics') }"
-        ripple>
+      <v-tab key="5" :to="{ path: switchTab('statistics') }" ripple>
         Statistics
       </v-tab>
     </v-tabs>
@@ -56,11 +32,6 @@ export default {
       required: true,
     },
   },
-  methods: {
-    switchTab(tab) {
-      return `/league/${this.name}/${tab}`;
-    },
-  },
   data() {
     return {
       active: null,
@@ -72,8 +43,12 @@ export default {
       this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
     });
   },
+  methods: {
+    switchTab(tab) {
+      return `/league/${this.name}/${tab}`;
+    },
+  },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
