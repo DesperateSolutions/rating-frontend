@@ -1,7 +1,11 @@
 module.exports = {
-  pwa: {
-    name: 'Squash Rating'
-  },
-
   outputDir: 'docs',
+  lintOnSave: true,
+  assetsDir: '',
+  runtimeCompiler: true,
+  productionSourceMap: true,
+  parallel: true,
+  css: {
+    sourceMap: true,
+  }
 };
