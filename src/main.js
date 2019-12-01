@@ -1,13 +1,18 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify/lib';
+import VueResize from 'vue-resize';
 
 import App from './App.vue';
 import router from './router';
 import store from './store';
 
+import 'vue-resize/dist/vue-resize.css';
+
 import './plugins/moment';
 
 Vue.config.productionTip = false;
+
+Vue.use(VueResize);
 
 const opts = {
   theme: {

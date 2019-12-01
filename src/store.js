@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import moment from 'moment';
-import { addGame, addLeague, addPlayer, getAllGames, getAllLeagues, getAllPlayers } from './util/api';
+import { addGame, addLeague, addPlayer, getAllGames, getAllLeagues, getAllPlayers, getPlayerStats } from './util/api';
 import { getName } from './util/helpers';
 
 Vue.use(Vuex);
@@ -118,6 +118,21 @@ const actions = {
   SELECT_LEAGUE({ commit }, { selectedLeague }) {
     commit('SELECT_LEAGUE', { selectedLeague });
   },
+  GET_PLAYER_STATS({ commit }, { league, player }) {
+    getPlayerStats(league, player)
+      .then(response => {
+        commit('SET_PLAYER_STATS', { player: response });
+      })
+      .catch(error => {
+        commit('GET_FAILED', { error });
+        commit('SHOW_SNACKBAR', {
+          error,
+          message: 'Failed to retrieve selected player stats',
+          info: ` -- ${error.status} - ${error.statusText}`,
+          color: 'red',
+        });
+      });
+  },
 };
 
 const mutations = {
@@ -173,10 +188,28 @@ const mutations = {
     newState.snack.info = null;
     newState.snack.color = undefined;
   },
+  SET_PLAYER_STATS: (state, { player }) => {
+    const newState = state;
+    newState.selectedPlayer = player;
+  },
 };
 
 const getters = {
   visible: state => state.snack.visible,
+  playerStats: state => {
+    if (state.selectedPlayer.wins === 0 && state.selectedPlayer.losses === 0) return null;
+
+    return [
+      {
+        label: 'wins',
+        value: state.selectedPlayer.wins,
+      },
+      {
+        label: 'losses',
+        value: state.selectedPlayer.losses,
+      },
+    ];
+  },
 };
 
 const state = {
@@ -197,6 +230,7 @@ const state = {
     multiline: false,
     color: undefined,
   },
+  selectedPlayer: {},
 };
 
 export default new Vuex.Store({

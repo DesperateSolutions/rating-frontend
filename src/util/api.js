@@ -12,6 +12,14 @@ const getAllGames = league => {
     .catch(error => error.response);
 };
 
+const getPlayerStats = (league, player) => {
+  const url = `${BASE_URL}${league}/player/${player}/stats`;
+  return axios
+    .get(url)
+    .then(response => response.data)
+    .catch(error => error.response);
+};
+
 const getAllPlayers = league => {
   const url = `${BASE_URL}${league}/player`;
   return axios
@@ -115,4 +123,4 @@ const login = (username, password) => {
     .catch(error => Promise.reject(error.response));
 };
 
-export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login, addLeague };
+export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login, addLeague, getPlayerStats };
