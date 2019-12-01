@@ -41,10 +41,8 @@ export default {
 
     this.arc = d3
       .arc()
-      .outerRadius(chartHeight / 2)
-      .innerRadius(chartHeight / 4)
-      .padAngle(0.03)
-      .cornerRadius(8);
+      .outerRadius(0)
+      .innerRadius(chartHeight / 2);
 
     this.pieG = this.chartLayer.append('g').attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
 
@@ -71,14 +69,13 @@ export default {
         .append('path')
         .attr('d', this.arc)
         .attr('id', (d, i) => `arc-${i}`)
-        .attr('stroke', 'gray')
         .attr('fill', d => (d.data.label === 'wins' ? '#00ff00' : '#ff0000'));
 
       newBlock
         .append('text')
         .attr('dx', 10)
         .attr('dy', -5)
-        .attr('color', '#000000')
+        .attr('fill', 'white')
         .append('textPath')
         .attr('xlink:href', (d, i) => `#arc-${i}`)
         .text(d => d.data.label);
