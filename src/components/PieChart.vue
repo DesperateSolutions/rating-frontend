@@ -8,7 +8,6 @@
 
 <script>
 import * as d3 from 'd3';
-import debounce from '../util/debounce';
 
 export default {
   name: 'PieChart',
@@ -32,6 +31,8 @@ export default {
     },
     svg: null,
     svgSelection: null,
+    chartWidth: 0,
+    chartHeight: 0,
   }),
 
   watch: {
@@ -51,18 +52,22 @@ export default {
     drawChart() {
       this.svgSelection = d3.select(this.svg);
       this.svgSelection.attr('width', this.width).attr('height', this.height);
-      const chartWidth = this.width - (this.padding.left + this.padding.right);
-      const chartHeight = this.height - (this.padding.top + this.padding.bottom);
+      this.chartWidth = this.width - (this.padding.left + this.padding.right);
+      this.chartHeight = this.height - (this.padding.top + this.padding.bottom);
 
-      this.chartLayer = this.svgSelection.append('g').attr('transform', `translate(${this.padding.left}, ${this.padding.top})`);
+      this.chartLayer = this.svgSelection
+        .append('g')
+        .attr('transform', `translate(${this.padding.left}, ${this.padding.top})`);
 
       this.arc = d3
         .arc()
-        .outerRadius(chartHeight / 2)
-        .innerRadius(chartHeight / 4)
+        .outerRadius(this.chartHeight / 2)
+        .innerRadius(this.chartHeight / 4)
         .padAngle(0.05);
 
-      this.pieG = this.chartLayer.append('g').attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
+      this.pieG = this.chartLayer
+        .append('g')
+        .attr('transform', `translate(${this.chartWidth / 2}, ${this.chartHeight / 2})`);
 
       this.updateChart(this.stats);
     },
@@ -83,16 +88,17 @@ export default {
         .attr('height', this.padding.top + this.height + this.padding.bottom)
         .attr('width', this.padding.left + this.width + this.padding.right);
 
-      debounce(function () {
-        this.drawChart()
-      }, 250);
+      this.chartWidth = this.width - (this.padding.left + this.padding.right);
+      this.chartHeight = this.height - (this.padding.top + this.padding.bottom);
+      this.updateChart(this.stats);
     },
 
     updateChart(stats) {
-      d3.selectAll('path').remove();
-      console.log(this.parentWidth());
+      this.pieG = this.pieG.attr('transform', `translate(${this.chartWidth / 2}, ${this.chartHeight / 2})`);
 
-      const total = d3.sum(this.stats.map(stat => stat.value));
+      d3.selectAll('path').remove();
+      d3.selectAll('text').remove();
+      // const total = d3.sum(this.stats.map(stat => stat.value));
 
       const arcs = d3
         .pie()
@@ -103,13 +109,9 @@ export default {
 
       block.select('path').attr('d', this.arc);
 
-      console.log(this.pieG.node());
-
       this.pieG.append('span').attr('id', 'info');
 
-      const infoBlock = d3.select('#info');
-
-      console.log(infoBlock);
+      // const infoBlock = d3.select('#info');
 
       const newBlock = block.join('g').classed('arc', true);
 
