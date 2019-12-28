@@ -110,8 +110,10 @@ export default {
       block.select('path').attr('d', this.arc);
 
       this.pieG.append('span').attr('id', 'info');
-
-      // const infoBlock = d3.select('#info');
+      //
+      // let infoBlock = d3.select('#info');
+      //
+      // infoBlock = infoBlock.attr('widht', this.chartHeight / 2).attr('height', this.chartHeight / 2).attr('position', 'absolute').attr('left', this.chartHeight / 2);
 
       const newBlock = block.join('g').classed('arc', true);
 
