@@ -12,6 +12,9 @@
       <v-card-text>
         <pie-chart v-if="show" :stats="playerStats" />
       </v-card-text>
+      <v-card-text>
+        <line-chart v-if="show" :stats="playerStats" />
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
@@ -21,12 +24,14 @@ import { mapState, mapGetters } from 'vuex';
 import SelectPlayer from './SelectPlayer.vue';
 import { isObjectEmpty } from '../util/helpers';
 import PieChart from './PieChart.vue';
+import LineChart from './LineChart.vue';
 
 export default {
   name: 'Statistics',
   components: {
     SelectPlayer,
     PieChart,
+    LineChart,
   },
 
   data: () => ({

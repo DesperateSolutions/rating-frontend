@@ -210,6 +210,13 @@ const getters = {
       },
     ];
   },
+  ratingOverTime: state => {
+    if (state.selectedPlayer.ratingOverTime.length > 0){
+      state.selectedPlayer.ratingOverTime[0].timestamp = state.selectedPlayer.ratingOverTime[1].timestamp;
+      return state.selectedPlayer.ratingOverTime;
+    }
+    return [];
+  },
 };
 
 const state = {
