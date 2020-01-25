@@ -9,6 +9,7 @@
 <script>
 import * as d3 from 'd3';
 import { mapGetters } from 'vuex';
+import {startOfYear, endOfYear, format} from 'date-fns';
 
 export default {
   name: 'LineChart',
@@ -39,6 +40,7 @@ export default {
     xAxis: null,
     yAxis: null,
     update: null,
+    xFormat: '%d-%b',
   }),
 
   computed: {
@@ -67,6 +69,8 @@ export default {
       this.svg
         .attr('width', this.width)
         .attr('height', this.height)
+        .attr('viewBox', `-40 -40 ${this.width + 40} ${this.height + 60}`)
+        .style('font-size', '14px')
         .append('g')
         .attr('transform', `translate(${this.padding.left}, ${this.padding.top})`);
 
@@ -87,13 +91,11 @@ export default {
     },
 
     updateChart() {
+      const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ");
+      const startOfTheYear = startOfYear(parseTime(this.ratingOverTime[0].timestamp));
+      const endOfTheYear = endOfYear(parseTime(this.ratingOverTime[0].timestamp));
 
-      const xFormat = '%d-%b-%y';
-        const parseTime = d3.timeParse("%Y-%m-%dT%H:%M:%SZ");
-      console.log(this.ratingOverTime);
-      console.log(this.svg);
-
-      this.x.domain(d3.extent(this.ratingOverTime, d => parseTime(d.timestamp)));
+      this.x.domain([startOfTheYear, endOfTheYear]);
       this.svg
         .selectAll('.xAxis')
         .transition()
@@ -112,7 +114,6 @@ export default {
       this.update
         .enter()
         .append('path')
-        .attr('class', 'lineTest')
         .merge(this.update)
         .transition()
         .duration(1000)
@@ -120,9 +121,9 @@ export default {
           'd',
           d3
             .line()
-            .x(d => this.x(parseTime(d.timestamp)))
-            .y(d => this.y(+d.rating)))
-        .attr('fill', 'none').attr('stroke', 'steelblue').attr('stroke-width', 2.5).attr('color', 'white');
+            .x(time => this.x(parseTime(time.timestamp)))
+            .y(rate => this.y(+rate.rating)).curve(d3.curveMonotoneX))
+        .style('fill', 'none').style('stroke', 'steelblue').style('stroke-width', 2.5).style('color', 'white');
     },
 
     handleResize() {
