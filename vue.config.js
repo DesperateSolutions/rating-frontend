@@ -7,5 +7,12 @@ module.exports = {
   parallel: true,
   css: {
     sourceMap: true,
+  },
+  devServer: {
+    proxy: {
+      '/*': {
+        target: 'https://glickorater.desperate.solutions',
+      }
+    }
   }
 };
