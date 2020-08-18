@@ -10,9 +10,9 @@
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
-    <v-content>
+    <v-main>
       <router-view />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
@@ -21,15 +21,16 @@ import Snackbar from './components/Snackbar.vue';
 
 export default {
   name: 'App',
+
   components: { Snackbar },
-  data() {
-    return {
-      drawer: false,
-      fixed: true,
-      menuItems: [{ title: 'Leagues', icon: 'dashboard' }],
-      title: 'Squash Rating',
-    };
-  },
+
+  data: () => ({
+    drawer: false,
+    fixed: true,
+    menuItems: [{ title: 'Leagues', icon: 'dashboard' }],
+    title: 'Squash Rating',
+  }),
+
   methods: {
     changeRoute(path) {
       this.$router.push({ name: path });

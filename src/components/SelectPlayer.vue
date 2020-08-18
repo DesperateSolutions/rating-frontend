@@ -22,16 +22,17 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      pl: '',
-    };
-  },
+
+  data: () => ({
+    pl: '',
+  }),
+
   watch: {
     selected(val) {
       this.pl = val;
     },
   },
+
   methods: {
     selectPlayer(selected) {
       this.$emit('input', selected);

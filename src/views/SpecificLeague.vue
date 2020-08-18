@@ -44,14 +44,14 @@ export default {
   },
 
   async created() {
-    await this.getAllLeagues();
+    await this.fetchAllLeagues();
 
     const league = this.leagues.find((item) => item.name === this.$route.params.name);
-    this.selectLeague(league);
+    this.selectLeague({ league });
   },
 
   methods: {
-    ...mapActions(['getAllLeagues', 'selectleague']),
+    ...mapActions(['fetchAllLeagues', 'selectLeague']),
 
     switchTab(tab) {
       return `/league/${this.name}/${tab}`;

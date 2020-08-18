@@ -17,39 +17,43 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { isObjectEmpty } from '../util/helpers';
+import { mapState, mapActions } from 'vuex';
+import { isObjectEmpty } from '@/util/helpers';
 
 export default {
   name: 'Ranking',
-  data() {
-    return {
-      sortBy: 'rating',
-      descending: true,
-      rowsPerPage: -1,
-      headers: [
-        {
-          text: 'Player',
-          align: 'left',
-          sortable: false,
-          value: 'name',
-        },
-        { text: '# of Games', sortable: false, value: 'games.length' },
-        { text: 'Rating', value: 'rating' },
-      ],
-    };
-  },
-  computed: mapState(['players']),
+
+  data: () => ({
+    sortBy: 'rating',
+    descending: true,
+    rowsPerPage: -1,
+    headers: [
+      {
+        text: 'Player',
+        align: 'left',
+        sortable: false,
+        value: 'name',
+      },
+      { text: '# of Games', sortable: false, value: 'games.length' },
+      { text: 'Rating', value: 'rating' },
+    ],
+  }),
+
+  computed: mapState(['players', 'leagues', 'selectedLeague']),
+
   async created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-        const league = this.$store.state.leagues.find((item) => item.name === this.$route.params.name);
-        this.$store.dispatch('GET_ALL_PLAYERS', { league: league.id });
-        this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-      });
+      await this.fetchAllLeagues();
+      const league = this.leagues.find((item) => item.name === this.$route.params.name);
+      await this.fetchAllPlayers({ leagueId: league.id });
+      this.selectLeague({ league });
     } else {
-      this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
+      await this.fetchAllPlayers({ leagueId: this.selectedLeague.id });
     }
+  },
+
+  methods: {
+    ...mapActions(['fetchAllLeagues', 'fetchAllPlayers', 'selectLeague']),
   },
 };
 </script>

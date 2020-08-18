@@ -40,8 +40,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'AddLeague',
+
   data: () => ({
     periodMask: '#',
     checkDraw: false,
@@ -49,9 +52,12 @@ export default {
     periodLength: 0,
     name: '',
   }),
+
   methods: {
-    addLeague() {
-      this.$store.dispatch('ADD_A_LEAGUE', {
+    ...mapActions(['addLeague']),
+
+    async addLeague() {
+      await this.addLeague({
         name: this.name,
         settings: {
           drawAllowed: this.checkDraw,

@@ -40,19 +40,19 @@
 </template>
 
 <script>
-import { login } from '../util/api';
+import { login } from '@/util/api';
 
 export default {
   name: 'Login',
-  data() {
-    return {
-      context: 'login context',
-      username: '',
-      password: '',
-      error: null,
-      show: false,
-    };
-  },
+
+  data: () => ({
+    context: 'login context',
+    username: '',
+    password: '',
+    error: null,
+    show: false,
+  }),
+
   methods: {
     clickLogin() {
       login(this.username, this.password).then(() => this.$router.replace(this.$route.query.redirect));

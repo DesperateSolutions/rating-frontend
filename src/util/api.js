@@ -118,7 +118,7 @@ const login = (username, password) => {
       if (token.access_token) {
         localStorage.setItem('token', token.access_token);
       }
-      Promise.resolve();
+      return Promise.resolve();
     })
     .catch((error) => Promise.reject(error.response));
 };

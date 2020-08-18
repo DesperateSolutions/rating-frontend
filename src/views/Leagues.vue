@@ -16,32 +16,36 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Leagues',
-  data() {
-    return {
-      headers: [
-        {
-          text: 'League',
-          align: 'left',
-          sortable: false,
-          value: 'name',
-        },
-      ],
-    };
-  },
+
+  data: () => ({
+    headers: [
+      {
+        text: 'League',
+        align: 'left',
+        sortable: false,
+        value: 'name',
+      },
+    ],
+  }),
+
   computed: mapState(['leagues']),
-  created() {
-    this.$store.dispatch('GET_ALL_LEAGUES');
-    this.name = '';
+
+  async created() {
+    await this.fetchAllLeagues();
   },
+
   methods: {
+    ...mapActions(['selectLeague', 'fetchAllLeagues']),
+
     chooseLeague(name, league) {
-      this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
+      this.selectLeague({ league });
       this.$router.push({ path: `league/${name}/addGame` });
     },
+
     addLeague() {
       this.$router.push({ name: 'newLeague' });
     },

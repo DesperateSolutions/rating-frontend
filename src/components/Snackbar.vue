@@ -18,7 +18,7 @@ import { mapState, mapMutations } from 'vuex';
 
 export default {
   name: 'Snackbar',
-  computed: mapState(['snack', 'snack.visible']),
+  computed: mapState(['snack']),
   methods: mapMutations(['CLOSE_SNACKBAR']),
 };
 </script>

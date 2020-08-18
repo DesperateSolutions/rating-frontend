@@ -17,9 +17,9 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapGetters, mapActions } from 'vuex';
+import { isObjectEmpty } from '@/util/helpers';
 import SelectPlayer from './SelectPlayer.vue';
-import { isObjectEmpty } from '../util/helpers';
 import PieChart from './PieChart.vue';
 
 export default {
@@ -35,28 +35,35 @@ export default {
   }),
 
   computed: {
-    ...mapState(['players', 'selectedPlayer', 'selectedLeague']),
+    ...mapState(['players', 'selectedPlayer', 'selectedLeague', 'leagues']),
     ...mapGetters(['playerStats']),
   },
 
   watch: {
     player() {
-      this.$store.dispatch('GET_PLAYER_STATS', { league: this.selectedLeague.id, player: this.player });
+      this.fetchPlayerStats({ leagueId: this.selectedLeague.id, player: this.player });
     },
+
     playerStats() {
       this.show = this.playerStats !== null;
     },
   },
 
   async created() {
-    if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-        const league = this.$store.state.leagues.find((item) => item.name === this.$route.params.name);
-        this.$store.dispatch('GET_ALL_PLAYERS', { league: league.id });
-        this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-      });
+    if (isObjectEmpty(this.selectedLeague)) {
+      await this.fetchAllLeagues();
+
+      const league = this.leagues.find((item) => item.name === this.$route.params.name);
+
+      await this.fetchAllPlayers({ leagueId: league.id });
+      this.selectLeague({ league });
+    } else {
+      await this.fetchAllPlayers({ leagueId: this.$store.state.selectedLeague.id });
     }
-    await this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
+  },
+
+  methods: {
+    ...mapActions(['fetchAllLeagues', 'fetchAllPlayers', 'selectLeague', 'fetchPlayerStats']),
   },
 };
 </script>

@@ -93,17 +93,19 @@
 
 <script>
 import moment from 'moment';
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
+import { isObjectEmpty } from '@/util/helpers';
 import SelectPlayer from './SelectPlayer.vue';
-import { isObjectEmpty } from '../util/helpers';
 
 moment.locale('nb');
 
 export default {
   name: 'AddGame',
+
   components: {
     'select-player': SelectPlayer,
   },
+
   data: () => ({
     whiteMask: '##',
     blackMask: '##',
@@ -117,20 +119,25 @@ export default {
     timemenu: false,
     checkbox: false,
   }),
-  computed: mapState(['players', 'selectedLeague']),
+
+  computed: mapState(['players', 'selectedLeague', 'leagues']),
+
   async created() {
-    if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-        const league = this.$store.state.leagues.find((item) => item.name === this.$route.params.name);
-        this.$store.dispatch('GET_ALL_PLAYERS', { league: league.id });
-        this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-      });
+    if (isObjectEmpty(this.selectedLeague)) {
+      await this.fetchAllLeagues();
+      const league = this.leagues.find((item) => item.name === this.$route.params.name);
+      await this.fetchAllPlayers({ leagueId: league.id });
+      this.selectLeague({ league });
+    } else {
+      await this.fetchAllPlayers({ leagueId: this.selectedLeague.id });
     }
-    this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
   },
+
   methods: {
-    submit() {
-      this.$store.dispatch('ADD_A_GAME', {
+    ...mapActions(['fetchAllLeagues', 'fetchAllPlayers', 'selectLeague', 'addGame']),
+
+    async submit() {
+      await this.addGame({
         league: this.$store.state.selectedLeague.id,
         whiteId: this.playerone,
         blackId: this.playertwo,
@@ -139,6 +146,7 @@ export default {
       });
       this.$refs.addGame.reset();
     },
+
     clear() {
       this.$refs.addGame.reset();
     },
