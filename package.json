@@ -14,7 +14,7 @@
     "core-js": "^3.6.4",
     "d3": "^5.15.0",
     "moment": "^2.24.0",
-    "serialize-javascript": "^2.1.2",
+    "serialize-javascript": "^3.1.0",
     "vue": "^2.6.11",
     "vue-moment": "^4.1.0",
     "vue-resize": "^0.4.5",
