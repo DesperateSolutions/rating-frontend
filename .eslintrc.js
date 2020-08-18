@@ -5,17 +5,11 @@ module.exports = {
     node: true,
   },
 
-  plugins: [
-    'vuetify',
-  ],
+  plugins: ['vuetify'],
 
   parserOptions: {
     parser: 'babel-eslint',
   },
 
-  extends: [
-    'plugin:vue/recommended',
-    '@vue/airbnb',
-    '@vue/prettier',
-  ],
+  extends: ['plugin:vue/recommended', '@vue/airbnb', '@vue/prettier'],
 };

@@ -4,28 +4,28 @@ import router from '../router';
 const BASE_URL = 'https://glickorater.desperate.solutions/';
 // const BASE_URL = 'http://localhost:3000/';
 
-const getAllGames = league => {
+const getAllGames = (league) => {
   const url = `${BASE_URL}${league}/game`;
   return axios
     .get(url)
-    .then(response => response.data)
-    .catch(error => error.response);
+    .then((response) => response.data)
+    .catch((error) => error.response);
 };
 
 const getPlayerStats = (league, player) => {
   const url = `${BASE_URL}${league}/player/${player}/stats`;
   return axios
     .get(url)
-    .then(response => response.data)
-    .catch(error => error.response);
+    .then((response) => response.data)
+    .catch((error) => error.response);
 };
 
-const getAllPlayers = league => {
+const getAllPlayers = (league) => {
   const url = `${BASE_URL}${league}/player`;
   return axios
     .get(url)
-    .then(response => response.data)
-    .catch(error => {
+    .then((response) => response.data)
+    .catch((error) => {
       router.push({ path: '/leagues' });
       return Promise.reject(error.response);
     });
@@ -47,8 +47,8 @@ const addPlayer = (league, name) => {
       },
     },
   })
-    .then(response => response)
-    .catch(error => Promise.reject(error.response));
+    .then((response) => response)
+    .catch((error) => Promise.reject(error.response));
 };
 
 const addGame = (league, whiteId, blackId, result, date) => {
@@ -68,8 +68,8 @@ const addGame = (league, whiteId, blackId, result, date) => {
       Authorization: `Bearer ${localStorage.token}`,
     },
   })
-    .then(response => response)
-    .catch(error => Promise.reject(error.response));
+    .then((response) => response)
+    .catch((error) => Promise.reject(error.response));
 };
 
 const addLeague = (name, settings) => {
@@ -87,8 +87,8 @@ const addLeague = (name, settings) => {
       Authorization: `Bearer ${localStorage.token}`,
     },
   })
-    .then(response => response)
-    .catch(error => Promise.reject(error.response));
+    .then((response) => response)
+    .catch((error) => Promise.reject(error.response));
 };
 
 const getAllLeagues = () => {
@@ -97,8 +97,8 @@ const getAllLeagues = () => {
     method: 'GET',
     url,
   })
-    .then(response => Promise.resolve(response.data))
-    .catch(error => Promise.reject(error.response));
+    .then((response) => Promise.resolve(response.data))
+    .catch((error) => Promise.reject(error.response));
 };
 
 const login = (username, password) => {
@@ -112,7 +112,7 @@ const login = (username, password) => {
       'Cache-Control': 'no-cache',
     },
   })
-    .then(response => {
+    .then((response) => {
       const token = response.data;
 
       if (token.access_token) {
@@ -120,7 +120,7 @@ const login = (username, password) => {
       }
       Promise.resolve();
     })
-    .catch(error => Promise.reject(error.response));
+    .catch((error) => Promise.reject(error.response));
 };
 
 export { getAllGames, getAllPlayers, getAllLeagues, addGame, addPlayer, login, addLeague, getPlayerStats };

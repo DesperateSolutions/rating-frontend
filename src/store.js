@@ -11,12 +11,12 @@ moment.locale('nb');
 const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
-  GET_ALL_GAMES({ commit }, { league }) {
+  fetchAllGames({ commit }, { league }) {
     getAllGames(league)
-      .then(response => {
+      .then((response) => {
         commit('SET_GAMES', { games: response });
       })
-      .catch(error => {
+      .catch((error) => {
         commit('GET_FAILED', { error });
         commit('SHOW_SNACKBAR', {
           error,
@@ -26,12 +26,13 @@ const actions = {
         });
       });
   },
-  GET_ALL_PLAYERS({ commit }, { league }) {
+
+  fetchAllPlayers({ commit }, { league }) {
     getAllPlayers(league)
-      .then(response => {
+      .then((response) => {
         commit('SET_PLAYERS', { players: response });
       })
-      .catch(error => {
+      .catch((error) => {
         commit('GET_FAILED', { error });
         commit('SHOW_SNACKBAR', {
           error,
@@ -41,9 +42,10 @@ const actions = {
         });
       });
   },
-  ADD_A_GAME({ commit }, { league, whiteId, blackId, result, date }) {
+
+  addGame({ commit }, { league, whiteId, blackId, result, date }) {
     addGame(league, whiteId, blackId, result, date)
-      .then(response => {
+      .then((response) => {
         commit('POST_SUCCESS', { response });
         commit('SHOW_SNACKBAR', {
           message: 'Successfully added a game',
@@ -51,7 +53,7 @@ const actions = {
           color: 'success',
         });
       })
-      .catch(error => {
+      .catch((error) => {
         commit('POST_FAILED', { error });
         commit('SHOW_SNACKBAR', {
           error,
@@ -61,9 +63,10 @@ const actions = {
         });
       });
   },
-  ADD_A_LEAGUE({ commit }, { name, settings }) {
+
+  addLeague({ commit }, { name, settings }) {
     addLeague(name, settings)
-      .then(response => {
+      .then((response) => {
         commit('POST_SUCCESS', { response });
         commit('SHOW_SNACKBAR', {
           message: 'Successfully added a league',
@@ -71,7 +74,7 @@ const actions = {
           color: 'success',
         });
       })
-      .catch(error => {
+      .catch((error) => {
         commit('POST_FAILED', { error });
         commit('SHOW_SNACKBAR', {
           error,
@@ -81,9 +84,10 @@ const actions = {
         });
       });
   },
-  ADD_PLAYER({ commit }, { league, name }) {
+
+  addPlayer({ commit }, { league, name }) {
     addPlayer(league, name)
-      .then(response => {
+      .then((response) => {
         commit('POST_SUCCESS', { response });
         commit('SHOW_SNACKBAR', {
           message: 'Successfully added a new player',
@@ -91,7 +95,7 @@ const actions = {
           color: 'success',
         });
       })
-      .catch(error => {
+      .catch((error) => {
         commit('POST_FAILED', { error });
         commit('SHOW_SNACKBAR', {
           message: 'Failed to add a new player',
@@ -100,12 +104,13 @@ const actions = {
         });
       });
   },
-  async GET_ALL_LEAGUES({ commit }) {
+
+  async fetchAllLeagues({ commit }) {
     await getAllLeagues()
-      .then(response => {
+      .then((response) => {
         commit('SET_LEAGUES', { leagues: response });
       })
-      .catch(error => {
+      .catch((error) => {
         commit('GET_FAILED', { error });
         commit('SHOW_SNACKBAR', {
           error,
@@ -115,15 +120,17 @@ const actions = {
         });
       });
   },
-  SELECT_LEAGUE({ commit }, { selectedLeague }) {
+
+  selectLeague({ commit }, selectedLeague) {
     commit('SELECT_LEAGUE', { selectedLeague });
   },
-  GET_PLAYER_STATS({ commit }, { league, player }) {
+
+  fetchPlayerStats({ commit }, { league, player }) {
     getPlayerStats(league, player)
-      .then(response => {
+      .then((response) => {
         commit('SET_PLAYER_STATS', { player: response });
       })
-      .catch(error => {
+      .catch((error) => {
         commit('GET_FAILED', { error });
         commit('SHOW_SNACKBAR', {
           error,
@@ -138,7 +145,7 @@ const actions = {
 const mutations = {
   SET_GAMES: (state, { games }) => {
     const newState = state;
-    newState.games = games.map(game => ({
+    newState.games = games.map((game) => ({
       blackId: getName(state.players, game.blackId),
       whiteId: getName(state.players, game.whiteId),
       result: game.result,
@@ -147,30 +154,37 @@ const mutations = {
     }));
     newState.games.reverse();
   },
+
   SET_PLAYERS: (state, { players }) => {
     const newState = state;
     newState.players = players;
   },
+
   SET_LEAGUES: (state, { leagues }) => {
     const newState = state;
     newState.leagues = leagues;
   },
+
   GET_FAILED: (state, { error }) => {
     const newState = state;
     newState.error = error;
   },
+
   POST_FAILED: (state, { error }) => {
     const newState = state;
     newState.error = error;
   },
+
   POST_SUCCESS: (state, { response }) => {
     const newState = state;
     newState.successInfo = response;
   },
+
   SELECT_LEAGUE: (state, { selectedLeague }) => {
     const newState = state;
     newState.selectedLeague = selectedLeague;
   },
+
   SHOW_SNACKBAR: (state, payload) => {
     const newState = state;
     newState.snack = {
@@ -179,7 +193,8 @@ const mutations = {
       visible: true,
     };
   },
-  CLOSE_SNACKBAR: state => {
+
+  CLOSE_SNACKBAR: (state) => {
     const newState = state;
     newState.snack.visible = false;
     newState.snack.multiline = false;
@@ -188,6 +203,7 @@ const mutations = {
     newState.snack.info = null;
     newState.snack.color = undefined;
   },
+
   SET_PLAYER_STATS: (state, { player }) => {
     const newState = state;
     newState.selectedPlayer = player;
@@ -195,8 +211,9 @@ const mutations = {
 };
 
 const getters = {
-  visible: state => state.snack.visible,
-  playerStats: state => {
+  visible: (state) => state.snack.visible,
+
+  playerStats: (state) => {
     if (state.selectedPlayer.wins === 0 && state.selectedPlayer.losses === 0) return null;
 
     return [

@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
   name: 'League',
   props: {
@@ -32,18 +34,25 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      active: null,
-    };
+
+  data: () => ({
+    active: null,
+  }),
+
+  computed: {
+    ...mapState(['leagues']),
   },
+
   async created() {
-    await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-      const league = this.$store.state.leagues.find(item => item.name === this.$route.params.name);
-      this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-    });
+    await this.getAllLeagues();
+
+    const league = this.leagues.find((item) => item.name === this.$route.params.name);
+    this.selectLeague(league);
   },
+
   methods: {
+    ...mapActions(['getAllLeagues', 'selectleague']),
+
     switchTab(tab) {
       return `/league/${this.name}/${tab}`;
     },
