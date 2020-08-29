@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <v-simple-table class="elevation-24">
       <tbody>
         <tr v-for="item in leagues" :key="item.name" @click="chooseLeague(item.name, item)">

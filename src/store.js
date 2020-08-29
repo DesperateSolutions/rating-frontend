@@ -170,8 +170,8 @@ const mutations = {
     state.successInfo = res;
   },
 
-  SELECT_LEAGUE: (state, { selectedLeague }) => {
-    state.selectedLeague = selectedLeague;
+  SELECT_LEAGUE: (state, { league }) => {
+    state.selectedLeague = league;
   },
 
   SHOW_SNACKBAR: (state, payload) => {

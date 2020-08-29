@@ -54,8 +54,9 @@ export default {
   }),
 
   methods: {
-    clickLogin() {
-      login(this.username, this.password).then(() => this.$router.replace(this.$route.query.redirect));
+    async clickLogin() {
+      await login(this.username, this.password);
+      await this.$router.replace(this.$route.query.redirect);
     },
   },
 };

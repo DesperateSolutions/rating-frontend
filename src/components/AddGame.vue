@@ -35,10 +35,8 @@
                 v-model="datemenu"
                 :close-on-content-click="true"
                 :nudge-right="40"
-                lazy
                 transition="scale-transition"
                 offset-y
-                full-width
                 min-width="290px"
               >
                 <v-text-field slot="activator" v-model="date" label="Velg dato" prepend-icon="event" readonly />
@@ -52,10 +50,8 @@
                 :close-on-content-click="false"
                 :nudge-right="40"
                 :return-value.sync="time"
-                lazy
                 transition="scale-transition"
                 offset-y
-                full-width
                 max-width="290px"
                 min-width="290px"
               >
@@ -66,13 +62,7 @@
                   prepend-icon="access_time"
                   readonly
                 />
-                <v-time-picker
-                  v-if="timemenu"
-                  v-model="time"
-                  full-width
-                  format="24hr"
-                  @change="$refs.menu.save(time)"
-                />
+                <v-time-picker v-if="timemenu" v-model="time" format="24hr" @change="$refs.menu.save(time)" />
               </v-menu>
             </v-col>
           </v-row>
