@@ -8,8 +8,6 @@ import store from './store';
 
 import 'vue-resize/dist/vue-resize.css';
 
-import './plugins/moment';
-
 Vue.config.productionTip = false;
 
 Vue.use(VueResize);
