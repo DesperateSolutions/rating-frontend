@@ -1,28 +1,17 @@
 <template>
-  <v-app>
-    <snackbar />
-    <v-app-bar app absolute>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-toolbar-items>
-        <v-btn text :to="{ name: 'leagues' }">
-          Leagues
-        </v-btn>
-      </v-toolbar-items>
-    </v-app-bar>
-    <v-main>
-      <router-view />
-    </v-main>
-  </v-app>
+  <div>
+    <the-header></the-header>
+    <router-view />
+  </div>
 </template>
 
 <script>
-import Snackbar from './components/Snackbar.vue';
-
 export default {
   name: 'App',
 
-  components: { Snackbar },
+  components: {
+    TheHeader: () => import('./components/TheHeader.vue'),
+  },
 
   data: () => ({
     title: 'Squash Rating',

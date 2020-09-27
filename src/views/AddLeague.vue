@@ -5,9 +5,7 @@
         <v-col lg="6" md="6" sm="12" offset-lg="3" offset-md="3">
           <v-card class="elevation-24">
             <v-card-title>
-              <h3 class="headline mb-12">
-                Opprett liga
-              </h3>
+              <h3 class="headline mb-12">Opprett liga</h3>
             </v-card-title>
             <v-card-text class="text-center">
               <v-text-field v-model="name" label="Name:" />
@@ -28,9 +26,7 @@
               <v-text-field v-model="periodLength" label="Period length:" :mask="periodMask" />
             </v-card-text>
             <v-card-actions>
-              <v-btn block @click="addLeague">
-                Add League
-              </v-btn>
+              <v-btn block @click="addLeague"> Add League </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>

@@ -1,26 +1,51 @@
 <template>
-  <v-container fluid>
-    <v-tabs v-model="active" grow show-arrows class="elevation-24">
-      <v-tab key="1" :to="{ path: switchTab('addGame') }" ripple>
-        Add Game
-      </v-tab>
-      <v-tab key="2" :to="{ path: switchTab('games') }" ripple>
-        Games
-      </v-tab>
-      <v-tab key="3" :to="{ path: switchTab('addPlayer') }" ripple>
-        Add Player
-      </v-tab>
-      <v-tab key="4" :to="{ path: switchTab('ranking') }" ripple>
-        Ranking
-      </v-tab>
-      <v-tab key="5" :to="{ path: switchTab('statistics') }" ripple>
-        Statistics
-      </v-tab>
-    </v-tabs>
+  <div>
+    <ul class="flex border-b">
+      <li class="-mb-px mr-2">
+        <router-link
+          :to="{ path: switchTab('addGame') }"
+          class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold"
+        >
+          Add Game
+        </router-link>
+      </li>
+      <li class="mr-2">
+        <router-link
+          :to="{ path: switchTab('games') }"
+          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
+        >
+          Games
+        </router-link>
+      </li>
+      <li class="mr-2">
+        <router-link
+          :to="{ path: switchTab('addPlayer') }"
+          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
+        >
+          Add Player
+        </router-link>
+      </li>
+      <li class="mr-2">
+        <router-link
+          :to="{ path: switchTab('ranking') }"
+          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
+        >
+          Ranking
+        </router-link>
+      </li>
+      <li class="mr-2">
+        <router-link
+          :to="{ path: switchTab('statistics') }"
+          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
+        >
+          Statistics
+        </router-link>
+      </li>
+    </ul>
     <v-slide-y-transition mode="out-in">
       <router-view />
     </v-slide-y-transition>
-  </v-container>
+  </div>
 </template>
 
 <script>

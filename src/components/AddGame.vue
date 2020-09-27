@@ -4,9 +4,7 @@
       <v-card>
         <v-container>
           <v-card-title>
-            <h3 class="headline mb-0">
-              Legg til spill
-            </h3>
+            <h3 class="headline mb-0">Legg til spill</h3>
           </v-card-title>
           <v-row>
             <v-col lg="6" md="6">
@@ -67,13 +65,9 @@
             </v-col>
           </v-row>
           <v-card-actions>
-            <v-btn slot="activator" @click="clear">
-              Reset
-            </v-btn>
+            <v-btn slot="activator" @click="clear"> Reset </v-btn>
             <v-spacer />
-            <v-btn @click="submit">
-              Legg til spill
-            </v-btn>
+            <v-btn @click="submit"> Legg til spill </v-btn>
           </v-card-actions>
         </v-container>
       </v-card>

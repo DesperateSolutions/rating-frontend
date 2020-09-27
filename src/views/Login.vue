@@ -6,9 +6,7 @@
           <v-card>
             <v-card-title>
               <div>
-                <h3 class="headline mb-0">
-                  Log inn
-                </h3>
+                <h3 class="headline mb-0">Log inn</h3>
               </div>
             </v-card-title>
             <v-col cols="12" sm="12">
@@ -28,9 +26,7 @@
               </v-card-text>
             </v-col>
             <v-card-actions>
-              <v-btn block @click="clickLogin">
-                Log inn
-              </v-btn>
+              <v-btn block @click="clickLogin"> Log inn </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
