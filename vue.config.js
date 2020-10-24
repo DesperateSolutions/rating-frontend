@@ -12,7 +12,7 @@ module.exports = {
     proxy: {
       '/*': {
         target: 'https://glickorater.desperate.solutions',
-      }
-    }
-  }
+      },
+    },
+  },
 };
