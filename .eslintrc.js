@@ -5,8 +5,6 @@ module.exports = {
     node: true,
   },
 
-  plugins: ['vuetify'],
-
   parserOptions: {
     parser: 'babel-eslint',
   },

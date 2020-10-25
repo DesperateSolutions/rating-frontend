@@ -36,13 +36,10 @@
     "eslint": "^7.12.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^7.1.0",
-    "eslint-plugin-vuetify": "^1.0.0-beta.7",
     "node-sass": "^4.14.1",
     "prettier": "^2.1.2",
     "sass": "^1.27.0",
     "sass-loader": "^10.0.4",
-    "vue-cli-plugin-vuetify": "^2.0.7",
-    "vue-template-compiler": "^2.6.12",
-    "vuetify-loader": "^1.6.0"
+    "vue-template-compiler": "^2.6.12"
   }
 }
