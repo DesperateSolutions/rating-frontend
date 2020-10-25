@@ -1,38 +1,28 @@
 <template>
-  <v-container fluid>
+  <div class="ds-col-6">
     <v-form ref="addLeague">
-      <v-row>
-        <v-col lg="6" md="6" sm="12" offset-lg="3" offset-md="3">
-          <v-card class="elevation-24">
-            <v-card-title>
-              <h3 class="headline mb-12">Opprett liga</h3>
-            </v-card-title>
-            <v-card-text class="text-center">
-              <v-text-field v-model="name" label="Name:" />
-            </v-card-text>
-            <v-row>
-              <v-col lg="6" md="6">
-                <v-card-text class="text-center">
-                  <v-checkbox v-model="checkDraw" :label="`Draw allowed`" />
-                </v-card-text>
-              </v-col>
-              <v-col lg="6" md="6">
-                <v-card-text class="text-center">
-                  <v-checkbox v-model="checkScored" :label="`Scored results`" />
-                </v-card-text>
-              </v-col>
-            </v-row>
-            <v-card-text class="text-center">
-              <v-text-field v-model="periodLength" label="Period length:" :mask="periodMask" />
-            </v-card-text>
-            <v-card-actions>
-              <v-btn block @click="addLeague"> Add League </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+      <div class="ds-card">
+        <h1 class="ds-title-3">Opprett liga</h1>
+        <div class="form-input">
+          <label>
+            <input v-model="name" required />
+            <span class="placeholder">Name:</span>
+          </label>
+        </div>
+
+        <div class="form-input">
+          <label>
+            <input v-model="periodLength" type="number" />
+            <span class="placeholder">Period length:</span>
+          </label>
+        </div>
+
+        <div class="ds-button-col">
+          <button class="ds-btn ds-btn--ghost" @click="addLeague">Add League</button>
+        </div>
+      </div>
     </v-form>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -57,7 +47,7 @@ export default {
         name: this.name,
         settings: {
           drawAllowed: this.checkDraw,
-          periodLength: parseInt(this.periodLength, 10),
+          periodLength: this.periodLength,
           scoredResults: this.checkScored,
         },
       });
@@ -66,4 +56,4 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

@@ -1,19 +1,20 @@
 <template>
-  <v-container fluid>
-    <v-form ref="addPlayer">
-      <v-card class="elevation-24">
-        <v-card-title>
-          <h3 class="headline mb-12">Legg til ny spiller</h3>
-        </v-card-title>
-        <v-card-text style="height: 100px" class="text-center">
-          <v-text-field v-model="name" label="Name:" />
-        </v-card-text>
-        <v-card-actions>
-          <v-btn block @click="addPlayer"> Add player </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-form>
-  </v-container>
+  <div class="ds-card">
+    <form ref="addPlayer">
+      <h1 class="ds-title-3">Legg til ny spiller</h1>
+
+      <div class="form-input">
+        <label>
+          <input v-model="name" required />
+          <span class="placeholder">Name:</span>
+        </label>
+      </div>
+
+      <div class="ds-button-col">
+        <button class="ds-btn ds-btn--ghost" @click="addPlayer">Add Player</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>

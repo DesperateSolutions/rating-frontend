@@ -1,45 +1,20 @@
 <template>
   <div>
-    <ul class="flex border-b">
-      <li class="-mb-px mr-2">
-        <router-link
-          :to="{ path: switchTab('addGame') }"
-          class="bg-white inline-block border-l border-t border-r rounded-t py-2 px-4 text-blue-700 font-semibold"
-        >
-          Add Game
-        </router-link>
+    <ul class="tabs">
+      <li>
+        <router-link :to="{ path: switchTab('addGame') }" class="tab"> Add Game </router-link>
       </li>
-      <li class="mr-2">
-        <router-link
-          :to="{ path: switchTab('games') }"
-          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-        >
-          Games
-        </router-link>
+      <li>
+        <router-link :to="{ path: switchTab('games') }" class="tab"> Games </router-link>
       </li>
-      <li class="mr-2">
-        <router-link
-          :to="{ path: switchTab('addPlayer') }"
-          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-        >
-          Add Player
-        </router-link>
+      <li>
+        <router-link :to="{ path: switchTab('addPlayer') }" class="tab"> Add Player </router-link>
       </li>
-      <li class="mr-2">
-        <router-link
-          :to="{ path: switchTab('ranking') }"
-          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-        >
-          Ranking
-        </router-link>
+      <li>
+        <router-link :to="{ path: switchTab('ranking') }" class="tab"> Ranking </router-link>
       </li>
-      <li class="mr-2">
-        <router-link
-          :to="{ path: switchTab('statistics') }"
-          class="bg-white inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-semibold"
-        >
-          Statistics
-        </router-link>
+      <li>
+        <router-link :to="{ path: switchTab('statistics') }" class="tab"> Statistics </router-link>
       </li>
     </ul>
     <v-slide-y-transition mode="out-in">
@@ -85,4 +60,81 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+@import '@/style/variables/_colors';
+
+.tabs {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 1rem 0;
+  padding-bottom: 5px;
+  overflow-x: auto;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    left: 0;
+    height: 1px;
+    background: $ds-grey;
+    content: '';
+  }
+
+  &::-webkit-slider-runnable-track {
+    background: blue;
+  }
+
+  &::-webkit-scrollbar {
+    height: 6px;
+    transform: translateY(10px);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $ds-grey-light;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $ds-grey-light;
+  }
+}
+
+.tab {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.5rem;
+  color: $ds-grey-dark;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    left: 0;
+    height: 1px;
+    background: $ds-grey-light;
+    content: '';
+  }
+
+  &.active {
+    color: $ds-grey-dark;
+    border-bottom-color: black;
+  }
+}
+
+.tab--right {
+  margin-left: auto;
+}
+
+.tab__icon {
+  display: none !important;
+  margin-right: 0.35rem;
+  color: $ds-grey-dark;
+}
+</style>

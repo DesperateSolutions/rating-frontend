@@ -1,17 +1,26 @@
 <template>
-  <v-container fluid>
-    <v-app id="inspire">
-      <v-card>
-        <v-data-table
-          :headers="headers"
-          :items="games"
-          :footer-props="footerOptions"
-          sort-by="date"
-          class="elevation-24"
-        />
-      </v-card>
-    </v-app>
-  </v-container>
+  <div class="ds-card">
+    <div class="ds-table-container">
+      <table class="ds-table">
+        <thead>
+          <tr>
+            <th class="ds-table__th">Player One</th>
+            <th class="ds-table__th">Player Two</th>
+            <th class="ds-table__th">Date</th>
+            <th class="ds-table__th">Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(game, index) in games" :key="index">
+            <td>{{ game.whiteId }}</td>
+            <td>{{ game.blackId }}</td>
+            <td>{{ game.timestamp }}</td>
+            <td>{{ game.result }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -20,30 +29,6 @@ import { isObjectEmpty } from '@/util/helpers';
 
 export default {
   name: 'Games',
-
-  data: () => ({
-    footerOptions: {
-      itemsPerPage: [20, 40, 60],
-      sortBy: 'rating',
-      sortDesc: true,
-    },
-    headers: [
-      {
-        text: 'Player One',
-        align: 'left',
-        sortable: false,
-        value: 'whiteId',
-      },
-      {
-        text: 'Player Two',
-        align: 'left',
-        sortable: false,
-        value: 'blackId',
-      },
-      { text: 'Date', align: 'left', value: 'timestamp' },
-      { text: 'Result', value: 'result' },
-    ],
-  }),
 
   computed: mapState(['games', 'players', 'selectedLeague']),
 

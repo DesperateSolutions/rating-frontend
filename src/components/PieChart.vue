@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card-subtitle>Wins/Losses</v-card-subtitle>
+    <h2 class="ds-title-3">Wins/Losses</h2>
     <resize-observer @notify="handleResize" />
     <svg ref="svg" class="pie" />
   </div>

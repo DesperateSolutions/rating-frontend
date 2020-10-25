@@ -1,5 +1,5 @@
 <template>
-  <div class="ds-container">
+  <div>
     <div class="ds-table-container">
       <table class="ds-table">
         <tbody>
