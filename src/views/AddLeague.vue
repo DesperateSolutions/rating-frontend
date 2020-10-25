@@ -1,7 +1,7 @@
 <template>
   <div class="ds-col-6">
-    <v-form ref="addLeague">
-      <div class="ds-card">
+    <div class="ds-card">
+      <form ref="addLeague">
         <h1 class="ds-title-3">Opprett liga</h1>
         <div class="form-input">
           <label>
@@ -20,8 +20,8 @@
         <div class="ds-button-col">
           <button class="ds-btn ds-btn--ghost" @click="addLeague">Add League</button>
         </div>
-      </div>
-    </v-form>
+      </form>
+    </div>
   </div>
 </template>
 

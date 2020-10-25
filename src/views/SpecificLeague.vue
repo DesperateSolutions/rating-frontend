@@ -17,9 +17,9 @@
         <router-link :to="{ path: switchTab('statistics') }" class="tab"> Statistics </router-link>
       </li>
     </ul>
-    <v-slide-y-transition mode="out-in">
+    <transition name="fade">
       <router-view />
-    </v-slide-y-transition>
+    </transition>
   </div>
 </template>
 
@@ -62,6 +62,14 @@ export default {
 
 <style scoped lang="scss">
 @import '@/style/variables/_colors';
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
 
 .tabs {
   position: relative;

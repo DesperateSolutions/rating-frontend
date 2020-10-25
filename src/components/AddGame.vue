@@ -4,61 +4,58 @@
       <h1 class="ds-title-3">Legg til spill</h1>
       <div class="ds-row">
         <div class="ds-col-6">
-          <select-player v-model="playerone" :items="players" label="Player One" />
+          <div class="ds-select__container">
+            <label for="select" class="sr-only">Player one</label>
+            <select id="select" v-model="playerone" class="ds-select__input ds-btn ds-btn--ter select--input">
+              <option selected value="default">Player one</option>
+              <option v-for="p in players" :key="p.id">{{ p.name }}</option>
+            </select>
+          </div>
         </div>
         <div class="ds-col-6">
-          <select-player v-model="playertwo" :items="players" label="Player Two" />
+          <div class="ds-select__container">
+            <label for="select2" class="sr-only">Player two</label>
+            <select id="select2" v-model="playertwo" class="ds-select__input ds-btn ds-btn--ter select--input">
+              <option selected value="default">Player two</option>
+              <option v-for="p in players" :key="p.id">{{ p.name }}</option>
+            </select>
+          </div>
         </div>
       </div>
-      <v-row>
-        <v-col lg="6" md="6">
-          <v-text-field v-model="whiteValue" label="Player 1 score:" :mask="whiteMask" type="tel" />
-        </v-col>
-        <v-col lg="6" md="6">
-          <v-text-field v-model="blackValue" label="Player 2 score:" :mask="blackMask" type="tel" />
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col lg="6" md="6">
-          <v-checkbox v-model="checkbox" :label="`Spesifiser dato og tidspunkt`" />
-        </v-col>
-      </v-row>
-      <v-row v-if="checkbox">
-        <v-col lg="6" md="6">
-          <v-menu
-            v-model="datemenu"
-            :close-on-content-click="true"
-            :nudge-right="40"
-            transition="scale-transition"
-            offset-y
-            min-width="290px"
-          >
-            <v-text-field slot="activator" v-model="date" label="Velg dato" prepend-icon="event" readonly />
-            <v-date-picker v-model="date" @input="datemenu = false" />
-          </v-menu>
-        </v-col>
-        <v-col lg="6" md="6">
-          <v-menu
-            ref="menu"
-            v-model="timemenu"
-            :close-on-content-click="false"
-            :nudge-right="40"
-            :return-value.sync="time"
-            transition="scale-transition"
-            offset-y
-            max-width="290px"
-            min-width="290px"
-          >
-            <v-text-field slot="activator" v-model="time" label="Velg tidspunkt" prepend-icon="access_time" readonly />
-            <v-time-picker v-if="timemenu" v-model="time" format="24hr" @change="$refs.menu.save(time)" />
-          </v-menu>
-        </v-col>
-      </v-row>
-      <v-card-actions>
-        <v-btn slot="activator" @click="clear"> Reset </v-btn>
-        <v-spacer />
-        <v-btn @click="submit"> Legg til spill </v-btn>
-      </v-card-actions>
+      <div class="ds-row">
+        <div class="ds-col-6">
+          <div class="form-input" style="margin: 0">
+            <label>
+              <input v-model="whiteValue" required type="number"/>
+              <span class="placeholder">Player 1 score:</span>
+            </label>
+          </div>
+        </div>
+        <div class="ds-col-6">
+          <div class="form-input" style="margin: 0">
+            <label>
+              <input v-model="blackValue" required type="number" />
+              <span class="placeholder">Player 2 score:</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="ds-row">
+        <div class="ds-col-6">
+          <label class="ds-checkbox" for="checkboxDate">
+            <input id="checkboxDate" v-model="checkbox" type="checkbox" />
+            <span style="margin-left: 1rem">Spesifiser dato og tidspunkt</span>
+          </label>
+        </div>
+      </div>
+      <div v-if="checkbox" class="ds-row">
+        <flat-pickr v-model="date" :config="flatPickerConfig" name="date" placeholder="Velg dato"></flat-pickr>
+      </div>
+
+      <div class="ds-button-row">
+        <button class="ds-btn ds-btn--pri" @click="submit">Legg til spill</button>
+        <button class="ds-btn ds-btn--sec" @click="clear">Reset</button>
+      </div>
     </form>
   </div>
 </template>
@@ -66,8 +63,10 @@
 <script>
 import moment from 'moment';
 import { mapState, mapActions } from 'vuex';
+import flatPickr from 'vue-flatpickr-component';
 import { isObjectEmpty } from '@/util/helpers';
-import SelectPlayer from './SelectPlayer.vue';
+import 'flatpickr/dist/flatpickr.css';
+import 'flatpickr/dist/themes/material_blue.css';
 
 moment.locale('nb');
 
@@ -75,21 +74,25 @@ export default {
   name: 'AddGame',
 
   components: {
-    'select-player': SelectPlayer,
+    flatPickr,
   },
 
   data: () => ({
-    whiteMask: '##',
-    blackMask: '##',
     whiteValue: '',
     blackValue: '',
-    playerone: '',
-    playertwo: '',
-    date: new Date().toISOString().substr(0, 10),
-    datemenu: false,
-    time: moment().format('LT'),
-    timemenu: false,
+    playerone: 'default',
+    playertwo: 'default',
+    date: new Date(),
     checkbox: false,
+    flatPickerConfig: {
+      altInput: true,
+      altFormat: 'd.m.Y H:i',
+      minDate: null,
+      maxDate: null,
+      dateFormat: 'Z',
+      time_24hr: true,
+      enableTime: true,
+    },
   }),
 
   computed: mapState(['players', 'selectedLeague', 'leagues']),
@@ -110,11 +113,11 @@ export default {
 
     async submit() {
       await this.addGame({
-        league: this.$store.state.selectedLeague.id,
+        leagueId: this.selectedLeague.id,
         whiteId: this.playerone,
         blackId: this.playertwo,
         result: `${this.whiteValue}-${this.blackValue}`,
-        date: moment(new Date(`${this.date} ${this.time}`)).format(),
+        date: moment(new Date(this.date)).format(),
       });
       this.$refs.addGame.reset();
     },
@@ -126,4 +129,8 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.select--input {
+  border-bottom: 1px solid black;
+}
+</style>
