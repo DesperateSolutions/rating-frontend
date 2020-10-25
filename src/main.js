@@ -6,8 +6,9 @@ import App from './App.vue';
 import router from './router';
 import store from './store';
 
-import './style/main.scss';
+import './style/ds-global.scss';
 import 'vue-resize/dist/vue-resize.css';
+import '@fortawesome/fontawesome-free/css/all.css';
 
 Vue.config.productionTip = false;
 

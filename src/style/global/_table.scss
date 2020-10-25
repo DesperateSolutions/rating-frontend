@@ -1,0 +1,50 @@
+$border-radius: 2px;
+$box-shadow: 0 1px 3px rgba($ds-blue-dark, 0.25);
+
+$defaultColor: $ds-grey;
+$infoColor: $ds-yellow;
+$successColor: $ds-green-light;
+$strongColor: $ds-blue-dark;
+
+.ds-table {
+  width: 100%;
+  font-size: $font-size-0;
+  border-radius: $border-radius;
+  border-collapse: collapse;
+
+  &__th {
+    color: black;
+    font-weight: 500;
+    text-align: left;
+    background: $defaultColor;
+    border-bottom: 1px solid $ds-grey;
+
+    &:first-child {
+      border-top-left-radius: $border-radius;
+    }
+
+    &:last-child {
+      border-top-right-radius: $border-radius;
+    }
+  }
+
+  th,
+  td {
+    min-width: 200px;
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid $ds-blue-dark;
+    color: black;
+  }
+
+  tbody tr:hover {
+    & > td {
+      background: rgba($ds-blue-dark, 0.02);
+    }
+  }
+}
+
+.ds-table-container {
+  margin: 1rem 0;
+  overflow-x: auto;
+}

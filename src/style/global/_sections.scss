@@ -1,0 +1,86 @@
+//
+// Section
+// ==========================================================================
+
+@mixin section($backgroundColor: none) {
+  margin: 1rem 0;
+
+  @if $backgroundColor != none {
+    @include handheld-and-up {
+      padding: 1rem;
+    }
+    @include tablet-and-up {
+      padding: 1.5rem;
+    }
+
+    padding: 0.75rem;
+    background-color: $backgroundColor;
+
+    @if luminance($backgroundColor) < 0.4 {
+      color: white;
+
+      a:not([class^='ds-btn']) {
+        color: white;
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.ds-section {
+  @include section;
+}
+
+.ds-section--dark {
+  @include section($ds-blue-dark);
+  color: white;
+  a.ds-btn--ter {
+    color: white;
+  }
+}
+
+.ds-section--danger {
+  @include section($ds-red);
+
+  color: black;
+  a.ds-btn--ter {
+    color: black;
+  }
+}
+
+.ds-section--grey {
+  @include section($ds-grey);
+}
+
+.ds-section--success {
+  @include section($ds-green);
+
+  color: black;
+  a.ds-btn--ter {
+    color: black;
+  }
+}
+
+.ds-section--warning {
+  @include section($ds-yellow);
+}
+
+.ds-section--info {
+  @include section($ds-blue-light);
+  a.ds-btn--ter {
+    color: black;
+  }
+}
+
+.ds-section--frame {
+  @include section(white);
+  border: 1px solid $ds-grey-dark;
+}
+
+[class*='ds-section-'] > [class^='ds-title-'] {
+  margin-top: 0;
+}
+
+.ds-section--margin-top {
+  margin-top: 2.5rem;
+}

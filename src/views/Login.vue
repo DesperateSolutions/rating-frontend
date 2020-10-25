@@ -1,38 +1,24 @@
 <template>
-  <v-container fluid>
-    <v-form ref="addGame">
-      <v-row>
-        <v-col cols="12" sm="6" offset-sm="3">
-          <v-card>
-            <v-card-title>
-              <div>
-                <h3 class="headline mb-0">Log inn</h3>
-              </div>
-            </v-card-title>
-            <v-col cols="12" sm="12">
-              <v-card-text>
-                <v-text-field v-model="username" label="Username:" />
-              </v-card-text>
-            </v-col>
-            <v-col cols="12" sm="12">
-              <v-card-text>
-                <v-text-field
-                  v-model="password"
-                  label="Password:"
-                  :append-icon="show ? 'visibility_off' : 'visibility'"
-                  :type="show ? 'text' : 'password'"
-                  @click:append="show = !show"
-                />
-              </v-card-text>
-            </v-col>
-            <v-card-actions>
-              <v-btn block @click="clickLogin"> Log inn </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-form>
-  </v-container>
+  <div class="ds-container">
+    <div class="ds-col-6">
+      <form ref="addGame">
+        <div class="ds-card">
+          <h3 class="ds-title-3">Log inn</h3>
+          <v-text-field v-model="username" label="Username:" />
+          <v-text-field
+            v-model="password"
+            label="Password:"
+            :append-icon="show ? 'visibility_off' : 'visibility'"
+            :type="show ? 'text' : 'password'"
+            @click:append="show = !show"
+          />
+          <div class="ds-button-col">
+            <button class="ds-btn ds-btn--ghost" @click="clickLogin">Log inn</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -58,4 +44,15 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.ds-card {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  border-width: thin;
+  max-width: 100%;
+  outline: none;
+  text-decoration: none;
+  padding: 1rem;
+}
+</style>

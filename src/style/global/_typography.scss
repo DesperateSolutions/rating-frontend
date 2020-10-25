@@ -1,0 +1,83 @@
+$font-color: $ds-grey-dark;
+
+//
+// Scale at "1.250 – Major Third" from type-scale.com
+// ==========================================================================
+$font-size-0: 0.86rem;
+$font-size-1: 16px;
+$font-size-2: 1.25em;
+$font-size-3: 1.563em;
+$font-size-4: 1.953em;
+$font-size-5: 2.441em;
+
+body {
+  color: $font-color;
+  font-size: $font-size-1;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6em;
+}
+
+em {
+  font-style: italic;
+}
+
+small {
+  font-size: $font-size-0;
+  opacity: 0.8;
+}
+
+strong {
+  font-weight: 500;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+//
+// Heading styles
+// ==========================================================================
+
+.ds-title-1 {
+  @include font-size-title-1;
+
+  margin-top: 0.6em;
+  margin-bottom: 0.4em;
+  font-weight: 400;
+}
+
+.ds-title-2 {
+  @include font-size-title-2;
+
+  margin-top: 0.6em;
+  margin-bottom: 0.4em;
+  font-weight: 400;
+}
+
+.ds-title-3 {
+  @include font-size-title-3;
+
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-weight: 400;
+}
+
+.ds-tle-4 {
+  @include font-size-title-4;
+
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+  font-weight: 500;
+}
+
+/*
+ Link-styling
+*/
+a:link {
+  color: $ds-link;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
