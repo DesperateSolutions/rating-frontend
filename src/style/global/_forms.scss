@@ -1,0 +1,154 @@
+@import 'buttons';
+
+/* stylelint-disable */
+/* eslint-disable */
+
+// Border values
+$borderWidth: 2px;
+$borderRadius: 2px;
+
+// Padding values
+$paddingSmallTopBottom: 0.25em;
+$paddingSmallSides: 0.75em;
+$paddingDefaultTopBottom: 0.5em;
+$paddingDefaultSides: 1em;
+$paddingLargeTopBottom: 1em;
+$paddingLargeSides: 1.5em;
+
+.ds-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.ds-form-label {
+  width: 100%;
+}
+
+.ds-form-help {
+  margin: 0.25em 0;
+  font-size: $font-size-0;
+  line-height: 1.25em;
+  opacity: 0.9;
+}
+
+.ds-form-row {
+  display: flex;
+
+  & > .ds-form-input {
+    flex-grow: 1;
+  }
+}
+
+.ds-form-validation {
+  position: relative;
+  margin: 1px 0 0;
+  padding: 0.25rem 0.75rem;
+  color: black;
+  font-size: $font-size-0;
+  background: $ds-grey-light;
+  border: 1px solid $ds-grey-dark;
+  transform-origin: 0 0;
+  animation: enter 0.2s ease-in forwards;
+
+  &--warning {
+    background: lighten($ds-yellow, 20%);
+    border: 1px solid $ds-yellow;
+  }
+
+  &--error {
+    background: lighten($ds-red, 20%);
+    border: 1px solid $ds-red;
+  }
+}
+
+.ds-form-input {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  background: $ds-grey-light;
+  border: 2px solid $ds-blue-dark;
+
+  &--invalid {
+    background-color: rgba($ds-red, 0.15);
+    border-color: $ds-red;
+  }
+
+  &--valid {
+    background-color: rgba($ds-green-light, 0.25);
+    border-color: $ds-green-dark;
+  }
+}
+
+@keyframes enter {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+.ds-checkbox,
+.ds-radio {
+  $p: &;
+
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+
+  &:hover {
+    background: $ds-grey;
+  }
+
+  &__input {
+    margin: 0 0.5rem 0 0;
+  }
+
+  // Disabled styles
+  &__input:disabled {
+    cursor: not-allowed;
+  }
+
+  &__input:disabled ~ &__label {
+    color: $ds-disabled-text;
+    cursor: not-allowed;
+  }
+
+  // Highlights the whole group on focus if supported
+  &:focus-within {
+    @include focusStyle;
+
+    & > #{$p}__input:focus {
+      outline: 0;
+    }
+  }
+}
+
+.ds-select__container {
+  position: relative;
+  margin: 0.25rem;
+  appearance: none;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    width: auto;
+    height: 100%;
+    content: 'V';
+    pointer-events: none;
+  }
+}
+
+.ds-select__input {
+  width: 100%;
+  padding-right: 2rem;
+  appearance: none;
+
+  &::-ms-expand {
+    display: none;
+  }
+}

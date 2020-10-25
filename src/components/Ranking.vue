@@ -1,55 +1,48 @@
 <template>
-  <v-container fluid>
-    <v-app id="inspire">
-      <v-card>
-        <v-data-table
-          :headers="headers"
-          :items="players"
-          hide-default-footer
-          class="elevation-24"
-          :sort-by="sortBy"
-          :sort-desc="descending"
-          :items-per-page="rowsPerPage"
-        />
-      </v-card>
-    </v-app>
-  </v-container>
+  <div class="ds-card">
+    <div class="ds-table-container">
+      <table class="ds-table">
+        <thead>
+          <tr>
+            <th class="ds-table__th">Player</th>
+            <th class="ds-table__th"># of Games</th>
+            <th class="ds-table__th">Rating</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(player, index) in players" :key="index">
+            <td>{{ player.name }}</td>
+            <td>{{ player.games.length }}</td>
+            <td>{{ player.rating }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { isObjectEmpty } from '../util/helpers';
+import { mapState, mapActions } from 'vuex';
+import { isObjectEmpty } from '@/util/helpers';
 
 export default {
   name: 'Ranking',
-  data() {
-    return {
-      sortBy: 'rating',
-      descending: true,
-      rowsPerPage: -1,
-      headers: [
-        {
-          text: 'Player',
-          align: 'left',
-          sortable: false,
-          value: 'name',
-        },
-        { text: '# of Games', sortable: false, value: 'games.length' },
-        { text: 'Rating', value: 'rating' },
-      ],
-    };
-  },
-  computed: mapState(['players']),
+
+  computed: mapState(['players', 'leagues', 'selectedLeague']),
+
   async created() {
     if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-        const league = this.$store.state.leagues.find(item => item.name === this.$route.params.name);
-        this.$store.dispatch('GET_ALL_PLAYERS', { league: league.id });
-        this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-      });
+      await this.fetchAllLeagues();
+      const league = this.leagues.find((item) => item.name === this.$route.params.name);
+      await this.fetchAllPlayers({ leagueId: league.id });
+      this.selectLeague({ league });
     } else {
-      this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
+      await this.fetchAllPlayers({ leagueId: this.selectedLeague.id });
     }
+  },
+
+  methods: {
+    ...mapActions(['fetchAllLeagues', 'fetchAllPlayers', 'selectLeague']),
   },
 };
 </script>

@@ -11,124 +11,125 @@ moment.locale('nb');
 const debug = process.env.NODE_ENV !== 'production';
 
 const actions = {
-  GET_ALL_GAMES({ commit }, { league }) {
-    getAllGames(league)
-      .then(response => {
-        commit('SET_GAMES', { games: response });
-      })
-      .catch(error => {
-        commit('GET_FAILED', { error });
-        commit('SHOW_SNACKBAR', {
-          error,
-          message: 'Failed to retrieve games',
-          info: ` -- ${error.status} - ${error.statusText}`,
-          color: 'red',
-        });
+  async fetchAllGames({ commit }, { leagueId }) {
+    try {
+      const res = await getAllGames(leagueId);
+      commit('SET_GAMES', { games: res });
+    } catch (e) {
+      commit('GET_FAILED', { e });
+      commit('SHOW_SNACKBAR', {
+        e,
+        message: 'Failed to retrieve games',
+        info: ` -- ${e.status} - ${e.statusText}`,
+        color: 'red',
       });
+    }
   },
-  GET_ALL_PLAYERS({ commit }, { league }) {
-    getAllPlayers(league)
-      .then(response => {
-        commit('SET_PLAYERS', { players: response });
-      })
-      .catch(error => {
-        commit('GET_FAILED', { error });
-        commit('SHOW_SNACKBAR', {
-          error,
-          message: 'Failed to retrieve all players',
-          info: ` -- ${error.status} - ${error.statusText}`,
-          color: 'red',
-        });
+
+  async fetchAllPlayers({ commit }, { leagueId }) {
+    try {
+      const res = await getAllPlayers(leagueId);
+      commit('SET_PLAYERS', { players: res });
+    } catch (e) {
+      commit('GET_FAILED', { e });
+      commit('SHOW_SNACKBAR', {
+        e,
+        message: 'Failed to retrieve all players',
+        info: ` -- ${e.status} - ${e.statusText}`,
+        color: 'red',
       });
+    }
   },
-  ADD_A_GAME({ commit }, { league, whiteId, blackId, result, date }) {
-    addGame(league, whiteId, blackId, result, date)
-      .then(response => {
-        commit('POST_SUCCESS', { response });
-        commit('SHOW_SNACKBAR', {
-          message: 'Successfully added a game',
-          info: '',
-          color: 'success',
-        });
-      })
-      .catch(error => {
-        commit('POST_FAILED', { error });
-        commit('SHOW_SNACKBAR', {
-          error,
-          message: 'Failed to add game',
-          info: ` -- ${error.status} - ${error.statusText}`,
-          color: 'red',
-        });
+
+  async addGame({ commit }, { leagueId, whiteId, blackId, result, date }) {
+    try {
+      const res = await addGame(leagueId, whiteId, blackId, result, date);
+      commit('POST_SUCCESS', { res });
+      commit('SHOW_SNACKBAR', {
+        message: 'Successfully added a game',
+        info: '',
+        color: 'success',
       });
-  },
-  ADD_A_LEAGUE({ commit }, { name, settings }) {
-    addLeague(name, settings)
-      .then(response => {
-        commit('POST_SUCCESS', { response });
-        commit('SHOW_SNACKBAR', {
-          message: 'Successfully added a league',
-          info: '',
-          color: 'success',
-        });
-      })
-      .catch(error => {
-        commit('POST_FAILED', { error });
-        commit('SHOW_SNACKBAR', {
-          error,
-          message: 'Failed to add new league',
-          info: ` -- ${error.status} - ${error.statusText}`,
-          color: 'red',
-        });
+    } catch (e) {
+      commit('POST_FAILED', { e });
+      commit('SHOW_SNACKBAR', {
+        e,
+        message: 'Failed to add game',
+        info: ` -- ${e.status} - ${e.statusText}`,
+        color: 'red',
       });
+    }
   },
-  ADD_PLAYER({ commit }, { league, name }) {
-    addPlayer(league, name)
-      .then(response => {
-        commit('POST_SUCCESS', { response });
-        commit('SHOW_SNACKBAR', {
-          message: 'Successfully added a new player',
-          info: '',
-          color: 'success',
-        });
-      })
-      .catch(error => {
-        commit('POST_FAILED', { error });
-        commit('SHOW_SNACKBAR', {
-          message: 'Failed to add a new player',
-          info: ` -- ${error.status} - ${error.statusText}`,
-          color: 'red',
-        });
+
+  async addLeague({ commit }, { name, settings }) {
+    try {
+      const res = await addLeague(name, settings);
+      commit('POST_SUCCESS', { res });
+      commit('SHOW_SNACKBAR', {
+        message: 'Successfully added a league',
+        info: '',
+        color: 'success',
       });
-  },
-  async GET_ALL_LEAGUES({ commit }) {
-    await getAllLeagues()
-      .then(response => {
-        commit('SET_LEAGUES', { leagues: response });
-      })
-      .catch(error => {
-        commit('GET_FAILED', { error });
-        commit('SHOW_SNACKBAR', {
-          error,
-          message: 'Failed to retrieve leagues',
-          info: ` -- ${error.status} - ${error.statusText}`,
-          color: 'red',
-        });
+    } catch (e) {
+      commit('POST_FAILED', { e });
+      commit('SHOW_SNACKBAR', {
+        e,
+        message: 'Failed to add new league',
+        info: ` -- ${e.status} - ${e.statusText}`,
+        color: 'red',
       });
+    }
   },
-  SELECT_LEAGUE({ commit }, { selectedLeague }) {
-    commit('SELECT_LEAGUE', { selectedLeague });
+
+  async addPlayer({ commit }, { leagueId, name }) {
+    try {
+      const res = await addPlayer(leagueId, name);
+      commit('POST_SUCCESS', { res });
+      commit('SHOW_SNACKBAR', {
+        message: 'Successfully added a new player',
+        info: '',
+        color: 'success',
+      });
+    } catch (e) {
+      commit('POST_FAILED', { e });
+      commit('SHOW_SNACKBAR', {
+        message: 'Failed to add a new player',
+        info: ` -- ${e.status} - ${e.statusText}`,
+        color: 'red',
+      });
+    }
   },
-  GET_PLAYER_STATS({ commit }, { league, player }) {
-    getPlayerStats(league, player)
-      .then(response => {
+
+  async fetchAllLeagues({ commit }) {
+    try {
+      const res = await getAllLeagues();
+      commit('SET_LEAGUES', { leagues: res });
+    } catch (e) {
+      commit('GET_FAILED', { e });
+      commit('SHOW_SNACKBAR', {
+        e,
+        message: 'Failed to retrieve leagues',
+        info: ` -- ${e.status} - ${e.statusText}`,
+        color: 'red',
+      });
+    }
+  },
+
+  selectLeague({ commit }, { league }) {
+    commit('SELECT_LEAGUE', { league });
+  },
+
+  fetchPlayerStats({ commit }, { leagueId, player }) {
+    getPlayerStats(leagueId, player)
+      .then((response) => {
         commit('SET_PLAYER_STATS', { player: response });
       })
-      .catch(error => {
-        commit('GET_FAILED', { error });
+      .catch((e) => {
+        commit('GET_FAILED', { e });
         commit('SHOW_SNACKBAR', {
-          error,
+          e,
           message: 'Failed to retrieve selected player stats',
-          info: ` -- ${error.status} - ${error.statusText}`,
+          info: ` -- ${e.status} - ${e.statusText}`,
           color: 'red',
         });
       });
@@ -138,7 +139,7 @@ const actions = {
 const mutations = {
   SET_GAMES: (state, { games }) => {
     const newState = state;
-    newState.games = games.map(game => ({
+    newState.games = games.map((game) => ({
       blackId: getName(state.players, game.blackId),
       whiteId: getName(state.players, game.whiteId),
       result: game.result,
@@ -147,56 +148,60 @@ const mutations = {
     }));
     newState.games.reverse();
   },
+
   SET_PLAYERS: (state, { players }) => {
     const newState = state;
     newState.players = players;
   },
+
   SET_LEAGUES: (state, { leagues }) => {
-    const newState = state;
-    newState.leagues = leagues;
+    state.leagues = leagues;
   },
-  GET_FAILED: (state, { error }) => {
-    const newState = state;
-    newState.error = error;
+
+  GET_FAILED: (state, { e }) => {
+    state.error = e;
   },
-  POST_FAILED: (state, { error }) => {
-    const newState = state;
-    newState.error = error;
+
+  POST_FAILED: (state, { e }) => {
+    state.error = e;
   },
-  POST_SUCCESS: (state, { response }) => {
-    const newState = state;
-    newState.successInfo = response;
+
+  POST_SUCCESS: (state, { res }) => {
+    state.successInfo = res;
   },
-  SELECT_LEAGUE: (state, { selectedLeague }) => {
-    const newState = state;
-    newState.selectedLeague = selectedLeague;
+
+  SELECT_LEAGUE: (state, { league }) => {
+    state.selectedLeague = league;
   },
+
   SHOW_SNACKBAR: (state, payload) => {
-    const newState = state;
-    newState.snack = {
+    state.snack = {
       ...state.snack,
       ...payload,
       visible: true,
     };
   },
-  CLOSE_SNACKBAR: state => {
-    const newState = state;
-    newState.snack.visible = false;
-    newState.snack.multiline = false;
-    newState.snack.timeout = 6000;
-    newState.snack.message = null;
-    newState.snack.info = null;
-    newState.snack.color = undefined;
+
+  CLOSE_SNACKBAR: (state) => {
+    state.snack = {
+      visible: false,
+      multiline: false,
+      timeout: 6000,
+      message: null,
+      info: null,
+      color: undefined,
+    };
   },
+
   SET_PLAYER_STATS: (state, { player }) => {
-    const newState = state;
-    newState.selectedPlayer = player;
+    state.selectedPlayer = player;
   },
 };
 
 const getters = {
-  visible: state => state.snack.visible,
-  playerStats: state => {
+  visible: (state) => state.snack.visible,
+
+  playerStats: (state) => {
     if (state.selectedPlayer.wins === 0 && state.selectedPlayer.losses === 0) return null;
 
     return [

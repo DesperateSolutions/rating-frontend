@@ -1,31 +1,24 @@
 <template>
-  <v-container fluid>
-    <v-card class="elevation-24">
-      <v-card-title>
-        <h3 class="headline mb-12">
-          Statistikk
-        </h3>
-      </v-card-title>
-      <v-card-actions>
-        <select-player v-model="player" :items="players" label="Select Player" />
-      </v-card-actions>
-      <v-card-text>
-        <pie-chart v-if="show" :stats="playerStats" />
-      </v-card-text>
-    </v-card>
-  </v-container>
+  <div class="ds-card">
+    <h1 class="ds-title-2">Statistikk</h1>
+    <div class="ds-select__container">
+      <label for="select" class="sr-only"></label>
+      <select id="select" v-model="player" class="ds-select__input ds-btn ds-btn--ghost">
+        <option v-for="p in players" :key="p.id">{{ p.name }}</option>
+      </select>
+    </div>
+    <pie-chart v-if="show" :stats="playerStats" />
+  </div>
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex';
-import SelectPlayer from './SelectPlayer.vue';
-import { isObjectEmpty } from '../util/helpers';
+import { mapState, mapGetters, mapActions } from 'vuex';
+import { isObjectEmpty } from '@/util/helpers';
 import PieChart from './PieChart.vue';
 
 export default {
   name: 'Statistics',
   components: {
-    SelectPlayer,
     PieChart,
   },
 
@@ -35,28 +28,36 @@ export default {
   }),
 
   computed: {
-    ...mapState(['players', 'selectedPlayer', 'selectedLeague']),
+    ...mapState(['players', 'selectedPlayer', 'selectedLeague', 'leagues']),
     ...mapGetters(['playerStats']),
   },
 
   watch: {
     player() {
-      this.$store.dispatch('GET_PLAYER_STATS', { league: this.selectedLeague.id, player: this.player });
+      const { id } = this.players.find((p) => p.name.trim() === this.player.trim());
+      this.fetchPlayerStats({ leagueId: this.selectedLeague.id, player: id });
     },
+
     playerStats() {
       this.show = this.playerStats !== null;
     },
   },
 
   async created() {
-    if (isObjectEmpty(this.$store.state.selectedLeague)) {
-      await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-        const league = this.$store.state.leagues.find(item => item.name === this.$route.params.name);
-        this.$store.dispatch('GET_ALL_PLAYERS', { league: league.id });
-        this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-      });
+    if (isObjectEmpty(this.selectedLeague)) {
+      await this.fetchAllLeagues();
+
+      const league = this.leagues.find((item) => item.name === this.$route.params.name);
+
+      await this.fetchAllPlayers({ leagueId: league.id });
+      this.selectLeague({ league });
+    } else {
+      await this.fetchAllPlayers({ leagueId: this.$store.state.selectedLeague.id });
     }
-    await this.$store.dispatch('GET_ALL_PLAYERS', { league: this.$store.state.selectedLeague.id });
+  },
+
+  methods: {
+    ...mapActions(['fetchAllLeagues', 'fetchAllPlayers', 'selectLeague', 'fetchPlayerStats']),
   },
 };
 </script>

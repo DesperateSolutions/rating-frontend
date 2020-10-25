@@ -1,39 +1,31 @@
 <template>
-  <v-app>
-    <snackbar />
-    <v-app-bar app absolute>
-      <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-toolbar-items>
-        <v-btn text @click="changeRoute('leagues')">
-          Leagues
-        </v-btn>
-      </v-toolbar-items>
-    </v-app-bar>
-    <v-content>
-      <router-view />
-    </v-content>
-  </v-app>
+  <div id="app" class="app">
+    <the-header></the-header>
+    <router-view class="ds-container" />
+  </div>
 </template>
 
 <script>
-import Snackbar from './components/Snackbar.vue';
-
 export default {
   name: 'App',
-  components: { Snackbar },
-  data() {
-    return {
-      drawer: false,
-      fixed: true,
-      menuItems: [{ title: 'Leagues', icon: 'dashboard' }],
-      title: 'Squash Rating',
-    };
+
+  components: {
+    TheHeader: () => import('./components/TheHeader.vue'),
   },
-  methods: {
-    changeRoute(path) {
-      this.$router.push({ name: path });
-    },
-  },
+
+  data: () => ({
+    title: 'Squash Rating',
+  }),
 };
 </script>
+
+<style lang="scss" scoped>
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.ds-container {
+  flex-grow: 1;
+}
+</style>

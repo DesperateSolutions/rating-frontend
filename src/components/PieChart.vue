@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card-subtitle>Wins/Losses</v-card-subtitle>
+    <h2 class="ds-title-3">Wins/Losses</h2>
     <resize-observer @notify="handleResize" />
     <svg ref="svg" class="pie" />
   </div>
@@ -103,7 +103,7 @@ export default {
       const arcs = d3
         .pie()
         .sort(null)
-        .value(d => d.value)(stats);
+        .value((d) => d.value)(stats);
 
       const block = this.pieG.selectAll('.arc').data(arcs);
 
@@ -122,7 +122,7 @@ export default {
         .append('path')
         .attr('d', this.arc)
         .attr('id', (d, i) => `arc-${i}`)
-        .attr('fill', d => (d.data.label === 'wins' ? '#00ff00' : '#ff0000'));
+        .attr('fill', (d) => (d.data.label === 'wins' ? '#00ff00' : '#ff0000'));
 
       newBlock
         .append('text')
@@ -131,7 +131,7 @@ export default {
         .attr('fill', 'white')
         .append('textPath')
         .attr('xlink:href', (d, i) => `#arc-${i}`)
-        .text(d => d.data.label);
+        .text((d) => d.data.label);
     },
   },
 };

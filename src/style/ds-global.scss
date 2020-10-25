@@ -1,0 +1,74 @@
+//
+// Global CSS for Oslo kommune
+//
+// Documentation: https://www.notion.so/kiledal/Min-side-CSS-arkitektur-937f7fbe6061479da3e435d742abca54
+//
+//
+// How to use:
+//
+// => Import this file globally to your project
+//
+//
+
+// ==========================================================================
+// Quick settings
+// ==========================================================================
+$contentWidth: 860px;
+
+// ==========================================================================
+// Imports
+// ==========================================================================
+//
+// Reset
+// ==========================================================================
+@import 'global/reset';
+
+//
+// Global mixins
+// ==========================================================================
+@import 'variables/mixins';
+
+//
+// Utility functions
+// ==========================================================================
+@import 'functions/luminance';
+
+//
+// Variables
+// ==========================================================================
+@import 'variables/colors';
+@import 'variables/breakpoints';
+
+//
+// Components
+// ==========================================================================
+@import 'global/typography';
+@import 'global/lists';
+@import 'global/icons';
+@import 'global/grid';
+@import 'global/buttons';
+@import 'global/forms';
+@import 'global/table';
+@import 'global/utility';
+@import 'global/sections';
+@import 'global/card';
+
+// ==========================================================================
+// Additional global styles
+// ==========================================================================
+
+.ds-container {
+  width: 100%;
+  max-width: $contentWidth;
+  margin: 0 auto;
+  padding: 0 1rem;
+  overflow-x: hidden;
+
+  @include desktop-and-up {
+    width: $contentWidth;
+  }
+}
+
+*:focus {
+  @include focusStyle;
+}

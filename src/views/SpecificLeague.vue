@@ -1,29 +1,31 @@
 <template>
-  <v-container fluid>
-    <v-tabs v-model="active" grow show-arrows class="elevation-24">
-      <v-tab key="1" :to="{ path: switchTab('addGame') }" ripple>
-        Add Game
-      </v-tab>
-      <v-tab key="2" :to="{ path: switchTab('games') }" ripple>
-        Games
-      </v-tab>
-      <v-tab key="3" :to="{ path: switchTab('addPlayer') }" ripple>
-        Add Player
-      </v-tab>
-      <v-tab key="4" :to="{ path: switchTab('ranking') }" ripple>
-        Ranking
-      </v-tab>
-      <v-tab key="5" :to="{ path: switchTab('statistics') }" ripple>
-        Statistics
-      </v-tab>
-    </v-tabs>
-    <v-slide-y-transition mode="out-in">
+  <div>
+    <ul class="tabs">
+      <li>
+        <router-link :to="{ path: switchTab('addGame') }" class="tab"> Add Game </router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: switchTab('games') }" class="tab"> Games </router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: switchTab('addPlayer') }" class="tab"> Add Player </router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: switchTab('ranking') }" class="tab"> Ranking </router-link>
+      </li>
+      <li>
+        <router-link :to="{ path: switchTab('statistics') }" class="tab"> Statistics </router-link>
+      </li>
+    </ul>
+    <transition name="fade">
       <router-view />
-    </v-slide-y-transition>
-  </v-container>
+    </transition>
+  </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
   name: 'League',
   props: {
@@ -32,18 +34,25 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      active: null,
-    };
+
+  data: () => ({
+    active: null,
+  }),
+
+  computed: {
+    ...mapState(['leagues']),
   },
+
   async created() {
-    await this.$store.dispatch('GET_ALL_LEAGUES').then(() => {
-      const league = this.$store.state.leagues.find(item => item.name === this.$route.params.name);
-      this.$store.dispatch('SELECT_LEAGUE', { selectedLeague: league });
-    });
+    await this.fetchAllLeagues();
+
+    const league = this.leagues.find((item) => item.name === this.$route.params.name);
+    this.selectLeague({ league });
   },
+
   methods: {
+    ...mapActions(['fetchAllLeagues', 'selectLeague']),
+
     switchTab(tab) {
       return `/league/${this.name}/${tab}`;
     },
@@ -51,4 +60,89 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+@import '@/style/variables/_colors';
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+.tabs {
+  position: relative;
+  display: flex;
+  width: 100%;
+  margin: 1rem 0;
+  padding-bottom: 5px;
+  overflow-x: auto;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 4px;
+    left: 0;
+    height: 1px;
+    background: $ds-grey;
+    content: '';
+  }
+
+  &::-webkit-slider-runnable-track {
+    background: blue;
+  }
+
+  &::-webkit-scrollbar {
+    height: 6px;
+    transform: translateY(10px);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $ds-grey-light;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $ds-grey-light;
+  }
+}
+
+.tab {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.5rem;
+  color: $ds-grey-dark;
+  font-weight: 500;
+  white-space: nowrap;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: -3px;
+    left: 0;
+    height: 1px;
+    background: $ds-grey-light;
+    content: '';
+  }
+
+  &.active {
+    color: $ds-grey-dark;
+    border-bottom-color: black;
+  }
+}
+
+.tab--right {
+  margin-left: auto;
+}
+
+.tab__icon {
+  display: none !important;
+  margin-right: 0.35rem;
+  color: $ds-grey-dark;
+}
+</style>

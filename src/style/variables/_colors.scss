@@ -1,0 +1,34 @@
+$ds-link: #017acb;
+
+$ds-blue: #6fe9ff;
+$ds-blue-light: #b3f5ff;
+$ds-blue-dark: #2a2859;
+
+$ds-grey: #ffffff;
+$ds-grey-light: #f9f9f9;
+$ds-grey-dark: #e1e1e1;
+
+$ds-disabled-border: #b2b2b2;
+$ds-disabled-text: #8585a2;
+
+$ds-yellow: #f9c66b;
+$ds-red: #ff8274;
+$ds-green: #43f8b6;
+$ds-green-light: #c7f6c9;
+$ds-green-dark: #034b45;
+
+// Bind to globally accessible CSS variables
+:root {
+  --ds-link: #{$ds-link};
+  --ds-blue: #{$ds-blue};
+  --ds-blue-light: #{$ds-blue-light};
+  --ds-blue-dark: #{$ds-blue-dark};
+  --ds-grey: #{$ds-grey};
+  --ds-grey-light: #{$ds-grey-light};
+  --ds-grey-dark: #{$ds-grey-dark};
+  --ds-yellow: #{$ds-yellow};
+  --ds-red: #{$ds-red};
+  --ds-green: #{$ds-green};
+  --ds-green-light: #{$ds-green-light};
+  --ds-green-dark: #{$ds-green-dark};
+}

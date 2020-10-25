@@ -1,64 +1,51 @@
 <template>
-  <v-container fluid>
-    <v-form ref="addGame">
-      <v-row>
-        <v-col cols="12" sm="6" offset-sm="3">
-          <v-card>
-            <v-card-title>
-              <div>
-                <h3 class="headline mb-0">
-                  Log inn
-                </h3>
-              </div>
-            </v-card-title>
-            <v-col cols="12" sm="12">
-              <v-card-text>
-                <v-text-field v-model="username" label="Username:" />
-              </v-card-text>
-            </v-col>
-            <v-col cols="12" sm="12">
-              <v-card-text>
-                <v-text-field
-                  v-model="password"
-                  label="Password:"
-                  :append-icon="show ? 'visibility_off' : 'visibility'"
-                  :type="show ? 'text' : 'password'"
-                  @click:append="show = !show"
-                />
-              </v-card-text>
-            </v-col>
-            <v-card-actions>
-              <v-btn block @click="clickLogin">
-                Log inn
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-form>
-  </v-container>
+  <div>
+    <div class="ds-col-6">
+      <form ref="addGame">
+        <div class="ds-card">
+          <h1 class="ds-title-3">Log inn</h1>
+          <div class="form-input">
+            <label>
+              <input v-model="username" required />
+              <span class="placeholder">Username:</span>
+            </label>
+          </div>
+
+          <div class="form-input">
+            <label>
+              <input v-model="password" type="password" required />
+              <span class="placeholder">Password:</span>
+            </label>
+          </div>
+          <div class="ds-button-col">
+            <button class="ds-btn ds-btn--ghost" @click="clickLogin">Log inn</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>
 
 <script>
-import { login } from '../util/api';
+import { login } from '@/util/api';
 
 export default {
   name: 'Login',
-  data() {
-    return {
-      context: 'login context',
-      username: '',
-      password: '',
-      error: null,
-      show: false,
-    };
-  },
+
+  data: () => ({
+    context: 'login context',
+    username: '',
+    password: '',
+    show: false,
+  }),
+
   methods: {
-    clickLogin() {
-      login(this.username, this.password).then(() => this.$router.replace(this.$route.query.redirect));
+    async clickLogin() {
+      await login(this.username, this.password);
+      await this.$router.push(this.$route.query.redirect);
     },
   },
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss"></style>

@@ -1,0 +1,88 @@
+$breakpoint-grid: $break-tablet;
+$gutter: 2%;
+$width: 100% - $gutter;
+
+// Row styles
+.ds-row {
+  position: relative;
+  width: 100% + $gutter;
+  margin: $gutter / 2 $gutter / 2 * -1;
+}
+
+.ds-row [class^='ds-col'] {
+  float: left;
+  min-height: 0.125rem;
+  margin: $gutter / 2;
+}
+
+.ds-row::after {
+  display: table;
+  clear: both;
+  content: '';
+}
+
+// Col styles
+.ds-col-1,
+.ds-col-2,
+.ds-col-3,
+.ds-col-4,
+.ds-col-5,
+.ds-col-6,
+.ds-col-7,
+.ds-col-8,
+.ds-col-9,
+.ds-col-10,
+.ds-col-11,
+.ds-col-12 {
+  width: $width;
+}
+
+@media only screen and (min-width: $breakpoint-grid) {
+  .ds-col-1 {
+    width: ($width / 12) - ($gutter * 11 / 12);
+  }
+
+  .ds-col-2 {
+    width: ($width / 6) - ($gutter * 10 / 12);
+  }
+
+  .ds-col-3 {
+    width: ($width / 4) - ($gutter * 9 / 12);
+  }
+
+  .ds-col-4 {
+    width: ($width / 3) - ($gutter * 8 / 12);
+  }
+
+  .ds-col-5 {
+    width: ($width / (12 / 5)) - ($gutter * 7 / 12);
+  }
+
+  .ds-col-6 {
+    width: ($width / 2) - ($gutter * 6 / 12);
+  }
+
+  .ds-col-7 {
+    width: ($width / (12 / 7)) - ($gutter * 5 / 12);
+  }
+
+  .ds-col-8 {
+    width: ($width / (12 / 8)) - ($gutter * 4 / 12);
+  }
+
+  .ds-col-9 {
+    width: ($width / (12 / 9)) - ($gutter * 3 / 12);
+  }
+
+  .ds-col-10 {
+    width: ($width / (12 / 10)) - ($gutter * 2 / 12);
+  }
+
+  .ds-col-11 {
+    width: ($width / (12 / 11)) - ($gutter * 1 / 12);
+  }
+
+  .ds-col-12 {
+    width: $width;
+  }
+}

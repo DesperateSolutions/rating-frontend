@@ -1,0 +1,66 @@
+@mixin focusStyle {
+  outline: auto darken($ds-yellow, 15%);
+}
+
+/*
+  Media queries
+*/
+@mixin xs-and-up {
+  @media screen and (min-width: $break-xs) {
+    @content;
+  }
+}
+
+@mixin handheld-and-up {
+  @media screen and (min-width: $break-handheld) {
+    @content;
+  }
+}
+
+@mixin tablet-and-up {
+  @media screen and (min-width: $break-tablet) {
+    @content;
+  }
+}
+
+@mixin desktop-and-up {
+  @media screen and (min-width: $break-desktop) {
+    @content;
+  }
+}
+
+@mixin large-desktop-and-up {
+  @media screen and (min-width: $break-large-desktop) {
+    @content;
+  }
+}
+
+/*
+  Font-sizes
+*/
+@mixin font-size-title-1 {
+  font-size: $font-size-5;
+  line-height: 1.15em;
+  letter-spacing: -0.02em;
+}
+@mixin font-size-title-2 {
+  font-size: $font-size-4;
+  line-height: 1.15em;
+  letter-spacing: -0.02em;
+}
+@mixin font-size-title-3 {
+  font-size: $font-size-3;
+  line-height: 1.25em;
+  letter-spacing: -0.01em;
+}
+@mixin font-size-title-4 {
+  font-size: $font-size-2;
+  line-height: 1.25em;
+  letter-spacing: -0.01em;
+}
+
+@mixin ds-logo {
+  width: 7rem;
+  height: 100%;
+  padding: 0.75rem 1rem;
+}

@@ -1,0 +1,331 @@
+@function darkenSaturate($color, $step: 4%) {
+  @return saturate(darken($color, $step), $step);
+}
+
+@function gradient($color, $step: 4%) {
+  @return linear-gradient(to bottom, $color, darkenSaturate($color, $step));
+}
+
+$margin: 0.25rem;
+
+// Border values
+$borderWidth: 2px;
+$borderRadius: 2px;
+
+// Padding values
+$paddingSmallTopBottom: 0.25em;
+$paddingSmallSides: 0.75em;
+$paddingDefaultTopBottom: 0.5em;
+$paddingDefaultSides: 0.75em;
+$paddingLargeTopBottom: 1em;
+$paddingLargeSides: 1.5em;
+
+@mixin ds-btn {
+  position: relative;
+  display: inline-block;
+  min-height: 1.75em;
+  padding: $paddingDefaultTopBottom $paddingDefaultSides;
+  color: black;
+  font-size: $font-size-1;
+  line-height: 1.25em;
+  text-align: left;
+  background: gradient($ds-grey, 10%);
+  border-width: 0;
+  box-shadow: 0 1px 3px rgba($ds-blue-dark, 0.15);
+
+  // Overlay on hover
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: $ds-blue-dark;
+    border-radius: $borderRadius;
+    opacity: 0;
+    content: '';
+  }
+
+  &:hover::after {
+    opacity: 0.1;
+  }
+
+  &:hover > .ds-icon {
+    text-decoration: none !important;
+  }
+
+  &:active {
+    box-shadow: none;
+    transform: translateY(0.5px);
+  }
+}
+
+button:not(:disabled) {
+  cursor: pointer;
+}
+
+button.ds-btn[disabled] {
+  color: darken($ds-grey-dark, 30%);
+  background: $ds-grey-dark;
+  box-shadow: none;
+  cursor: not-allowed;
+
+  &:after {
+    display: none;
+  }
+
+  &.ds-btn--ter {
+    background: none;
+  }
+}
+
+// Container for horizontal list of buttons
+.ds-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0.5rem $margin * -1;
+
+  & > .ds-btn {
+    margin: $margin;
+  }
+
+  &.center {
+    justify-content: center;
+  }
+}
+
+.ds-button-col {
+  display: flex;
+  flex-direction: column;
+
+  & > .ds-btn {
+    justify-content: flex-start;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.ds-button-col-space {
+  display: flex;
+  flex-direction: column;
+  margin: -$margin;
+
+  & > .ds-btn {
+    justify-content: flex-start;
+    margin: $margin;
+    text-align: left;
+  }
+}
+
+// Disable text-underline anchor tags when appearing as buttons
+a.ds-btn,
+a.ds-btn:hover {
+  text-decoration: none !important;
+}
+
+// Default button style
+a.ds-btn,
+.ds-btn {
+  @include ds-btn;
+}
+
+// Primary button
+a.ds-btn--pri,
+.ds-btn--pri {
+  color: white;
+  background: gradient($ds-blue-dark);
+
+  &::after {
+    background: white;
+  }
+}
+
+// Secondary button
+a.ds-btn--sec,
+.ds-btn--sec {
+  color: $ds-blue-dark;
+  background: gradient($ds-yellow, 12%);
+}
+
+// Tertiary button
+.ds-btn--ter {
+  color: black;
+  box-shadow: none;
+
+  & > .ds-icon {
+    text-decoration: none !important;
+  }
+}
+
+a.ds-btn--ter {
+  color: $ds-link;
+  box-shadow: none;
+
+  &:not(.ds-no-underline) {
+    text-decoration: underline !important;
+  }
+}
+
+a.ds-btn--ter,
+a.ds-btn--ghost,
+a.ds-btn--neg.ds-btn--ghost,
+a.ds-btn--neg.ds-btn--ter,
+.ds-btn--ter,
+.ds-btn--ghost,
+.ds-btn--neg.ds-btn--ghost,
+.ds-btn--neg.ds-btn--ter {
+  background: transparent;
+}
+
+a.ds-btn--neg.ds-btn--ghost,
+a.ds-btn--neg.ds-btn--ter,
+.ds-btn--neg.ds-btn--ghost,
+.ds-btn--neg.ds-btn--ter {
+  &::after {
+    background: white;
+  }
+}
+
+// Danger button
+a.ds-btn--danger,
+.ds-btn--danger {
+  color: black;
+  background: gradient($ds-red, 8%);
+}
+
+// Ghost button
+a.ds-btn--ghost,
+.ds-btn--ghost {
+  padding-top: calc(#{$paddingDefaultTopBottom - #{$borderWidth}});
+  padding-right: calc(#{$paddingDefaultSides} - #{$borderWidth});
+  padding-bottom: calc(#{$paddingDefaultTopBottom - #{$borderWidth}});
+  padding-left: calc(#{$paddingDefaultSides} - #{$borderWidth});
+  border: $borderWidth solid $ds-blue-dark;
+  box-shadow: none;
+}
+
+// Large buttons have decreased padding and font-size
+a.ds-btn--small,
+.ds-btn--small {
+  padding: $paddingSmallTopBottom $paddingSmallSides;
+  font-size: $font-size-0;
+}
+
+// Large buttons have increased padding
+a.ds-btn--large,
+.ds-btn--large {
+  padding: $paddingLargeTopBottom $paddingLargeSides;
+}
+
+// Overrides for negative (inverse) buttons
+.ds-btn--neg {
+  color: black;
+  background: gradient(white, 6%);
+  box-shadow: 0 2px 4px rgba(black, 0.4);
+}
+
+.ds-btn--neg.ds-btn--pri {
+  background: gradient($ds-yellow, 10%);
+}
+
+.ds-btn--neg.ds-btn--sec {
+  background: gradient($ds-blue, 12%);
+}
+
+.ds-btn--neg.ds-btn--ghost {
+  color: white;
+  border: $borderWidth solid white;
+  box-shadow: none;
+}
+
+.ds-btn--neg.ds-btn--ter {
+  color: white;
+  box-shadow: none;
+}
+
+.ds-btn--neg.ds-btn--danger {
+  background: gradient($ds-red, 5%);
+}
+
+// Buttons with icons
+a.ds-btn--icon-only,
+a.ds-btn--icon-round,
+a.ds-btn--icon,
+a.ds-btn--icon-right,
+.ds-btn--icon-only,
+.ds-btn--icon-round,
+.ds-btn--icon,
+.ds-btn--icon-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  & > .ds-icon {
+    margin: 0 0.5em;
+    font-size: 1.25em;
+  }
+
+  &.ds-btn--ghost {
+    padding-top: calc(#{$paddingDefaultTopBottom} - #{$borderWidth});
+    padding-bottom: calc(#{$paddingDefaultTopBottom} - #{$borderWidth});
+
+    & > .ds-icon {
+      margin-right: calc(0.5em - #{$borderWidth});
+      margin-left: calc(0.5em - #{$borderWidth});
+    }
+  }
+
+  &.ds-btn--small.ds-btn--ghost {
+    padding-top: calc(#{$paddingSmallTopBottom} - #{$borderWidth});
+    padding-bottom: calc(#{$paddingSmallTopBottom} - #{$borderWidth});
+  }
+
+  &.ds-btn--large.ds-btn--ghost {
+    padding-top: calc(#{$paddingLargeTopBottom} - #{$borderWidth});
+    padding-bottom: calc(#{$paddingLargeTopBottom} - #{$borderWidth});
+  }
+}
+
+.ds-btn--icon-right > .ds-icon {
+  margin-left: auto !important;
+  padding-left: 0.25rem;
+}
+
+a.ds-btn--icon-only,
+.ds-btn--icon-only {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+a.ds-btn--icon-round,
+.ds-btn--icon-round {
+  width: 2.25em;
+  height: 2.25em;
+  border-radius: 50%;
+
+  & > .ds-icon {
+    font-size: 1rem;
+  }
+}
+
+a.ds-btn--icon,
+.ds-btn--icon {
+  padding-right: 0.75em;
+  padding-left: 0;
+}
+
+a.ds-btn--icon-right,
+.ds-btn--icon-right {
+  padding-right: 0;
+  padding-left: 0.75em;
+}
+
+a.ds-btn[data-active],
+.ds-btn[data-active] {
+  color: white;
+  background: $ds-blue-dark;
+  box-shadow: inset 0 2px 4px black;
+}
